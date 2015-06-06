@@ -36,8 +36,6 @@ public class Game implements Runnable, Serializable{
 	
 	//States
 	private State gameState;
-	//private State gameState2;
-	//private State gameState3;
 	private State menuState;
 	private State helpState;
 	private State optionState;

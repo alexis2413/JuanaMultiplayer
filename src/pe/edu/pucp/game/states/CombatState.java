@@ -117,7 +117,7 @@ public class CombatState extends State{
 			g.drawString("Enemy's Turn",50,50);
 			g.drawString("Enemy used attack X",200,300);
 			//g.drawImage(Assets.angryChicken,200,150,100,100,null);
-			g.drawImage(Assets.fireChicken,200,150,100,100,null);		
+			g.drawImage(Assets.angryChicken,200,150,100,100,null);		
 		}
 	}
 	

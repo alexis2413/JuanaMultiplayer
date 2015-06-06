@@ -19,7 +19,7 @@ public class Assets implements Serializable{
 	private static final int width =32, height = 48;
 	public static void init(int i){
 		SpriteSheet sheet = new SpriteSheet(ImageLoader.loadImage("/textures/juana.png"));
-		SpriteSheet sheet2 = new SpriteSheet(ImageLoader.loadImage("/textures/textures.png"));
+		SpriteSheet sheet2 = new SpriteSheet(ImageLoader.loadImage("/textures/textures.jpg"));
 		SpriteSheet sheet3 = new SpriteSheet(ImageLoader.loadImage("/textures/pollo.gif"));
 		SpriteSheet sheet4 = new SpriteSheet(ImageLoader.loadImage("/textures/pokemon_sprites.png"));
 		SpriteSheet sheet5 = new SpriteSheet(ImageLoader.loadImage("/textures/items.png"));
@@ -61,12 +61,12 @@ public class Assets implements Serializable{
 		
 		berry=sheet5.crop(0,0,12,12);
 		
-		juanaBackground=ImageLoader.loadImage("/textures/portada.png");
+		juanaBackground=ImageLoader.loadImage("/textures/portada.jpg");
 		juanaCombat=ImageLoader.loadImage("/textures/juana_combate.png");
 		chickenCombat=ImageLoader.loadImage("/textures/chicken.jpg");
 		angryJuana=ImageLoader.loadImage("/textures/angry_juana.png");
 		angryChicken=ImageLoader.loadImage("/textures/angry_chicken.jpg");
-		fireChicken=ImageLoader.loadImage("/textures/chicken_fire.gif");
+		//fireChicken=ImageLoader.loadImage("/textures/chicken_fire.gif");
 		
 		load=ImageLoader.loadImage("/textures/folder.png");
 		save=ImageLoader.loadImage("/textures/save.png");
