@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<World>
+    <width>5</width>
+    <height>5</height>
+    <spawnX>1</spawnX>
+    <spawnY>1</spawnY>
+    <nDoors>1</nDoors>
+    <doors>
+        <item>3</item>
+        <item>1</item>
+    </doors>
+    <doorTo>1</doorTo>
+    <tiles>11111</tiles>
+    <tiles>10121</tiles>
+    <tiles>10101</tiles>
+    <tiles>10001</tiles>
+    <tiles>11111</tiles>
+    <door>false</door>
+    <gameCamera>
+        <cameraHeight>400</cameraHeight>
+        <cameraWidth>400</cameraWidth>
+        <xOffset>-88.0</xOffset>
+        <yOffset>-152.0</yOffset>
+    </gameCamera>
+    <path>res/Worlds/world3.txt</path>
+	<nEnemies>0</nEnemies>
+	<nObjects>0</nObjects>
+	<nNpcs>0</nNpcs>
+</World>

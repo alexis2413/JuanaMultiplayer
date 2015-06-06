@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<SaveState>
+    <nEnemies>2</nEnemies>
+    <playerX>14.0</playerX>
+    <playerY>5.0</playerY>
+    <playerHealth>50</playerHealth>
+    <enemyX>13.0</enemyX>
+    <enemyX>17.0</enemyX>
+    <enemyY>15.0</enemyY>
+    <enemyY>18.0</enemyY>
+    <enemyHealth>50</enemyHealth>
+    <enemyHealth>50</enemyHealth>
+    <enemyId>1</enemyId>
+    <enemyId>1</enemyId>
+    <path>res/worlds/world1.xml</path>
+    <nObjects>1</nObjects>
+    <objectX>10.0</objectX>
+    <objectY>10.0</objectY>
+    <nNpcs>1</nNpcs>
+    <npcX>11.0</npcX>
+    <npcY>1.0</npcY>
+</SaveState>

@@ -1,0 +1,1 @@
+{"path":"res/worlds/world1.xml","playerX":4,"playerHealth":50,"enemies":[{"enemyHealth":50,"enemyY":15,"enemyX":14,"enemyId":1},{"enemyHealth":50,"enemyY":17,"enemyX":18,"enemyId":1}],"playerY":14,"nEnemies":2}
