@@ -26,4 +26,5 @@
 	<nEnemies>0</nEnemies>
 	<nObjects>0</nObjects>
 	<nNpcs>0</nNpcs>
+        <nItems>0</nItems>
 </World>

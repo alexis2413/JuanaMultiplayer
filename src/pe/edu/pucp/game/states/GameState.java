@@ -12,6 +12,7 @@ import pe.edu.pucp.game.entities.Entity;
 import pe.edu.pucp.game.entities.creatures.NonPlayerCharacter;
 import pe.edu.pucp.game.entities.creatures.Player;
 import pe.edu.pucp.game.entities.creatures.enemies.Enemy;
+import pe.edu.pucp.game.entities.items.Item;
 import pe.edu.pucp.game.worlds.World;
 
 @SuppressWarnings("serial")
@@ -22,13 +23,14 @@ public class GameState extends State implements Serializable{
 	private ArrayList<Enemy> enemies= new ArrayList<Enemy>();
 	private ArrayList<Entity> objects = new ArrayList<Entity>();
 	private ArrayList<NonPlayerCharacter> npcs = new ArrayList<NonPlayerCharacter>();
+        private ArrayList<Item> items = new  ArrayList<Item>();
 	private World world;
 	private boolean playerPressed=false;
 	private boolean[] objectPressed, npcPressed, enemyPressed;
 	
 	public GameState(Game game){
 		super(game);
-		world=new World("res/worlds/world1.xml",game.getGameCamera(),enemies,objects,npcs);
+		world=new World("res/worlds/world1.xml",game.getGameCamera(),enemies,objects,npcs,items);
 		//world=new World("res/worlds/world1.txt",game.getGameCamera());
 		//world.saveToXml(1);
 		player=new Player(game,world.getSpawnX(),world.getSpawnY());
@@ -49,7 +51,7 @@ public class GameState extends State implements Serializable{
 				i++;
 			}
 			newWorld=world.getDoorTo()[i];
-			world=new World("res/Worlds/world"+ newWorld +".xml",game.getGameCamera(),enemies,objects,npcs);
+			world=new World("res/Worlds/world"+ newWorld +".xml",game.getGameCamera(),enemies,objects,npcs,items);
 			//world=new World("res/Worlds/world"+ newWorld +".txt",game.getGameCamera());
 			//world.saveToXml(newWorld);
 			player.setX(world.getSpawnX());
@@ -70,8 +72,7 @@ public class GameState extends State implements Serializable{
 			else
 				npcPressed[i]=false;
 		}
-		
-		
+			
 		if(enemies.size()>0)
 			for(int j=0;j<enemies.size();j++){
 				if((game.getMouseManager().mX>=enemies.get(j).getX()*24-game.getGameCamera().getxOffset() 
@@ -91,15 +92,20 @@ public class GameState extends State implements Serializable{
 		
 		if(objects.size()>0)
 			for(int j=0;j<objects.size();j++){
-				objects.get(j).tick();
-				if((game.getMouseManager().mX>=objects.get(j).getX()*24-game.getGameCamera().getxOffset() 
-						&& game.getMouseManager().mX<=objects.get(j).getX()*24-game.getGameCamera().getxOffset()+24)&&
-						(game.getMouseManager().mY>=objects.get(j).getY()*24-game.getGameCamera().getyOffset() &&
-						game.getMouseManager().mY<=objects.get(j).getY()*24-game.getGameCamera().getyOffset()+24)){
-					objectPressed[j]=true;
+                            objects.get(j).tick();
+                            if((game.getMouseManager().mX>=objects.get(j).getX()*24-game.getGameCamera().getxOffset() 
+				&& game.getMouseManager().mX<=objects.get(j).getX()*24-game.getGameCamera().getxOffset()+24)&&
+					(game.getMouseManager().mY>=objects.get(j).getY()*24-game.getGameCamera().getyOffset() &&
+                                    game.getMouseManager().mY<=objects.get(j).getY()*24-game.getGameCamera().getyOffset()+24)){
+                                    objectPressed[j]=true;
 				}else
-					objectPressed[j]=false;
+                                    objectPressed[j]=false;
 			}
+                
+                if(items.size()>0)
+                    for(int i=0;i<items.size();i++)
+                        items.get(i).tick();
+                    
 		
 		if((game.getMouseManager().mX>=player.getX()*24-game.getGameCamera().getxOffset() 
 				&& game.getMouseManager().mX<=player.getX()*24-game.getGameCamera().getxOffset()+24)&&
@@ -151,6 +157,10 @@ public class GameState extends State implements Serializable{
 						(int)(npcs.get(i).getY()*24-game.getGameCamera().getyOffset()));
 			}
 		}
+                
+                for(int i=0;i<items.size();i++){
+                    items.get(i).render(g);
+                }
 	}
 
 	public void setGame(){
@@ -161,6 +171,8 @@ public class GameState extends State implements Serializable{
 			objects.get(i).setGame(game);
 		for(int i=0;i<npcs.size();i++)
 			npcs.get(i).setGame(game);
+                for(int i=0;i<items.size();i++)
+			items.get(i).setGame(game);
 	}
 	
 	public Player getPlayer() {return player;}
@@ -175,6 +187,8 @@ public class GameState extends State implements Serializable{
 	public void setObjects(ArrayList<Entity> objects) {this.objects = objects;}
 	public ArrayList<NonPlayerCharacter> getNpcs() {return npcs;}
 	public void setNpcs(ArrayList<NonPlayerCharacter> npcs) {this.npcs = npcs;}
+        public ArrayList<Item> getItems() {return items;}
+	public void setItems(ArrayList<Item> items) {this.items = items;}
 	
 	
 }

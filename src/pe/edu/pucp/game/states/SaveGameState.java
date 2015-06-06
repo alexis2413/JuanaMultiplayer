@@ -139,6 +139,7 @@ public class SaveGameState extends State{
 		saveState.setnEnemies(((GameState) game.getGameState()).getnEnemies());
 		saveState.setnObjects(((GameState) game.getGameState()).getObjects().size());
 		saveState.setnNpcs(((GameState) game.getGameState()).getNpcs().size());
+                saveState.setnItems(((GameState) game.getGameState()).getItems().size());
 		
 		saveState.setEnemyX(new ArrayList<Double>());
 		saveState.setEnemyY(new ArrayList<Double>());
@@ -150,6 +151,10 @@ public class SaveGameState extends State{
 		
 		saveState.setNpcX(new ArrayList<Double>());
 		saveState.setNpcY(new ArrayList<Double>());
+                
+                saveState.setItemX(new ArrayList<Double>());
+		saveState.setItemY(new ArrayList<Double>());
+                
 		
 		for(int i=0;i<saveState.getnEnemies();i++){
 			saveState.getEnemyX().add(((GameState) game.getGameState()).getEnemies().get(i).getX());
@@ -166,6 +171,11 @@ public class SaveGameState extends State{
 		for (int i=0;i<saveState.getnNpcs();i++){
 			saveState.getNpcX().add(((GameState) game.getGameState()).getNpcs().get(i).getX());
 			saveState.getNpcY().add(((GameState) game.getGameState()).getNpcs().get(i).getY());
+		}
+                
+                for (int i=0;i<saveState.getnItems();i++){
+			saveState.getItemX().add(((GameState) game.getGameState()).getItems().get(i).getX());
+			saveState.getItemY().add(((GameState) game.getGameState()).getItems().get(i).getY());
 		}
 		
 

@@ -66,4 +66,10 @@
 		<item>10</item>
 		<item>2</item>
 	</npcs>
+    <nItems>1</nItems>
+    <items>
+        <item>1</item>
+        <item>11</item>
+        <item>3</item>
+    </items>
 </World>

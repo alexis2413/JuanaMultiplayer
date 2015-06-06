@@ -22,6 +22,7 @@ import pe.edu.pucp.game.Game;
 import pe.edu.pucp.game.display.Display;
 import pe.edu.pucp.game.entities.creatures.NonPlayerCharacter;
 import pe.edu.pucp.game.entities.creatures.enemies.Chicken;
+import pe.edu.pucp.game.entities.items.Item;
 import pe.edu.pucp.game.entities.objects.Boulder;
 import pe.edu.pucp.game.utils.Data;
 import pe.edu.pucp.game.utils.SaveState;
@@ -156,7 +157,7 @@ public class LoadGameState extends State{
 		//Load atributes from gamestate to the classes
 		((GameState) game.getGameState()).setWorld(new World(saveState.getPath(),game.getGameCamera(),
 				((GameState) game.getGameState()).getEnemies(),((GameState) game.getGameState()).getObjects(),
-				((GameState) game.getGameState()).getNpcs()));
+				((GameState) game.getGameState()).getNpcs(),((GameState) game.getGameState()).getItems()));
 		
 		((GameState) game.getGameState()).getPlayer().setX(saveState.getPlayerX());
 		((GameState) game.getGameState()).getPlayer().setY(saveState.getPlayerY());
@@ -167,6 +168,7 @@ public class LoadGameState extends State{
 		((GameState) game.getGameState()).getEnemies().clear();
 		((GameState) game.getGameState()).getObjects().clear();
 		((GameState) game.getGameState()).getNpcs().clear();
+                ((GameState) game.getGameState()).getItems().clear();
 		if(saveState.getnEnemies()>0)
 			for(int i=0;i<saveState.getnEnemies();i++){
 				//FALTA CLASIFICAR POR IDS
@@ -183,6 +185,11 @@ public class LoadGameState extends State{
 			//FALTA CLASIFICAR POR IDS
 			NonPlayerCharacter npc= new NonPlayerCharacter(game,saveState.getNpcX().get(i),saveState.getNpcY().get(i));
 			((GameState) game.getGameState()).getNpcs().add(npc);
+		}
+                for(int i=0;i<saveState.getnItems();i++){
+			//FALTA CLASIFICAR POR IDS
+			Item item= new Item(game,saveState.getItemX().get(i),saveState.getItemY().get(i));
+			((GameState) game.getGameState()).getItems().add(item);
 		}
 	}
 	

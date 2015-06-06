@@ -10,7 +10,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement(name = "SaveState")
 @XmlType(propOrder = {"nEnemies", "playerX", "playerY", "playerHealth",
 		"enemyX", "enemyY", "enemyHealth", "enemyId", "path","nObjects",
-		"objectX", "objectY","nNpcs", "npcX", "npcY"})
+		"objectX", "objectY","nNpcs", "npcX", "npcY", "nItems", "itemX", "itemY"})
 
 public class SaveState implements Serializable{
 	public SaveState(int nEnemies){
@@ -43,6 +43,10 @@ public class SaveState implements Serializable{
 	//NPCs
 	private int nNpcs;
 	private ArrayList<Double> npcX, npcY;
+        
+        //Items
+        private int nItems;
+        private ArrayList<Double> itemX, itemY;
 	
 	//World
 	private String path;
@@ -83,5 +87,12 @@ public class SaveState implements Serializable{
 	public void setNpcX(ArrayList<Double> npcX) {this.npcX = npcX;}
 	public ArrayList<Double> getNpcY() {return npcY;}
 	public void setNpcY(ArrayList<Double> npcY) {this.npcY = npcY;}
+
+        public int getnItems() {return nItems;}
+        public void setnItems(int nItems) {this.nItems=nItems;}
+        public ArrayList<Double> getItemX() {return itemX;}
+        public void setItemX(ArrayList<Double> itemX) {this.itemX = itemX;}
+        public ArrayList<Double> getItemY() {return itemY;}
+        public void setItemY(ArrayList<Double> itemY) {this.itemY = itemY;}
 	
 }

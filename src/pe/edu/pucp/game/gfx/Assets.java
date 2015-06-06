@@ -54,12 +54,12 @@ public class Assets implements Serializable{
 		ground=sheet2.crop(300,912,64,64);
 		
 		boulder=sheet2.crop(650,0,64,64);
-		
+                
 		chicken=sheet3.crop(0,0,20,20);
 		
-		npc1=sheet4.crop(0,0,20,20);
+		npc1=sheet4.crop(0,0,20,25);
 		
-		berry=sheet5.crop(0,0,12,12);
+		berry=sheet5.crop(0,0,22,22);
 		
 		juanaBackground=ImageLoader.loadImage("/textures/portada.jpg");
 		juanaCombat=ImageLoader.loadImage("/textures/juana_combate.png");

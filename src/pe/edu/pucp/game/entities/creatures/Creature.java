@@ -6,6 +6,7 @@ import java.util.Random;
 
 import pe.edu.pucp.game.Game;
 import pe.edu.pucp.game.entities.Entity;
+import pe.edu.pucp.game.entities.items.Item;
 import pe.edu.pucp.game.states.GameState;
 
 @SuppressWarnings("serial")
@@ -80,6 +81,13 @@ public abstract class Creature extends Entity implements Serializable{
 		for(int i=0;i<npcs.size();i++)
 			if(x+xMove==npcs.get(i).getX()&&y+yMove==npcs.get(i).getY()){
 				npcs.get(i).setCollisioned(true);
+				return false;
+			}
+                
+                ArrayList<Item> items =  ((GameState)game.getGameState()).getItems();
+		for(int i=0;i<items.size();i++)
+			if(x+xMove==items.get(i).getX()&&y+yMove==items.get(i).getY()){
+				items.get(i).setCollisioned(true);
 				return false;
 			}
 		

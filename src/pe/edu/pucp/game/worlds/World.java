@@ -17,6 +17,7 @@ import pe.edu.pucp.game.entities.Entity;
 import pe.edu.pucp.game.entities.creatures.NonPlayerCharacter;
 import pe.edu.pucp.game.entities.creatures.enemies.Chicken;
 import pe.edu.pucp.game.entities.creatures.enemies.Enemy;
+import pe.edu.pucp.game.entities.items.Item;
 import pe.edu.pucp.game.entities.objects.Boulder;
 import pe.edu.pucp.game.gfx.GameCamera;
 import pe.edu.pucp.game.tile.Tile;
@@ -27,7 +28,7 @@ import pe.edu.pucp.game.tile.DoorTile;
 @XmlRootElement(name = "World")
 @XmlType(propOrder = {"width", "height", "spawnX", "spawnY","nDoors","doors",
 		"doorTo","tiles","door","gameCamera","path","nEnemies","nObjects",
-		"enemies","objects","nNpcs","npcs"})
+		"enemies","objects","nNpcs","npcs","nItems","items"})
 public class World implements Serializable{
 //public class World{
 	private int width,height;
@@ -46,15 +47,19 @@ public class World implements Serializable{
 	
 	private int nNpcs;
 	private int [][] npcs;
+        
+        private int nItems;
+        private int [][] items;
 	@XmlElement
 	private GameCamera gameCamera;
 	
 	public World(){};
 	
 	public World(String path,GameCamera gameCamera, ArrayList<Enemy> enemies,
-			ArrayList<Entity> objects,  ArrayList<NonPlayerCharacter> npcs){
+			ArrayList<Entity> objects,  ArrayList<NonPlayerCharacter> npcs,
+                        ArrayList<Item> items){
 		this.gameCamera=gameCamera;
-		loadFromXml(path,enemies,objects,npcs);
+		loadFromXml(path,enemies,objects,npcs,items);
 		this.path=path;
 		//loadWorld(path);
 	}
@@ -129,6 +134,11 @@ public class World implements Serializable{
 	public void setnNpcs(int nNpcs) {this.nNpcs = nNpcs;}
 	public int[][] getNpcs() {return npcs;}
 	public void setNpcs(int[][] npcs) {this.npcs = npcs;}
+        
+        public int getnItems() {return nItems;}
+        public void setnItems(int nItems) {this.nItems = nItems;}
+        public int [][] getItems() {return items;}
+        public void setItems(int[][]items){this.items=items;}
 
 	public void saveToXml(int name){     
 		try {
@@ -149,7 +159,7 @@ public class World implements Serializable{
 	
 	
 	public void loadFromXml(String path, ArrayList<Enemy> enemies, ArrayList<Entity> objects,
-			ArrayList<NonPlayerCharacter> npcs){
+			ArrayList<NonPlayerCharacter> npcs, ArrayList<Item> items){
 		try {
             JAXBContext context = JAXBContext.newInstance(World.class);
             Unmarshaller un = context.createUnmarshaller();
@@ -164,15 +174,16 @@ public class World implements Serializable{
             this.setSpawnY(world.getSpawnY());
             this.setTiles(world.getTiles());
             this.setWidth(world.getWidth());
-            
             this.setnEnemies(world.getnEnemies());
             this.setEnemies(world.getEnemies());
             this.setnObjects(world.getnObjects());
             this.setObjects(world.getObjects());
-            
             this.setnNpcs(world.getnNpcs());
             this.setNpcs(world.getNpcs());
-            loadContentFromXml(enemies,objects,npcs);
+            this.setnItems(world.getnItems());
+            this.setItems(world.getItems());
+            
+            loadContentFromXml(enemies,objects,npcs,items);
             
         } catch (JAXBException e) {
             e.printStackTrace();
@@ -180,10 +191,11 @@ public class World implements Serializable{
 	}
 	
 	public void loadContentFromXml(ArrayList<Enemy> enemyList, ArrayList<Entity> objectList,
-			 ArrayList<NonPlayerCharacter> npcList){
+			 ArrayList<NonPlayerCharacter> npcList, ArrayList<Item> itemList){
 		enemyList.clear();
 		objectList.clear();
 		npcList.clear();
+                itemList.clear();
 		
 		for(int i=0;i<nEnemies;i++)
 			enemyList.add(new Chicken(enemies[i][1],enemies[i][2]));
@@ -191,6 +203,9 @@ public class World implements Serializable{
 			objectList.add(new Boulder(objects[i][1],objects[i][2]));
 		for(int i=0;i<nNpcs;i++)
 			npcList.add(new NonPlayerCharacter(npcs[i][1],npcs[i][2]));
+                for(int i=0;i<nItems;i++)
+			itemList.add(new Item(items[i][1],items[i][2]));
+                
 	}
 	///TXT
 	/*

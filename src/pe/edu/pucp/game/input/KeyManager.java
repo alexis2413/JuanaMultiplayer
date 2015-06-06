@@ -33,7 +33,7 @@ public class KeyManager implements KeyListener, Serializable{
 	@Override
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
-		if(e.getKeyCode()!=KeyEvent.VK_SPACE)
+		//if(e.getKeyCode()!=KeyEvent.VK_SPACE)
 			keys[e.getKeyCode()]=true;
 		//else
 			//keys[e.getKeyCode()]=false;
@@ -43,7 +43,7 @@ public class KeyManager implements KeyListener, Serializable{
 	@Override
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
-		if(!keys[e.getKeyCode()])
+		/*if(!keys[e.getKeyCode()])
 			if(e.getKeyCode()==KeyEvent.VK_SPACE){
 				try {
 					Thread.sleep(1000);
@@ -55,7 +55,7 @@ public class KeyManager implements KeyListener, Serializable{
 			}
 			else
 				keys[e.getKeyCode()]=false;
-		else
+		else*/
 			keys[e.getKeyCode()]=false;
 	}
 

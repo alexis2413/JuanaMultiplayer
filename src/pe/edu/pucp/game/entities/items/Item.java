@@ -1,19 +1,33 @@
 package pe.edu.pucp.game.entities.items;
 
 import java.awt.Graphics;
+import pe.edu.pucp.game.Game;
 
 import pe.edu.pucp.game.entities.Entity;
 import pe.edu.pucp.game.gfx.Assets;
+import pe.edu.pucp.game.states.GameState;
 
 @SuppressWarnings("serial")
 public class Item extends Entity{
 
 	private int id;
 	private String description;
+        
+        public Item(Game game,double x, double y){
+		super(game,x, y, DEFAULT_ENTITY_WIDTH, DEFAULT_ENTITY_HEIGHT);
+		this.setDescription("A berry");
+	}
+	
+	public Item(double x, double y){
+		super(x, y, DEFAULT_ENTITY_WIDTH, DEFAULT_ENTITY_HEIGHT);
+		this.setDescription("A berry");
+	}
 	@Override
 	public void tick() {
 		// TODO Auto-generated method stub
-		
+		if(playerIsNextTo()){
+                    //((GameState) game.getGameState()).getPlayer().getItems().add(this);
+                }
 	}
 
 	@Override

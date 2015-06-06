@@ -152,6 +152,7 @@ public class Player extends Creature implements Serializable{
 
 	public boolean isDialoging() {return isDialoging;}
 	public void setDialoging(boolean isDialoging) {this.isDialoging = isDialoging;}
+        
 	
 	
 }
