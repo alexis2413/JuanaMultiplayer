@@ -10,9 +10,9 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement(name = "Data")
 @XmlType(propOrder = {"files"})
 public class Data implements Serializable{
-	private ArrayList<String> files;
+	private ArrayList<String> files = new ArrayList<String> (8);
 	public Data(){
-		files=new ArrayList<String>();
+		//files=new ArrayList<String>();
 	}
 	public ArrayList<String> getFiles() {return files;}
 	public void setFiles(ArrayList<String> files) {this.files = files;}

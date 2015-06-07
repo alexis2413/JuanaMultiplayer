@@ -40,15 +40,20 @@ public class LoadGameState extends State{
 	public Rectangle rect7 = new Rectangle(170,200,50,50);
 	public Rectangle rect8 = new Rectangle(230,200,50,50);
 	
-	public Rectangle backButton = new Rectangle(145,275,100,50);
-	
-	private SaveState saveState=new SaveState(((GameState) game.getGameState()).getnEnemies());
+	public Rectangle backButton = new Rectangle(145,275,80,40);
+        public Rectangle loadButton = new Rectangle(145,40,80,40);
+        
+	public Rectangle textRect=new Rectangle(20,330,360,60);
+        
+	private SaveState saveState=new SaveState(((GameState) game.getGameState()).getnEnemies());        
 	private Data data=new Data();
+        private int slotClicked=0;
+        
 	
 	public LoadGameState(Game game) {
 		super(game);
-		for(int i=0;i<8;i++)
-			data.getFiles().add("Empty");
+		/*for(int i=0;i<8;i++)
+			data.getFiles().add("Empty");*/
 		//saveDataToXml();
 		loadDataFromXml();
 		// TODO Auto-generated constructor stub
@@ -61,52 +66,65 @@ public class LoadGameState extends State{
 	@Override
 	public void tick() {
 		// TODO Auto-generated method stub
-		if((game.getMouseManager().mX>=50 && game.getMouseManager().mX<=100)&&
-				(game.getMouseManager().mY>=120 && game.getMouseManager().mY<=170)){
-			loadGame(data.getFiles().get(0));		
-			State.setState(game.getGameState());
-		}
-		if((game.getMouseManager().mX>=110 && game.getMouseManager().mX<=160)&&
-				(game.getMouseManager().mY>=120 && game.getMouseManager().mY<=170)){
-			loadGame(data.getFiles().get(1));
-			State.setState(game.getGameState());
-		}
-		if((game.getMouseManager().mX>=170 && game.getMouseManager().mX<=220)&&
-				(game.getMouseManager().mY>=120 && game.getMouseManager().mY<=170)){
-			loadGame(data.getFiles().get(2));
-			State.setState(game.getGameState());
-		}
-		if((game.getMouseManager().mX>=230 && game.getMouseManager().mX<=280)&&
-				(game.getMouseManager().mY>=120 && game.getMouseManager().mY<=170)){
-			loadGame(data.getFiles().get(3));
-			State.setState(game.getGameState());
-		}
-		
-		if((game.getMouseManager().mX>=50 && game.getMouseManager().mX<=100)&&
-				(game.getMouseManager().mY>=200 && game.getMouseManager().mY<=250)){
-			loadGame(data.getFiles().get(4));
-			State.setState(game.getGameState());
-		}
-		if((game.getMouseManager().mX>=110 && game.getMouseManager().mX<=160)&&
-				(game.getMouseManager().mY>=200 && game.getMouseManager().mY<=250)){
-			loadGame(data.getFiles().get(5));
-			State.setState(game.getGameState());
-		}
-		if((game.getMouseManager().mX>=170 && game.getMouseManager().mX<=220)&&
-				(game.getMouseManager().mY>=200 && game.getMouseManager().mY<=250)){
-			loadGame(data.getFiles().get(6));
-			State.setState(game.getGameState());
-		}
-		if((game.getMouseManager().mX>=230 && game.getMouseManager().mX<=280)&&
-				(game.getMouseManager().mY>=200 && game.getMouseManager().mY<=250)){
-			loadGame(data.getFiles().get(7));
-			State.setState(game.getGameState());
-		}
-		
-		if((game.getMouseManager().mX>=145 && game.getMouseManager().mX<=245)&&
-				(game.getMouseManager().mY>=275 && game.getMouseManager().mY<=325)){
+                int xClicked=game.getMouseManager().mX;
+                int yClicked=game.getMouseManager().mY;
+                
+
+                //DISPLAYA TEXTRECT
+		if((xClicked >=50 && xClicked <=100)&&
+				(yClicked >=120 && yClicked <=170)){
 			
+                        slotClicked=1;
+		}
+		if((xClicked >=110 && xClicked <=160)&&
+				(yClicked >=120 && yClicked <=170)){
+			
+                        slotClicked=2;
+		}
+		if((xClicked >=170 && xClicked <=220)&&
+				(yClicked >=120 && yClicked <=170)){
+			
+                        slotClicked=3;
+		}
+		if((xClicked >=230 && xClicked <=280)&&
+				(yClicked >=120 && yClicked <=170)){
+			
+                        slotClicked=4;
+		}
+		
+		if((xClicked >=50 && xClicked <=100)&&
+				(yClicked >=200 && yClicked <=250)){
+			
+                        slotClicked=5;
+		}
+		if((xClicked >=110 && xClicked <=160)&&
+				(yClicked >=200 && yClicked <=250)){
+			
+                        slotClicked=6;
+		}
+		if((xClicked >=170 && xClicked <=220)&&
+				(yClicked >=200 && yClicked <=250)){
+			
+                        slotClicked=7;
+		}
+		if((xClicked >=230 && xClicked <=280)&&
+				(yClicked >=200 && yClicked <=250)){
+			
+                        slotClicked=8;
+		}
+		//BACK BUTTON
+		if((xClicked >=145 && xClicked <=225)&&
+				(yClicked >=275 && yClicked <=315)){			
 			State.setState(game.getMenuState());
+		}
+                //LOAD BUTTON
+                if((xClicked >=145 && xClicked <=225)&&
+				(yClicked >=40 && yClicked <=80)){
+                         if(slotClicked!=0){
+                             loadGame(data.getFiles().get(slotClicked-1));
+                            State.setState(game.getGameState());
+                         }
+                        
 		}
 	}
 
@@ -118,35 +136,46 @@ public class LoadGameState extends State{
 		// TODO Auto-generated method stub
 		Font fnt1=new Font("arial",Font.BOLD,20);
 		g.setFont(fnt1);
-		g.drawString(data.getFiles().get(0),rect1.x+15,rect1.y+30);
+		g.drawString("1",rect1.x+15,rect1.y+30);
 		//g.drawString("1",rect1.x+15,rect1.y+30);
 		g2d.draw(rect1);
-		g.drawString(data.getFiles().get(1),rect2.x+15,rect2.y+30);
+		g.drawString("2",rect2.x+15,rect2.y+30);
 		//g.drawString("2",rect1.x+15,rect1.y+30);
 		g2d.draw(rect2);
-		g.drawString(data.getFiles().get(2),rect3.x+15,rect3.y+30);
+		g.drawString("3",rect3.x+15,rect3.y+30);
 		//g.drawString("3",rect1.x+15,rect1.y+30);
 		g2d.draw(rect3);
-		g.drawString(data.getFiles().get(3),rect4.x+15,rect4.y+30);
+		g.drawString("4",rect4.x+15,rect4.y+30);
 		//g.drawString("4",rect1.x+15,rect1.y+30);
 		g2d.draw(rect4);
-		g.drawString(data.getFiles().get(4),rect5.x+15,rect5.y+30);
+		g.drawString("5",rect5.x+15,rect5.y+30);
 		//g.drawString("5",rect1.x+15,rect1.y+30);
 		g2d.draw(rect5);
-		g.drawString(data.getFiles().get(5),rect6.x+15,rect6.y+30);
+		g.drawString("6",rect6.x+15,rect6.y+30);
 		//g.drawString("6",rect1.x+15,rect1.y+30);
 		g2d.draw(rect6);
-		g.drawString(data.getFiles().get(6),rect7.x+15,rect7.y+30);
+		g.drawString("7",rect7.x+15,rect7.y+30);
 		//g.drawString("7",rect1.x+15,rect1.y+30);
 		g2d.draw(rect7);
-		g.drawString(data.getFiles().get(7),rect8.x+15,rect8.y+30);
+		g.drawString("8",rect8.x+15,rect8.y+30);
 		//g.drawString("8",rect1.x+15,rect1.y+30);
 		g2d.draw(rect8);		
 
-		Font fnt2=new Font("arial",Font.BOLD,30);
+		Font fnt2=new Font("arial",Font.BOLD,24);
 		g.setFont(fnt2);
 		g.drawString("Back",backButton.x+19,backButton.y+30);
-		g2d.draw(backButton);		
+		g2d.draw(backButton);	
+                g2d.draw(textRect);
+                g.drawString("Load", loadButton.x+19 ,loadButton.y+30);
+                g2d.draw(loadButton);
+                
+                Font fnt3=new Font("arial",Font.BOLD,16);
+		g.setFont(fnt2);
+                if(slotClicked!=0){
+                    g.drawString("                     ",40,350);
+                    g.drawString("Nombre: "+data.getFiles().get(slotClicked-1),40,350);
+                }
+                
 	}
 	
 	
@@ -283,7 +312,7 @@ public class LoadGameState extends State{
 		try {
             JAXBContext context = JAXBContext.newInstance(Data.class);
             Unmarshaller un = context.createUnmarshaller();
-            data = (Data) un.unmarshal(new File("res/Data/data.xml"));
+            data = (Data) un.unmarshal(new File("res/Data/data.xml"));            
         } catch (JAXBException e) {
             e.printStackTrace();
         }

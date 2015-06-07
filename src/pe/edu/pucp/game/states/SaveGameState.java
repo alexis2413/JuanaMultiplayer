@@ -106,21 +106,21 @@ public class SaveGameState extends State{
 		
 		Font fnt1=new Font("arial",Font.BOLD,20);
 		g.setFont(fnt1);
-		g.drawString(data.getFiles().get(0),rect1.x+15,rect1.y+30);
+		g.drawString("1",rect1.x+15,rect1.y+30);
 		g2d.draw(rect1);
-		g.drawString(data.getFiles().get(1),rect2.x+15,rect2.y+30);
+		g.drawString("2",rect2.x+15,rect2.y+30);
 		g2d.draw(rect2);
-		g.drawString(data.getFiles().get(2),rect3.x+15,rect3.y+30);
+		g.drawString("3",rect3.x+15,rect3.y+30);
 		g2d.draw(rect3);
-		g.drawString(data.getFiles().get(3),rect4.x+15,rect4.y+30);
+		g.drawString("4",rect4.x+15,rect4.y+30);
 		g2d.draw(rect4);
-		g.drawString(data.getFiles().get(4),rect5.x+15,rect5.y+30);
+		g.drawString("5",rect5.x+15,rect5.y+30);
 		g2d.draw(rect5);
-		g.drawString(data.getFiles().get(5),rect6.x+15,rect6.y+30);
+		g.drawString("6",rect6.x+15,rect6.y+30);
 		g2d.draw(rect6);
-		g.drawString(data.getFiles().get(6),rect7.x+15,rect7.y+30);
+		g.drawString("7",rect7.x+15,rect7.y+30);
 		g2d.draw(rect7);
-		g.drawString(data.getFiles().get(7),rect8.x+15,rect8.y+30);
+		g.drawString("8",rect8.x+15,rect8.y+30);
 		g2d.draw(rect8);
 		
 		Font fnt2=new Font("arial",Font.BOLD,30);

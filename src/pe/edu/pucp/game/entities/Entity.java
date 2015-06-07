@@ -12,6 +12,7 @@ public abstract class Entity implements Serializable{
 //public abstract class Entity{
 	
 	protected Game game;
+        
 	protected double x,y;
 	protected int width,height;
 	private boolean collisioned=false;
