@@ -25,8 +25,9 @@ public class Item extends Entity{
 	@Override
 	public void tick() {
 		// TODO Auto-generated method stub
-		if(playerIsNextTo()){
-                    //((GameState) game.getGameState()).getPlayer().getItems().add(this);
+		if(playerIsNextTo() && game.getKeyManager().space==true){
+                    ((GameState) game.getGameState()).getPlayer().getItems().add(this);
+                    ((GameState) game.getGameState()).getItems().remove(this);
                 }
 	}
 

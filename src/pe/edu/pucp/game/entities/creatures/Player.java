@@ -152,7 +152,7 @@ public class Player extends Creature implements Serializable{
 
 	public boolean isDialoging() {return isDialoging;}
 	public void setDialoging(boolean isDialoging) {this.isDialoging = isDialoging;}
-        
-	
+        public ArrayList<Item> getItems(){return items;}
+        public void setItems(ArrayList<Item> items){this.items=items;}
 	
 }
