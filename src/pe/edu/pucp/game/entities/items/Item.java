@@ -2,7 +2,7 @@ package pe.edu.pucp.game.entities.items;
 
 import java.awt.Graphics;
 import pe.edu.pucp.game.Game;
-
+import pe.edu.pucp.game.Sound;
 import pe.edu.pucp.game.entities.Entity;
 import pe.edu.pucp.game.gfx.Assets;
 import pe.edu.pucp.game.states.GameState;
@@ -26,6 +26,9 @@ public class Item extends Entity{
 	public void tick() {
 		// TODO Auto-generated method stub
 		if(playerIsNextTo() && game.getKeyManager().space==true){
+                    Sound sounds=new Sound("/sounds/gotItem.au");
+                    sounds.playSoundOnce();
+                    //sounds.playSound();
                     ((GameState) game.getGameState()).getPlayer().getItems().add(this);
                     ((GameState) game.getGameState()).getItems().remove(this);
                 }

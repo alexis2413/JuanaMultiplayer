@@ -53,7 +53,7 @@ public class Assets implements Serializable{
 		door=sheet2.crop(300,550,64,64);
 		ground=sheet2.crop(300,912,64,64);
 		
-		boulder=sheet2.crop(650,0,64,64);
+		boulder=sheet2.crop(650,10,64,64);
                 
 		chicken=sheet3.crop(0,0,20,20);
 		

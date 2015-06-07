@@ -22,6 +22,7 @@ import pe.edu.pucp.game.entities.objects.Boulder;
 import pe.edu.pucp.game.gfx.GameCamera;
 import pe.edu.pucp.game.tile.Tile;
 import pe.edu.pucp.game.tile.DoorTile;
+import pe.edu.pucp.game.tile.RockTile;
 //import pe.edu.pucp.game.utils.Utils;
 
 @SuppressWarnings("serial")
@@ -82,6 +83,7 @@ public class World implements Serializable{
 	}
 	
 	public void render(Graphics g){
+                Tile.rockTile = new RockTile(1);
 		for(int y=0;y<height;y++){
 			for(int x=0;x<width;x++){
 				getTile(x,y).render(g, (int)(x*Tile.TILEWIDTH-gameCamera.getxOffset()),
