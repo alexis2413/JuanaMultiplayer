@@ -155,6 +155,7 @@ public class SaveGameState extends State{
                 saveState.setItemX(new ArrayList<Double>());
 		saveState.setItemY(new ArrayList<Double>());
                 
+                saveState.setPath(((GameState) game.getGameState()).getWorld().getPath());
 		
 		for(int i=0;i<saveState.getnEnemies();i++){
 			saveState.getEnemyX().add(((GameState) game.getGameState()).getEnemies().get(i).getX());
@@ -189,7 +190,7 @@ public class SaveGameState extends State{
 		saveToBinary(fileName);
 		//saveToXml();
 		//saveToJson();
-		saveState.setPath(((GameState) game.getGameState()).getWorld().getPath());
+		
 		State.setState(game.getGameState());
 	}
 	

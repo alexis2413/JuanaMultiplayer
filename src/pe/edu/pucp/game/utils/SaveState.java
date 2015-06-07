@@ -13,6 +13,7 @@ import javax.xml.bind.annotation.XmlType;
 		"objectX", "objectY","nNpcs", "npcX", "npcY", "nItems", "itemX", "itemY"})
 
 public class SaveState implements Serializable{
+        private static final long serialVersionUID = 6529685098267757690L;
 	public SaveState(int nEnemies){
 		this.nEnemies=nEnemies;
 		this.enemyX=new ArrayList<Double>();
@@ -21,6 +22,8 @@ public class SaveState implements Serializable{
 		this.enemyId=new ArrayList<Integer>();
 		this.npcX=new ArrayList<Double>();
 		this.npcY=new ArrayList<Double>();
+                this.itemX=new ArrayList<Double>();
+                this.itemY=new ArrayList<Double>();
 				
 	}
 	

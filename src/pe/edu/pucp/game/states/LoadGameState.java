@@ -193,12 +193,8 @@ public class LoadGameState extends State{
 		}
 	}
 	
-	
-	
-	
 	public void loadFromBinary(String fileName){
 		try {
-			
 			FileInputStream fis;
 			//fis = new FileInputStream("res/Data/GameState"+number+".bin");
 			fis = new FileInputStream("res/Data/"+fileName+".bin");

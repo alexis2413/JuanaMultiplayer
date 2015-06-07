@@ -101,7 +101,7 @@ public class Player extends Creature implements Serializable{
 			return;
 		}
 
-		if(game.getKeyManager().p){
+		if(game.getKeyManager().enter || game.getKeyManager().p){
 			State.setState(game.getOptionState());
 		}
 
