@@ -330,7 +330,13 @@ public class World implements Serializable {
             objectList.add(new Boulder(objects[i][1], objects[i][2]));
         }
         for (int i = 0; i < nNpcs; i++) {
-            npcList.add(new NonPlayerCharacter(npcs[i][1], npcs[i][2]));
+            NonPlayerCharacter npc = new NonPlayerCharacter(npcs[i][1], npcs[i][2]);
+            ArrayList<String> dialog = new ArrayList<String>();
+            dialog.add("Hola noob");
+            dialog.add("Que haces noob");
+            dialog.add("Adios noob");
+            npc.setDialog(dialog);
+            npcList.add(npc);
         }
         for (int i = 0; i < nItems; i++) {
             itemList.add(new Item(items[i][1], items[i][2]));

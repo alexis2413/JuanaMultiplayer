@@ -32,16 +32,16 @@ public class KeyManager implements KeyListener, Serializable {
     @Override
     public void keyPressed(KeyEvent e) {
         keys[e.getKeyCode()] = true;
-        if(e.getKeyCode()==KeyEvent.VK_SPACE)
-            System.out.println("presiono");
+        //if(e.getKeyCode()==KeyEvent.VK_SPACE)
+           // System.out.println("presiono");
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
         // TODO Auto-generated method stub
         keys[e.getKeyCode()] = false;
-        if(e.getKeyCode()==KeyEvent.VK_SPACE)
-            System.out.println("libero");
+       // if(e.getKeyCode()==KeyEvent.VK_SPACE)
+           // System.out.println("libero");
     }
 
     @Override

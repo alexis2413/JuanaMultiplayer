@@ -9,11 +9,12 @@ import java.util.logging.Logger;
 import pe.edu.pucp.game.Game;
 import pe.edu.pucp.game.gfx.Assets;
 import pe.edu.pucp.game.states.GameState;
+import pe.edu.pucp.game.threads.NPCDialogThread;
 
 @SuppressWarnings("serial")
 public class NonPlayerCharacter extends Creature {
 
-    ArrayList<ArrayList<String>> dialog = new ArrayList<ArrayList<String>>();
+    ArrayList<String> dialog = new ArrayList<String>();
 
     public NonPlayerCharacter(Game game, double x, double y) {
         super(game, x, y, DEFAULT_ENTITY_WIDTH, DEFAULT_ENTITY_HEIGHT);
@@ -30,20 +31,8 @@ public class NonPlayerCharacter extends Creature {
     }
 
     public void beginDialog() {
-        System.out.println("Hola noob");
-        /*try {
-            Thread.sleep(500);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(NonPlayerCharacter.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
-        System.out.print(game.getKeyManager().space);
-        while (game.getKeyManager().space==true) {            
-            game.getKeyManager().tick();
-            //game.getKeyManager().space = game.getKeyManager().getKeys()[KeyEvent.VK_SPACE];
-        }
-        System.out.print(game.getKeyManager().space);
-        ((GameState)game.getGameState()).setDialogue(false);
-        System.out.println("Adios noob");
+        NPCDialogThread npct = new NPCDialogThread(this,game);
+        npct.start();
     }
 
     @Override
@@ -59,10 +48,7 @@ public class NonPlayerCharacter extends Creature {
             randomMove();
             move();
             moveCounter = 0;
-        } else {
-            //beginDialog();
         }
-
     }
 
     @Override
@@ -72,4 +58,6 @@ public class NonPlayerCharacter extends Creature {
                 (int) (y * height - game.getGameCamera().getyOffset()), width, height, null);
     }
 
+    public ArrayList<String> getDialog(){return dialog;}
+    public void setDialog(ArrayList<String> dialog){this.dialog=dialog;}
 }
