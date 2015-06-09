@@ -14,6 +14,7 @@ public class Tile implements Serializable{
 	public static Tile rockTile = new RockTile(1);
 	public static Tile doorTile = new DoorTile(2);
 	public static Tile groundTile = new GroundTile(3);
+        public static Tile seaTile = new SeaTile(4);
 	
 	public boolean solid=false;
 	
@@ -40,6 +41,15 @@ public class Tile implements Serializable{
 	public static void setRockTile(Tile rockTile) {
 		Tile.rockTile = rockTile;
 	}
+        
+        public static Tile getSeaTile(){
+            return seaTile;
+        }
+        
+        public static void setSeaTile(Tile seaTile){
+            Tile.seaTile=seaTile;
+        }
+        
 
 	public BufferedImage getTexture() {
 		return texture;

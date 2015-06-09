@@ -16,6 +16,8 @@ public class Assets implements Serializable{
 	public static BufferedImage npc1;
 	public static BufferedImage berry;
 	public static BufferedImage load,save;
+        public static BufferedImage sea1,sea2,sea3,sea4;
+        
 	private static final int width =32, height = 48;
 	public static void init(int i){
 		SpriteSheet sheet = new SpriteSheet(ImageLoader.loadImage("/textures/juana.png"));
@@ -23,6 +25,7 @@ public class Assets implements Serializable{
 		SpriteSheet sheet3 = new SpriteSheet(ImageLoader.loadImage("/textures/pollo.gif"));
 		SpriteSheet sheet4 = new SpriteSheet(ImageLoader.loadImage("/textures/pokemon_sprites.png"));
 		SpriteSheet sheet5 = new SpriteSheet(ImageLoader.loadImage("/textures/items.png"));
+                
 		int j;
 		if(i>=1&&i<=4)j=1;
 		else j=2;
@@ -52,6 +55,11 @@ public class Assets implements Serializable{
 		rock=sheet2.crop(0,400,64,64);
 		door=sheet2.crop(300,550,64,64);
 		ground=sheet2.crop(300,912,64,64);
+                
+                sea1=ImageLoader.loadImage("/textures/sea1.png");
+                sea2=ImageLoader.loadImage("/textures/sea2.png");
+                sea3=ImageLoader.loadImage("/textures/sea3.png");
+                sea4=ImageLoader.loadImage("/textures/sea4.png");
 		
 		boulder=sheet2.crop(650,10,64,64);
                 
