@@ -10,7 +10,7 @@ import pe.edu.pucp.game.gfx.GameCamera;
 import pe.edu.pucp.game.input.KeyManager;
 import pe.edu.pucp.game.input.MouseManager;
 import pe.edu.pucp.game.states.ChooseCharacterState;
-import pe.edu.pucp.game.states.CombatState;
+//import pe.edu.pucp.game.states.CombatState;
 import pe.edu.pucp.game.states.GameState;
 import pe.edu.pucp.game.states.HelpState;
 import pe.edu.pucp.game.states.LoadGameState;
@@ -27,6 +27,7 @@ public class Game implements Runnable, Serializable{
 	private int width,height;
 	public String title;
 	
+        public boolean hasStarted=false;
 	private boolean running=false;
 	private transient Thread thread;
 	private int numberPlayer;
@@ -35,11 +36,11 @@ public class Game implements Runnable, Serializable{
 	private Graphics g;
 	
 	//States
-	private State gameState;
+	private State gameState=null;
 	private State menuState;
 	private State helpState;
 	private State optionState;
-	private State combatState;
+	//private State combatState;
 	private State chooseCharacterState;
 	private State loadGameState;
 	private State saveGameState;
@@ -77,7 +78,7 @@ public class Game implements Runnable, Serializable{
 		menuState=new MenuState(this);
 		helpState=new HelpState(this);
 		optionState= new OptionState(this);
-		combatState=new CombatState(this);
+		//combatState=new CombatState(this);
 		chooseCharacterState=new ChooseCharacterState(this);
 		loadGameState=new LoadGameState(this);
 		saveGameState=new SaveGameState(this);	
@@ -226,9 +227,10 @@ public class Game implements Runnable, Serializable{
 	public void setLoadFromGameState(State loadGameState) {this.loadGameState = loadGameState;}
 	public State getSaveGameState() {return saveGameState;}
 	public void setSaveGameState(State saveGameState) {this.saveGameState = saveGameState;}
-	public State getCombatState() {return combatState;}
-	public void setCombatState(State combatState) {this.combatState = combatState;}
+        //public State getCombatState() {return combatState;}
+	//public void setCombatState(State combatState) {this.combatState = combatState;}
 	public State getOptionState() {return optionState;}
 	public void setOptionState(State optionState) {this.optionState = optionState;}
+        
 	
 }

@@ -26,8 +26,6 @@ public class MapThread extends Thread{
     @Override
     public void run(){
         while(true){
-            delay++;
-            if(delay==1){
                 if(flag){
                     Assets.rock=Assets.door;
                     flag=false;
@@ -46,9 +44,9 @@ public class MapThread extends Thread{
                         Logger.getLogger(MapThread.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
-                delay=0;
+                
             }
-        }
+ 
     }
 }
 

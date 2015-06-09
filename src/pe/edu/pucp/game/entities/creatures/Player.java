@@ -154,5 +154,6 @@ public class Player extends Creature implements Serializable{
 	public void setDialoging(boolean isDialoging) {this.isDialoging = isDialoging;}
         public ArrayList<Item> getItems(){return items;}
         public void setItems(ArrayList<Item> items){this.items=items;}
-	
+	public ArrayList<Attack> getAttacks(){return attacks;}
+        public void setAttacks(ArrayList<Attack> attacks){this.attacks=attacks;}
 }

@@ -6,6 +6,7 @@ import java.awt.Graphics;
 import java.io.Serializable;
 import java.util.ArrayList;
 import pe.edu.pucp.game.Game;
+import pe.edu.pucp.game.attacks.Attack;
 import pe.edu.pucp.game.display.Display;
 import pe.edu.pucp.game.entities.Entity;
 import pe.edu.pucp.game.entities.creatures.NonPlayerCharacter;
@@ -34,6 +35,18 @@ public class GameState extends State implements Serializable{
 		//world=new World("res/worlds/world1.txt",game.getGameCamera());
 		//world.saveToXml(1);
 		player=new Player(game,world.getSpawnX(),world.getSpawnY());
+                ////////////////////////
+                Attack attack1=new Attack(null,1,"Hyper Beam",30);
+                Attack attack2=new Attack(null,1,"Nuclear Bomb",10);
+                Attack attack3=new Attack(null,1,"Omnislash",5);
+                Attack attack4=new Attack(null,1,"Splash",1);
+                ////////////////////////
+                ArrayList<Attack> attacks=new ArrayList<Attack>();
+                attacks.add(attack1);
+                attacks.add(attack2);
+                attacks.add(attack3);
+                attacks.add(attack4);
+                player.setAttacks(attacks);
 		setGame();
 		objectPressed=new boolean[objects.size()];
 		npcPressed=new boolean[npcs.size()];
