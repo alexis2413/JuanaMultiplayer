@@ -39,7 +39,7 @@ public class NonPlayerCharacter extends Creature {
     public void tick() {
         // TODO Auto-generated method stub
         if (playerIsNextTo() && game.getKeyManager().space) {
-            ((GameState)game.getGameState()).setDialogue(true);
+            game.setDialogue(true);
             beginDialog();
         }
 

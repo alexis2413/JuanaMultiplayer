@@ -18,7 +18,7 @@ public class CombatState extends State {
     private Enemy enemy;
     private boolean playerTurn = true, playerAttacked = false;
     private int playerAttack, enemyAttack = 0;
-    int delayEnemy = 0, delayPlayer = 0, maxDelay = 30;
+    int delayEnemy = 0, delayPlayer = 0, maxDelay = 5;
     Random rand = new Random();
 
     public static int WIDTH = 50;
@@ -83,7 +83,7 @@ public class CombatState extends State {
                     playerAttacked = false;
                     playerTurn = false;
                     delayPlayer = 0;
-                    enemyAttack = rand.nextInt(3);
+                    enemyAttack = rand.nextInt(4);
                     if (enemy.getHealth() <= 0) {	//Finalizacion
                         State.setState(game.getGameState());
                     }
@@ -95,7 +95,7 @@ public class CombatState extends State {
         } else {
             delayEnemy++;
             if (delayEnemy == maxDelay) {
-                
+
                 playerTurn = true;
                 delayEnemy = 0;
                 int damage = enemy.getAttacks().get(enemyAttack).getDamage();
@@ -152,12 +152,16 @@ public class CombatState extends State {
         Font fnt1 = new Font("arial", Font.BOLD, 10);
         g.setFont(fnt1);
         g.drawString(((GameState) game.getGameState()).getPlayer().getAttacks().get(0).getName(), attack1.x + 19, attack1.y + 30);
+        //g.drawString(enemy.getAttacks().get(0).getName(), attack1.x + 19, attack1.y + 30);
         g2d.draw(attack1);
         g.drawString(((GameState) game.getGameState()).getPlayer().getAttacks().get(1).getName(), attack2.x + 19, attack2.y + 30);
+        //g.drawString(enemy.getAttacks().get(1).getName(), attack2.x + 19, attack2.y + 30);
         g2d.draw(attack2);
         g.drawString(((GameState) game.getGameState()).getPlayer().getAttacks().get(2).getName(), attack3.x + 19, attack3.y + 30);
+        //g.drawString(enemy.getAttacks().get(2).getName(), attack3.x + 19, attack3.y + 30);
         g2d.draw(attack3);
         g.drawString(((GameState) game.getGameState()).getPlayer().getAttacks().get(3).getName(), attack4.x + 19, attack4.y + 30);
+        //g.drawString(enemy.getAttacks().get(3).getName(), attack4.x + 19, attack4.y + 30);
         g2d.draw(attack4);
     }
 

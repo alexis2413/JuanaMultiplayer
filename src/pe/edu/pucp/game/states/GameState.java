@@ -29,12 +29,11 @@ public class GameState extends State implements Serializable {
     private World world;
     private boolean playerPressed = false;
     private boolean[] objectPressed, npcPressed, enemyPressed;
-    private boolean dialogue = false;
 
     public GameState(Game game) {
         super(game);
         world = new World("res/worlds/world1.xml", game.getGameCamera(), enemies, objects, npcs, items);
-		//world=new World("res/worlds/world1.txt",game.getGameCamera());
+        //world=new World("res/worlds/world1.txt",game.getGameCamera());
         //world.saveToXml(1);
         player = new Player(game, world.getSpawnX(), world.getSpawnY());
         ////////////////////////
@@ -62,8 +61,6 @@ public class GameState extends State implements Serializable {
 
     @Override
     public void tick() {
-        // TODO Auto-generated method stub
-        if (dialogue == false) {
             if (world.openDoors()) {
                 int i = 0, newWorld;
                 while (player.getX() != world.getDoors()[i][0] || player.getY() != world.getDoors()[i][1]) {
@@ -71,7 +68,7 @@ public class GameState extends State implements Serializable {
                 }
                 newWorld = world.getDoorTo()[i];
                 world = new World("res/Worlds/world" + newWorld + ".xml", game.getGameCamera(), enemies, objects, npcs, items);
-			//world=new World("res/Worlds/world"+ newWorld +".txt",game.getGameCamera());
+                //world=new World("res/Worlds/world"+ newWorld +".txt",game.getGameCamera());
                 //world.saveToXml(newWorld);
                 player.setX(world.getSpawnX());
                 player.setY(world.getSpawnY());
@@ -146,12 +143,13 @@ public class GameState extends State implements Serializable {
             } else {
                 playerPressed = false;
             }
-        }
+        
     }
 
     @Override
     public void render(Display display) {
         // TODO Auto-generated method stub
+
         Graphics g = display.getCanvas().getBufferStrategy().getDrawGraphics();
         Font fnt0 = new Font("arial", Font.BOLD, 10);
         g.setFont(fnt0);
@@ -195,6 +193,7 @@ public class GameState extends State implements Serializable {
 
         for (int i = 0; i < items.size(); i++) {
             items.get(i).render(g);
+
         }
     }
 
@@ -268,14 +267,6 @@ public class GameState extends State implements Serializable {
 
     public void setItems(ArrayList<Item> items) {
         this.items = items;
-    }
-
-    public boolean getDialogue() {
-        return dialogue;
-    }
-
-    public void setDialogue(boolean dialogue) {
-        this.dialogue = dialogue;
     }
 
 }

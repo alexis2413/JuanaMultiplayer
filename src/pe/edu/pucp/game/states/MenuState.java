@@ -15,11 +15,10 @@ import pe.edu.pucp.game.gfx.Assets;
 @SuppressWarnings("serial")
 public class MenuState extends State implements Serializable {
 
-    public static int WIDTH = 50;
-    public Rectangle playButton = new Rectangle(WIDTH / 2 + 120, 130, 100, 50);
-    public Rectangle loadButton = new Rectangle(WIDTH / 2 + 120, 190, 100, 50);
-    public Rectangle helpButton = new Rectangle(WIDTH / 2 + 120, 260, 100, 50);
-    public Rectangle quitButton = new Rectangle(WIDTH / 2 + 120, 330, 100, 50);
+    public Rectangle playButton = new Rectangle(145, 130, 100, 50);
+    public Rectangle loadButton = new Rectangle(145, 190, 100, 50);
+    public Rectangle helpButton = new Rectangle(145, 260, 100, 50);
+    public Rectangle quitButton = new Rectangle(145, 330, 100, 50);
     public Rectangle chooseCharacterButton = new Rectangle(280, 150, 115, 25);
 
     public MenuState(Game game) {
@@ -31,47 +30,19 @@ public class MenuState extends State implements Serializable {
 
     @Override
     public void tick() {
-		// TODO Auto-generated method stub
-        //Play
-        if ((game.getMouseManager().mX >= 145 && game.getMouseManager().mX <= 245)
-                && (game.getMouseManager().mY >= 130 && game.getMouseManager().mY <= 180)) {
-            game.getGameState().setNumberPlayer(numberPlayer);
-            game.hasStarted=true;
+        if (buttonTick(playButton)){
             State.setState(game.getGameState());
-            game.getMouseManager().mX = 0;
-            game.getMouseManager().mY = 0;
+            game.getGameState().setNumberPlayer(numberPlayer);
+            game.hasStarted = true;
         }
-        //Load
-        if ((game.getMouseManager().mX >= 145 && game.getMouseManager().mX <= 245)
-                && (game.getMouseManager().mY >= 190 && game.getMouseManager().mY <= 240)) {
-            //State.setState(game.getLoadAvatarState());
-            State.setState(game.getLoadGameState());
-            game.getMouseManager().mX = 0;
-            game.getMouseManager().mY = 0;
-
-        }
-        //Help
-        if ((game.getMouseManager().mX >= 145 && game.getMouseManager().mX <= 245)
-                && (game.getMouseManager().mY >= 260 && game.getMouseManager().mY <= 310)) {
-            State.setState(game.getHelpState());
-            game.getMouseManager().mX = 0;
-            game.getMouseManager().mY = 0;
-        }
-        //Exit
-        if ((game.getMouseManager().mX >= 145 && game.getMouseManager().mX <= 245)
-                && (game.getMouseManager().mY >= 330 && game.getMouseManager().mY <= 380)) {
-            game.getMouseManager().mX = 0;
-            game.getMouseManager().mY = 0;
-            game.getDisplay().getFrame().dispatchEvent(new WindowEvent(game.getDisplay().getFrame(), WindowEvent.WINDOW_CLOSING));
-        }
-
-        //choose character
-        if ((game.getMouseManager().mX >= 280 && game.getMouseManager().mX <= 395)
-                && (game.getMouseManager().mY >= 150 && game.getMouseManager().mY <= 175)) {
-            State.setState(game.getChooseCharacterState());
-            game.getMouseManager().mX = 0;
-            game.getMouseManager().mY = 0;
-        }
+        if (buttonTick(loadButton))
+            State.setState(game.getLoadGameState());        
+        if (buttonTick(helpButton))
+            State.setState(game.getHelpState());        
+        if (buttonTick(quitButton))
+            game.getDisplay().getFrame().dispatchEvent(new WindowEvent(game.getDisplay().getFrame(), WindowEvent.WINDOW_CLOSING));      
+        if (buttonTick(chooseCharacterButton))
+            State.setState(game.getChooseCharacterState()); 
     }
 
     @Override
@@ -81,13 +52,12 @@ public class MenuState extends State implements Serializable {
         Graphics2D g2d = (Graphics2D) g;
         // TODO Auto-generated method stub
         g.drawImage(Assets.juanaBackground, 0, 0, game.getHeight(), game.getWidth(), null);
-
         Font fnt0 = new Font("arial", Font.BOLD, 50);
         g.setFont(fnt0);
         g.setColor(Color.black);
 
-        g.drawImage(Assets.load, WIDTH / 2 + 120, 190, 100, 50, null);
-		//g.drawImage(Assets.save,WIDTH/2 + 120,190,100,50,null);
+        g.drawImage(Assets.load, 50 / 2 + 120, 190, 100, 50, null);
+        //g.drawImage(Assets.save,WIDTH/2 + 120,190,100,50,null);
 
         Font fnt1 = new Font("arial", Font.BOLD, 30);
         g.setFont(fnt1);
@@ -97,7 +67,7 @@ public class MenuState extends State implements Serializable {
         g2d.draw(helpButton);
         g.drawString("Quit", quitButton.x + 19, quitButton.y + 30);
         g2d.draw(quitButton);
-		//g.drawString("Load",loadButton.x+19,loadButton.y+30);
+        //g.drawString("Load",loadButton.x+19,loadButton.y+30);
         //g2d.draw(loadButton);
         Font fnt2 = new Font("arial", Font.BOLD, 12);
         g.setFont(fnt2);
@@ -105,4 +75,16 @@ public class MenuState extends State implements Serializable {
         g2d.draw(chooseCharacterButton);
     }
 
+    public boolean buttonTick(Rectangle button) {
+        if ((game.getMouseManager().mX >= button.x
+                && game.getMouseManager().mX <= button.x + button.width)
+                && (game.getMouseManager().mY >= button.y
+                && game.getMouseManager().mY <= button.y + button.height)) {
+            game.getMouseManager().mX = 0;
+            game.getMouseManager().mY = 0;
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

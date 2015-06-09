@@ -17,7 +17,6 @@ public class OptionState extends State{
 	public Rectangle saveButton = new Rectangle(WIDTH/2  ,250,100,50);	
 	public Rectangle loadButton = new Rectangle(WIDTH/2  ,350,100,50);
 	
-	
 	public OptionState(Game game){
 		super(game);
 	}
@@ -61,13 +60,10 @@ public class OptionState extends State{
 		g.setColor(Color.black);
 		g.drawString("OPTIONS", WIDTH/4,70);
 		Font fnt1=new Font("arial",Font.BOLD,30);
-		g.setFont(fnt1);
-		
+		g.setFont(fnt1);		
 		//Stats
-		g.drawString("HP"+((GameState) game.getGameState()).getPlayer().getHealth(),200,100);
-		
-		//Buttons
-		
+		g.drawString("HP"+((GameState) game.getGameState()).getPlayer().getHealth(),200,100);		
+		//Button	
 		g.drawImage(Assets.load,WIDTH/2 ,250,100,50,null);
 		g.drawImage(Assets.save,WIDTH/2  ,350,100,50,null);
 		
