@@ -12,7 +12,7 @@ import pe.edu.pucp.game.states.State;
 @SuppressWarnings("serial")
 public abstract class Enemy extends Creature implements Serializable{
 //public abstract class Enemy extends Creature{
-        private ArrayList<Attack> attacks = new ArrayList<Attack>();
+        private ArrayList<Attack> attacks = new ArrayList<>();
     
 	public Enemy(Game game, double x, double y, double width,double height) {
 		super(game,x,y,Creature.DEFAULT_CREATURE_WIDTH,Creature.DEFAULT_CREATURE_HEIGHT);
@@ -22,12 +22,10 @@ public abstract class Enemy extends Creature implements Serializable{
                 Attack attack3=new Attack(null,1,"Omnislash",5);
                 Attack attack4=new Attack(null,1,"Splash",1);
                 ////////////////////////
-                ArrayList<Attack> attackList=new ArrayList<>();
                 attacks.add(attack1);
                 attacks.add(attack2);
                 attacks.add(attack3);
                 attacks.add(attack4);
-                this.setAttacks(attackList);
 	}
 	
 	public Enemy(double x, double y, double width,double height) {

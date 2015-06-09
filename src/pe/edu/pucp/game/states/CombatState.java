@@ -17,7 +17,7 @@ public class CombatState extends State {
 
     private Enemy enemy;
     private boolean playerTurn = true, playerAttacked = false;
-    private int playerAttack,enemyAttack;
+    private int playerAttack,enemyAttack=0;
     int delayEnemy = 0, delayPlayer = 0, maxDelay = 30;
     Random rand = new Random();
 
@@ -94,7 +94,7 @@ public class CombatState extends State {
         } else {
             delayEnemy++;
             if (delayEnemy == maxDelay) {
-                enemyAttack=rand.nextInt(4);
+                enemyAttack=rand.nextInt(3);
                 playerTurn = true;
                 delayEnemy = 0;
                 int damage= enemy.getAttacks().get(enemyAttack).getDamage();
