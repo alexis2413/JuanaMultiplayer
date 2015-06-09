@@ -13,6 +13,7 @@ import pe.edu.pucp.game.entities.creatures.NonPlayerCharacter;
 import pe.edu.pucp.game.entities.creatures.Player;
 import pe.edu.pucp.game.entities.creatures.enemies.Enemy;
 import pe.edu.pucp.game.entities.items.Item;
+import pe.edu.pucp.game.threads.EnemyMoveThread;
 import pe.edu.pucp.game.threads.MapThread;
 import pe.edu.pucp.game.worlds.World;
 
@@ -52,7 +53,7 @@ public class GameState extends State implements Serializable{
 		npcPressed=new boolean[npcs.size()];
 		enemyPressed=new boolean[enemies.size()];
                 MapThread mt = new MapThread();
-                mt.start();
+                mt.start();                
 	}
 
 	public GameState(){}

@@ -17,6 +17,17 @@ public abstract class Enemy extends Creature implements Serializable{
 	public Enemy(Game game, double x, double y, double width,double height) {
 		super(game,x,y,Creature.DEFAULT_CREATURE_WIDTH,Creature.DEFAULT_CREATURE_HEIGHT);
 		// TODO Auto-generated constructor stub
+                Attack attack1=new Attack(null,1,"Hyper Beam",30);
+                Attack attack2=new Attack(null,1,"Nuclear Bomb",10);
+                Attack attack3=new Attack(null,1,"Omnislash",5);
+                Attack attack4=new Attack(null,1,"Splash",1);
+                ////////////////////////
+                ArrayList<Attack> attackList=new ArrayList<>();
+                attacks.add(attack1);
+                attacks.add(attack2);
+                attacks.add(attack3);
+                attacks.add(attack4);
+                this.setAttacks(attackList);
 	}
 	
 	public Enemy(double x, double y, double width,double height) {
@@ -29,12 +40,12 @@ public abstract class Enemy extends Creature implements Serializable{
 	@Override
 	public void tick() {
 		// TODO Auto-generated method stub
-		moveCounter++;
+		/*moveCounter++;
 		if(moveCounter==delay){
 			randomMove();
 			move();
 			moveCounter=0;	
-		}
+		}*/
 		if(collision()){
                     //((CombatState) game.getCombatState()).setEnemy(this);
                     CombatState combatState=new CombatState(game);

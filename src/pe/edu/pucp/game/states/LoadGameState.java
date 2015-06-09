@@ -118,7 +118,7 @@ public class LoadGameState extends State {
             else
                 State.setState(game.getGameState());
             game.getMouseManager().mX = 0;
-            game.getMouseManager().mY = 0;       
+            game.getMouseManager().mY = 0;      
         }
         //LOAD BUTTON
         if ((xClicked >= 145 && xClicked <= 225)

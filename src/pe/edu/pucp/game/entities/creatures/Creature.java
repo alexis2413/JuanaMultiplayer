@@ -28,7 +28,8 @@ public abstract class Creature extends Entity implements Serializable{
 	protected double speed;
 	protected double xMove,yMove;
 	
-	
+	private int direction=2;//1 arriba 2 abajo 3 izquierda 4 derecha
+        
 	public Creature(Game game,double x, double y, int width,int height){
 		super(game,x, y, width, height);
 		// TODO Auto-generated constructor stub
@@ -61,13 +62,43 @@ public abstract class Creature extends Entity implements Serializable{
 	public Creature(){}
 
 	public void move(){
-		if(isValidMove()){
-			x+=xMove;
-			y+=yMove;
-		}
+		
 	}
 	
 	public boolean isValidMove(){
+		ArrayList<Entity> objects = ((GameState)game.getGameState()).getObjects();
+		for(int i=0;i<objects.size();i++)//collisioned an object
+			if(x+xMove==objects.get(i).getX()&&y+yMove==objects.get(i).getY()){
+				objects.get(i).setCollisioned(true);
+				return false;
+			}
+			else
+				objects.get(i).setCollisioned(false);
+		
+		ArrayList<NonPlayerCharacter> npcs =  ((GameState)game.getGameState()).getNpcs();
+		for(int i=0;i<npcs.size();i++)
+			if(x+xMove==npcs.get(i).getX()&&y+yMove==npcs.get(i).getY()){
+				npcs.get(i).setCollisioned(true);
+				return false;
+			}
+                
+                ArrayList<Item> items =  ((GameState)game.getGameState()).getItems();
+		for(int i=0;i<items.size();i++)
+			if(x+xMove==items.get(i).getX()&&y+yMove==items.get(i).getY()){
+				items.get(i).setCollisioned(true);
+				return false;
+			}
+		
+		if(((GameState)game.getGameState()).getWorld().getTile((int)(x+xMove),(int)(y+yMove)).isSolid())
+			return false;
+		
+		if(x+xMove==((GameState)game.getGameState()).getPlayer().getX() && 
+				y+yMove==((GameState)game.getGameState()).getPlayer().getY())
+			return false;
+		return true;
+	}
+        
+        public boolean isValidMove(int xMove, int yMove){
 		ArrayList<Entity> objects = ((GameState)game.getGameState()).getObjects();
 		for(int i=0;i<objects.size();i++)//collisioned an object
 			if(x+xMove==objects.get(i).getX()&&y+yMove==objects.get(i).getY()){
@@ -115,6 +146,6 @@ public abstract class Creature extends Entity implements Serializable{
 	public void setyMove(double yMove) {this.yMove = yMove;}
 	public int getId() {return id;}
 	public void setId(int id) {this.id = id;}
-	
-	
+	public int getDirection(){return direction;}
+        public void setDirection(int direction){this.direction=direction;}
 }

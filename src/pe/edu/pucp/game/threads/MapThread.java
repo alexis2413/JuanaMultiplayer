@@ -28,7 +28,6 @@ public class MapThread extends Thread {
         while (true) {
             delay++;
             if (delay == 1) {
-
                 Assets.sea1 = Assets.sea1;
 
                 try {
@@ -36,7 +35,7 @@ public class MapThread extends Thread {
                 } catch (InterruptedException ex) {
                     Logger.getLogger(MapThread.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                
+
             }
             if (delay == 2) {
                 Assets.sea1 = Assets.sea2;
@@ -63,7 +62,7 @@ public class MapThread extends Thread {
                 }
                 delay = 0;
             }
- 
+
+        }
     }
-   }
 }

@@ -96,6 +96,8 @@ public abstract class Entity implements Serializable{
 		else 
 			return false;
 	}
+        
+        
 	
 	public double getX() {return x;}
 	public void setX(double x) {this.x = x;}

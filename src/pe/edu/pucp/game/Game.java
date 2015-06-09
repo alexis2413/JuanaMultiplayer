@@ -18,6 +18,7 @@ import pe.edu.pucp.game.states.MenuState;
 import pe.edu.pucp.game.states.OptionState;
 import pe.edu.pucp.game.states.SaveGameState;
 import pe.edu.pucp.game.states.State;
+import pe.edu.pucp.game.threads.EnemyMoveThread;
 
 @SuppressWarnings("serial")
 public class Game implements Runnable, Serializable{
@@ -83,6 +84,8 @@ public class Game implements Runnable, Serializable{
 		loadGameState=new LoadGameState(this);
 		saveGameState=new SaveGameState(this);	
 		State.setState(menuState);
+                EnemyMoveThread emt = new EnemyMoveThread(this);
+                emt.start();
 	}
 
 	
