@@ -78,6 +78,9 @@ public class GameState extends State implements Serializable{
 		player.tick();
 		
 		for(int i=0;i<npcs.size();i++){
+                    if(npcs.size()!=npcPressed.length){
+                        npcPressed=new boolean[npcs.size()];
+                    }
 			npcs.get(i).tick();
 			if((game.getMouseManager().mX>=npcs.get(i).getX()*24-game.getGameCamera().getxOffset() 
 					&& game.getMouseManager().mX<=npcs.get(i).getX()*24-game.getGameCamera().getxOffset()+24)&&
@@ -90,6 +93,8 @@ public class GameState extends State implements Serializable{
 		}
 			
 		if(enemies.size()>0)
+                    if(enemies.size()!=enemyPressed.length)
+                        enemyPressed=new boolean[enemies.size()];
 			for(int j=0;j<enemies.size();j++){
 				if((game.getMouseManager().mX>=enemies.get(j).getX()*24-game.getGameCamera().getxOffset() 
 						&& game.getMouseManager().mX<=enemies.get(j).getX()*24-game.getGameCamera().getxOffset()+24)&&
@@ -107,6 +112,8 @@ public class GameState extends State implements Serializable{
 			}
 		
 		if(objects.size()>0)
+                    if(objects.size()!=objectPressed.length)
+                        objectPressed=new boolean[objects.size()];
 			for(int j=0;j<objects.size();j++){
                             objects.get(j).tick();
                             if((game.getMouseManager().mX>=objects.get(j).getX()*24-game.getGameCamera().getxOffset() 

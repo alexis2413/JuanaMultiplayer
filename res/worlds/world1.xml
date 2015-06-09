@@ -54,11 +54,16 @@
 		<item>18</item>
 		<item>18</item>
 	</enemies>
-	<nObjects>1</nObjects>
+	<nObjects>2</nObjects>
 	<objects>
 		<item>1</item>
 		<item>10</item>
 		<item>10</item>
+	</objects>
+        <objects>
+		<item>1</item>
+		<item>9</item>
+		<item>9</item>
 	</objects>
 	<nNpcs>1</nNpcs>
 	<npcs>

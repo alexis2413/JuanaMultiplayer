@@ -17,7 +17,7 @@ public class CombatState extends State {
 
     private Enemy enemy;
     private boolean playerTurn = true, playerAttacked = false;
-    private int playerAttack,enemyAttack=0;
+    private int playerAttack, enemyAttack = 0;
     int delayEnemy = 0, delayPlayer = 0, maxDelay = 30;
     Random rand = new Random();
 
@@ -83,6 +83,7 @@ public class CombatState extends State {
                     playerAttacked = false;
                     playerTurn = false;
                     delayPlayer = 0;
+                    enemyAttack = rand.nextInt(3);
                     if (enemy.getHealth() <= 0) {	//Finalizacion
                         State.setState(game.getGameState());
                     }
@@ -94,10 +95,10 @@ public class CombatState extends State {
         } else {
             delayEnemy++;
             if (delayEnemy == maxDelay) {
-                enemyAttack=rand.nextInt(3);
+                
                 playerTurn = true;
                 delayEnemy = 0;
-                int damage= enemy.getAttacks().get(enemyAttack).getDamage();
+                int damage = enemy.getAttacks().get(enemyAttack).getDamage();
                 ((GameState) game.getGameState()).getPlayer().setHealth(((GameState) game.getGameState()).getPlayer().getHealth() - damage);
                 if (((GameState) game.getGameState()).getPlayer().getHealth() <= 0)//Game Over
                 {

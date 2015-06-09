@@ -1,20 +1,35 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <World>
-    <width>5</width>
-    <height>5</height>
+    <width>20</width>
+    <height>20</height>
     <spawnX>1</spawnX>
     <spawnY>1</spawnY>
     <nDoors>1</nDoors>
     <doors>
-        <item>3</item>
-        <item>3</item>
+        <item>9</item>
+        <item>1</item>
     </doors>
     <doorTo>1</doorTo>
-    <tiles>11111</tiles>
-    <tiles>13331</tiles>
-    <tiles>13331</tiles>
-    <tiles>13321</tiles>
-    <tiles>11111</tiles>
+    <tiles>11111111111111111111</tiles>
+    <tiles>13333313323313333331</tiles>
+    <tiles>13333313333313333331</tiles>
+    <tiles>13333313333313333331</tiles>
+    <tiles>13333313333313333331</tiles>
+    <tiles>13333313333313333331</tiles>
+    <tiles>13333333333333333331</tiles>
+    <tiles>13333333333333333331</tiles>
+    <tiles>13333333333333333331</tiles>
+    <tiles>13333333333333333331</tiles>
+    <tiles>13333333333333333331</tiles>
+    <tiles>13333333333333333331</tiles>
+    <tiles>13333333333333333331</tiles>
+    <tiles>13333333333333333331</tiles>
+    <tiles>13333333333333333331</tiles>
+    <tiles>13333333333333333331</tiles>
+    <tiles>13333333333333333331</tiles>
+    <tiles>13333333333333333331</tiles>
+    <tiles>13333333333333333331</tiles>
+    <tiles>11111111111111111111</tiles>
     <door>false</door>
     <gameCamera>
         <cameraHeight>400</cameraHeight>
@@ -23,8 +38,68 @@
         <yOffset>-152.0</yOffset>
     </gameCamera>
     <path>res/Worlds/world2.txt</path>
-	<nEnemies>0</nEnemies>
-	<nObjects>0</nObjects>
-	<nNpcs>0</nNpcs>
-        <nItems>0</nItems>
+    <nEnemies>0</nEnemies>
+    <nObjects>12</nObjects>
+    <objects>
+	<item>1</item>
+	<item>7</item>
+	<item>2</item>
+    </objects>
+    <objects>
+	<item>1</item>
+	<item>8</item>
+	<item>2</item>
+    </objects>
+    <objects>
+	<item>1</item>
+	<item>10</item>
+	<item>2</item>
+    </objects>
+    <objects>
+	<item>1</item>
+	<item>11</item>
+	<item>2</item>
+    </objects>
+    <objects>
+	<item>1</item>
+	<item>8</item>
+	<item>3</item>
+    </objects>
+    <objects>
+	<item>1</item>
+	<item>9</item>
+	<item>3</item>
+    </objects>
+    <objects>
+	<item>1</item>
+	<item>10</item>
+	<item>3</item>
+    </objects>
+    <objects>
+	<item>1</item>
+	<item>7</item>
+	<item>4</item>
+    </objects>
+    <objects>
+	<item>1</item>
+	<item>11</item>
+	<item>4</item>
+    </objects>
+    <objects>
+	<item>1</item>
+	<item>8</item>
+	<item>5</item>
+    </objects>
+    <objects>
+	<item>1</item>
+	<item>9</item>
+	<item>5</item>
+    </objects>
+    <objects>
+	<item>1</item>
+	<item>10</item>
+	<item>5</item>
+    </objects>
+    <nNpcs>0</nNpcs>
+    <nItems>0</nItems>
 </World>
