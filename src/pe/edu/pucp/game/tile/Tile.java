@@ -14,7 +14,7 @@ public class Tile implements Serializable{
 	public static Tile rockTile = new RockTile(1);
 	public static Tile doorTile = new DoorTile(2);
 	public static Tile groundTile = new GroundTile(3);
-        public static Tile seaTile = new GroundTile(4);
+        public static Tile seaTile = new SeaTile(4);
 	
 	public boolean solid=false;
 	
