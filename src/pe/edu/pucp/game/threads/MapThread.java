@@ -29,7 +29,7 @@ public class MapThread extends Thread{
             delay++;
             if(delay==1){
                 if(flag){
-                    Assets.rock=Assets.door;
+                    Assets.rock=Assets.sea1;
                     flag=false;
                     try {
                         Thread.sleep(pause);
@@ -38,7 +38,7 @@ public class MapThread extends Thread{
                     }
                 }
                 else{
-                    Assets.rock=Assets.boulder;
+                    Assets.rock=Assets.sea4;
                     flag=true;
                     try {
                         Thread.sleep(pause);
