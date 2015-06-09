@@ -23,7 +23,7 @@ public class EnemyMoveThread extends Thread {
     int xMove, yMove, pause = 500;
     Game game;
     ArrayList<Creature> enemyList = new ArrayList<Creature>();
-    ArrayList<Creature> npcList = new ArrayList<Creature>();
+    //ArrayList<Creature> npcList = new ArrayList<Creature>();
 
     public EnemyMoveThread(Game game) {
         super();
@@ -34,9 +34,9 @@ public class EnemyMoveThread extends Thread {
         for (int i = 0; i < ((GameState) game.getGameState()).getEnemies().size(); i++) {
             enemyList.add(((GameState) game.getGameState()).getEnemies().get(i));
         }
-        for (int i = 0; i < ((GameState) game.getGameState()).getNpcs().size(); i++) {
+        /*for (int i = 0; i < ((GameState) game.getGameState()).getNpcs().size(); i++) {
             npcList.add(((GameState) game.getGameState()).getNpcs().get(i));
-        }
+        }*/
     }
 
     @Override
@@ -52,7 +52,7 @@ public class EnemyMoveThread extends Thread {
                     enemyList.add(((GameState) game.getGameState()).getEnemies().get(i));
                 }
             }
-            if (npcList.size() == ((GameState) game.getGameState()).getNpcs().size()) {
+            /*if (npcList.size() == ((GameState) game.getGameState()).getNpcs().size()) {
                 for (int i = 0; i < npcList.size(); i++) {
                     move(npcList.get(i), i);
                 }
@@ -61,7 +61,7 @@ public class EnemyMoveThread extends Thread {
                 for (int i = 0; i < ((GameState) game.getGameState()).getNpcs().size(); i++) {
                     npcList.add(((GameState) game.getGameState()).getNpcs().get(i));
                 }
-            }
+            }*/
             try {
                 Thread.sleep(pause);
             } catch (InterruptedException ex) {

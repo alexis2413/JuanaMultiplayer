@@ -17,7 +17,6 @@ public class Player extends Creature implements Serializable {
 
     int position = 1;
     int contRight = 0, contLeft = 0, contUp = 0, contDown = 0;
-    private boolean isDialoging = false;
 
     ArrayList<Attack> attacks = new ArrayList<Attack>();
     ArrayList<Item> items = new ArrayList<Item>();
@@ -35,12 +34,11 @@ public class Player extends Creature implements Serializable {
     public void tick() {
         // TODO Auto-generated method stub
         getInput();
-        if (!isDialoging) {
-            if (isValidMove()) {
-                x += xMove;
-                y += yMove;
-            }
+        if (isValidMove()) {
+            x += xMove;
+            y += yMove;
         }
+
         game.getGameCamera().centerOnEntity(this);
         if (((GameState) game.getGameState()).getWorld().getTile((int) x, (int) (y)).getId() == 2) {
             ((DoorTile) ((GameState) game.getGameState()).getWorld().getTile((int) x, (int) (y))).openDoor();
@@ -209,14 +207,6 @@ public class Player extends Creature implements Serializable {
                     (int) (y * DEFAULT_CREATURE_HEIGHT - game.getGameCamera().getyOffset()), width, height, null);
         }
 
-    }
-
-    public boolean isDialoging() {
-        return isDialoging;
-    }
-
-    public void setDialoging(boolean isDialoging) {
-        this.isDialoging = isDialoging;
     }
 
     public ArrayList<Item> getItems() {
