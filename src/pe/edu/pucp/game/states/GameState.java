@@ -15,6 +15,7 @@ import pe.edu.pucp.game.entities.creatures.enemies.Enemy;
 import pe.edu.pucp.game.entities.items.Item;
 import pe.edu.pucp.game.threads.EnemyMoveThread;
 import pe.edu.pucp.game.threads.MapThread;
+import pe.edu.pucp.game.threads.SeaReflectThread;
 import pe.edu.pucp.game.worlds.World;
 
 @SuppressWarnings("serial")
@@ -52,8 +53,10 @@ public class GameState extends State implements Serializable {
         objectPressed = new boolean[objects.size()];
         npcPressed = new boolean[npcs.size()];
         enemyPressed = new boolean[enemies.size()];
-        MapThread mt = new MapThread();
+        MapThread mt = new MapThread(game);
         mt.start();
+        SeaReflectThread srt = new SeaReflectThread(game);
+        srt.start();
     }
 
     public GameState() {

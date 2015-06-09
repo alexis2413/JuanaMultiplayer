@@ -17,6 +17,7 @@ public class Assets implements Serializable{
 	public static BufferedImage berry;
 	public static BufferedImage load,save;
         public static BufferedImage sea1,sea2,sea3,sea4;
+        public static BufferedImage sea1Juana,sea2Juana,sea3Juana,sea4Juana;
         
 	private static final int width =32, height = 48;
 	public static void init(int i){
@@ -60,6 +61,10 @@ public class Assets implements Serializable{
                 sea2=ImageLoader.loadImage("/textures/sea2.png");
                 sea3=ImageLoader.loadImage("/textures/sea3.png");
                 sea4=ImageLoader.loadImage("/textures/sea4.png");
+                sea1Juana=ImageLoader.loadImage("/textures/sea1Juana.png");
+                sea2Juana=ImageLoader.loadImage("/textures/sea1Juana.png");
+                sea3Juana=ImageLoader.loadImage("/textures/sea1Juana.png");
+                sea4Juana=ImageLoader.loadImage("/textures/sea1Juana.png");
 		
 		boulder=sheet2.crop(650,10,64,64);
                 

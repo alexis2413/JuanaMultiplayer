@@ -25,6 +25,7 @@ import pe.edu.pucp.game.tile.DoorTile;
 import pe.edu.pucp.game.tile.RockTile;
 import pe.edu.pucp.game.tile.GrassTile;
 import pe.edu.pucp.game.tile.SeaTile;
+import pe.edu.pucp.game.tile.SeaTileReflected;
 //import pe.edu.pucp.game.utils.Utils;
 
 @SuppressWarnings("serial")
@@ -60,9 +61,7 @@ public class World implements Serializable {
     public World() {
     }
 
-    ;
-	
-	public World(String path, GameCamera gameCamera, ArrayList<Enemy> enemies,
+    public World(String path, GameCamera gameCamera, ArrayList<Enemy> enemies,
             ArrayList<Entity> objects, ArrayList<NonPlayerCharacter> npcs,
             ArrayList<Item> items) {
         this.gameCamera = gameCamera;
@@ -96,11 +95,11 @@ public class World implements Serializable {
         Tile.rockTile = new RockTile(1);
         Tile.grassTile = new GrassTile(0);
         Tile.seaTile = new SeaTile(4);
+        Tile.seaTileReflected = new SeaTileReflected(5);
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
                 getTile(x, y).render(g, (int) (x * Tile.TILEWIDTH - gameCamera.getxOffset()),
                         (int) (y * Tile.TILEHEIGHT - gameCamera.getyOffset()));
-
             }
         }
     }
@@ -321,8 +320,7 @@ public class World implements Serializable {
         objectList.clear();
         npcList.clear();
         itemList.clear();
-        
-       
+
         for (int i = 0; i < nEnemies; i++) {
             enemyList.add(new Chicken(enemies[i][1], enemies[i][2]));
         }
@@ -342,9 +340,8 @@ public class World implements Serializable {
             itemList.add(new Item(items[i][1], items[i][2]));
         }
 
-
     }
-	///TXT
+    ///TXT
 	/*
      private void loadWorld(String path, ArrayList<Enemy> enemies, ArrayList<Entity> objects){
      String file=Utils.loadFileAsString(path);

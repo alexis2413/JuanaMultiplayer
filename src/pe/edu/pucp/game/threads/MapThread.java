@@ -7,8 +7,11 @@ package pe.edu.pucp.game.threads;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import pe.edu.pucp.game.Game;
 import pe.edu.pucp.game.gfx.Assets;
 import pe.edu.pucp.game.gfx.ImageLoader;
+import pe.edu.pucp.game.states.GameState;
+import pe.edu.pucp.game.worlds.World;
 
 /**
  *
@@ -18,9 +21,11 @@ public class MapThread extends Thread {
 
     public int delay = 0;
     public int pause = 300;
+    public Game game;
 
-    public MapThread() {
+    public MapThread(Game game) {
         super();
+        this.game = game;
     }
 
     @Override
@@ -29,8 +34,7 @@ public class MapThread extends Thread {
         while (true) {
             delay++;
             if (delay == 1) {
-                Assets.sea1 = ImageLoader.loadImage("/textures/sea1.png");;
-
+                Assets.sea1 = ImageLoader.loadImage("/textures/sea1.png");
                 try {
                     Thread.sleep(pause);
                 } catch (InterruptedException ex) {
@@ -46,7 +50,6 @@ public class MapThread extends Thread {
                 }
             }
             if (delay == 3) {
-                Assets.sea1 = Assets.sea3;
                 try {
                     Thread.sleep(pause);
                 } catch (InterruptedException ex) {
@@ -62,7 +65,7 @@ public class MapThread extends Thread {
                 }
                 delay = 0;
             }
-
         }
     }
+
 }

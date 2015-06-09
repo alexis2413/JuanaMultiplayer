@@ -15,6 +15,7 @@ public class Tile implements Serializable{
 	public static Tile doorTile = new DoorTile(2);
 	public static Tile groundTile = new GroundTile(3);
         public static Tile seaTile = new SeaTile(4);
+        public static Tile seaTileReflected = new SeaTileReflected(5);
 	
 	public boolean solid=false;
 	
@@ -48,6 +49,14 @@ public class Tile implements Serializable{
         
         public static void setSeaTile(Tile seaTile){
             Tile.seaTile=seaTile;
+        }
+        
+        public static Tile getSeaTileReflected(){
+            return seaTileReflected;
+        }
+        
+        public static void setSeaTileReflected(Tile seaTile){
+            Tile.seaTileReflected=seaTileReflected;
         }
         
 

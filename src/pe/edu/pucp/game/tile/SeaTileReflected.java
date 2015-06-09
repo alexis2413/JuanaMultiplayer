@@ -5,21 +5,19 @@
  */
 package pe.edu.pucp.game.tile;
 
-import java.io.Serializable;
 import pe.edu.pucp.game.gfx.Assets;
+
 /**
  *
  * @author alulab14
  */
-@SuppressWarnings("serial")
-public class SeaTile extends Tile implements Serializable{
-
-    public SeaTile(int id) {
-        super(Assets.sea1, id);
+public class SeaTileReflected extends Tile{
+    public SeaTileReflected(int id) {
+        super(Assets.sea1Juana, id);
         solid = true;
     }
 
-    public SeaTile() {
+    public SeaTileReflected() {
     }
 
     @Override

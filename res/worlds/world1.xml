@@ -16,8 +16,8 @@
     <doorTo>3</doorTo>
     <doorTo>2</doorTo>
     <tiles>11111111111111111111</tiles>
-    <tiles>10121210000000000441</tiles>
-    <tiles>10101010000000000441</tiles>
+    <tiles>10121210000000000001</tiles>
+    <tiles>10101010000000000001</tiles>
     <tiles>10000010000000000001</tiles>
     <tiles>10000000000000000001</tiles>
     <tiles>10000000000000000001</tiles>
@@ -31,9 +31,9 @@
     <tiles>10000000000000000001</tiles>
     <tiles>10000000000000000001</tiles>
     <tiles>10000000000000000001</tiles>
-    <tiles>10000000000000000001</tiles>
-    <tiles>10000000000000000001</tiles>
-    <tiles>10000000000000000001</tiles>
+    <tiles>14444000000000000001</tiles>
+    <tiles>14444000000000000001</tiles>
+    <tiles>14444000000000000001</tiles>
     <tiles>11111111111111111111</tiles>
     <door>false</door>
     <gameCamera>
