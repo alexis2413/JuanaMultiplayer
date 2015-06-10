@@ -8,7 +8,6 @@ package pe.edu.pucp.game.threads;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import pe.edu.pucp.game.Game;
-import pe.edu.pucp.game.gfx.Assets;
 import pe.edu.pucp.game.states.GameState;
 import pe.edu.pucp.game.worlds.World;
 
@@ -31,7 +30,7 @@ public class SeaReflectThread extends Thread {
             if (playerRefect()) {
                 setReflect();
             }
-            //refreshSea();
+            refreshSea();
             try {
                 Thread.sleep(pause);
             } catch (InterruptedException ex) {
@@ -58,10 +57,12 @@ public class SeaReflectThread extends Thread {
         if (tile == 5) {
             double playerX = ((GameState) game.getGameState()).getPlayer().getX();
             double playerY = ((GameState) game.getGameState()).getPlayer().getY();
-            if(x!=(int)playerX && y!=(int)playerY-1)
+            if (x == (int) playerX && y == (int) playerY) {
                 return true;
+            }
+
         }
-        return false;        
+        return false;
     }
 
     public void setReflect() {
@@ -74,10 +75,6 @@ public class SeaReflectThread extends Thread {
         String[] newTiles = world.getTiles();
         newTiles[(int) y + 1] = newRow;
         world.setTiles(newTiles);
-        for (int k = 0; k < world.getTiles().length; k++) {
-            System.out.println(world.getTiles()[k]);
-        }
-
     }
 
     public void refreshSea() {
@@ -87,7 +84,7 @@ public class SeaReflectThread extends Thread {
             String row = world.getTiles()[i];
             for (int j = 0; j < row.length(); j++) {
                 if (row.charAt(j) == '5') {
-                    if (!ReflectAt(j, i)) {
+                    if (!ReflectAt(j, i - 1)) {
                         String newRow = row.substring(0, (int) j) + '4' + row.substring((int) j + 1);
                         row = newRow;
                         change = true;
