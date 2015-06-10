@@ -8,6 +8,9 @@ package pe.edu.pucp.game.threads;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import pe.edu.pucp.game.Game;
+import pe.edu.pucp.game.gfx.Assets;
+import static pe.edu.pucp.game.gfx.Assets.sea1Juana;
+import pe.edu.pucp.game.gfx.ImageLoader;
 import pe.edu.pucp.game.states.GameState;
 import pe.edu.pucp.game.worlds.World;
 
@@ -75,6 +78,18 @@ public class SeaReflectThread extends Thread {
         String[] newTiles = world.getTiles();
         newTiles[(int) y + 1] = newRow;
         world.setTiles(newTiles);
+        if(((GameState) game.getGameState()).getPlayer().getDirection()==1){
+            Assets.sea1Juana=sea1Juana=ImageLoader.loadImage("/textures/sea1Juana.png");
+        }else if (((GameState) game.getGameState()).getPlayer().getDirection()==2){
+            
+            Assets.sea1Juana=sea1Juana=ImageLoader.loadImage("/textures/sea1Juana.png");
+        }
+        else if (((GameState) game.getGameState()).getPlayer().getDirection()==3){
+            Assets.sea1Juana=Assets.sea2Juana;
+        }
+        else if (((GameState) game.getGameState()).getPlayer().getDirection()==4){
+            Assets.sea1Juana=Assets.sea3Juana;
+        }
     }
 
     public void refreshSea() {

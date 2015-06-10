@@ -50,6 +50,7 @@ public class MapThread extends Thread {
                 }
             }
             if (delay == 3) {
+                Assets.sea1 = Assets.sea3;
                 try {
                     Thread.sleep(pause);
                 } catch (InterruptedException ex) {

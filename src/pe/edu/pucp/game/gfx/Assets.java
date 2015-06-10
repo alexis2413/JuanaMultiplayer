@@ -62,8 +62,8 @@ public class Assets implements Serializable{
                 sea3=ImageLoader.loadImage("/textures/sea3.png");
                 sea4=ImageLoader.loadImage("/textures/sea4.png");
                 sea1Juana=ImageLoader.loadImage("/textures/sea1Juana.png");
-                sea2Juana=ImageLoader.loadImage("/textures/sea1Juana.png");
-                sea3Juana=ImageLoader.loadImage("/textures/sea1Juana.png");
+                sea2Juana=ImageLoader.loadImage("/textures/sea1Juana1.jpg");
+                sea3Juana=ImageLoader.loadImage("/textures/sea1Juana2.jpg");
                 sea4Juana=ImageLoader.loadImage("/textures/sea1Juana.png");
 		
 		boulder=sheet2.crop(650,10,64,64);

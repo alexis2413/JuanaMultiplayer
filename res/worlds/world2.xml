@@ -41,65 +41,70 @@
     <nEnemies>0</nEnemies>
     <nObjects>12</nObjects>
     <objects>
-	<item>1</item>
-	<item>7</item>
-	<item>2</item>
+        <item>1</item>
+        <item>7</item>
+        <item>2</item>
     </objects>
     <objects>
-	<item>1</item>
-	<item>8</item>
-	<item>2</item>
+        <item>1</item>
+        <item>8</item>
+        <item>2</item>
     </objects>
     <objects>
-	<item>1</item>
-	<item>10</item>
-	<item>2</item>
+        <item>1</item>
+        <item>10</item>
+        <item>2</item>
     </objects>
     <objects>
-	<item>1</item>
-	<item>11</item>
-	<item>2</item>
+        <item>1</item>
+        <item>11</item>
+        <item>2</item>
     </objects>
     <objects>
-	<item>1</item>
-	<item>8</item>
-	<item>3</item>
+        <item>1</item>
+        <item>8</item>
+        <item>3</item>
     </objects>
     <objects>
-	<item>1</item>
-	<item>9</item>
-	<item>3</item>
+        <item>1</item>
+        <item>9</item>
+        <item>3</item>
     </objects>
     <objects>
-	<item>1</item>
-	<item>10</item>
-	<item>3</item>
+        <item>1</item>
+        <item>10</item>
+        <item>3</item>
     </objects>
     <objects>
-	<item>1</item>
-	<item>7</item>
-	<item>4</item>
+        <item>1</item>
+        <item>7</item>
+        <item>4</item>
     </objects>
     <objects>
-	<item>1</item>
-	<item>11</item>
-	<item>4</item>
+        <item>1</item>
+        <item>11</item>
+        <item>4</item>
     </objects>
     <objects>
-	<item>1</item>
-	<item>8</item>
-	<item>5</item>
+        <item>1</item>
+        <item>8</item>
+        <item>5</item>
     </objects>
     <objects>
-	<item>1</item>
-	<item>9</item>
-	<item>5</item>
+        <item>1</item>
+        <item>9</item>
+        <item>5</item>
     </objects>
     <objects>
-	<item>1</item>
-	<item>10</item>
-	<item>5</item>
+        <item>1</item>
+        <item>10</item>
+        <item>5</item>
     </objects>
-    <nNpcs>0</nNpcs>
+    <nNpcs>1</nNpcs>
+    <npcs>
+        <item>1</item>
+        <item>10</item>
+        <item>10</item>
+    </npcs>
     <nItems>0</nItems>
 </World>

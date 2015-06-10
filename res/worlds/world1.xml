@@ -6,19 +6,19 @@
     <spawnY>1</spawnY>
     <nDoors>2</nDoors>
     <doors>
-        <item>3</item>
+        <item>18</item>
         <item>1</item>
     </doors>
     <doors>
-        <item>5</item>
-        <item>1</item>
+        <item>18</item>
+        <item>18</item>
     </doors>
     <doorTo>3</doorTo>
     <doorTo>2</doorTo>
     <tiles>11111111111111111111</tiles>
-    <tiles>10121210000000000001</tiles>
-    <tiles>10101010000000000001</tiles>
-    <tiles>10000010000000000001</tiles>
+    <tiles>10000000000000000021</tiles>
+    <tiles>10000000000000000001</tiles>
+    <tiles>10000000000000000001</tiles>
     <tiles>10000000000000000001</tiles>
     <tiles>10000000000000000001</tiles>
     <tiles>10000000000000000001</tiles>
@@ -33,7 +33,7 @@
     <tiles>10000000000000000001</tiles>
     <tiles>14444000000000000001</tiles>
     <tiles>14444000000000000001</tiles>
-    <tiles>14444000000000000001</tiles>
+    <tiles>14444000000000000021</tiles>
     <tiles>11111111111111111111</tiles>
     <door>false</door>
     <gameCamera>
@@ -51,20 +51,10 @@
 	</enemies>
 	<enemies>
 		<item>1</item>
-		<item>18</item>
-		<item>18</item>
+		<item>6</item>
+		<item>7</item>
 	</enemies>
-	<nObjects>2</nObjects>
-	<objects>
-		<item>1</item>
-		<item>10</item>
-		<item>10</item>
-	</objects>
-        <objects>
-		<item>1</item>
-		<item>9</item>
-		<item>9</item>
-	</objects>
+	<nObjects>0</nObjects>
 	<nNpcs>1</nNpcs>
 	<npcs>
 		<item>1</item>
