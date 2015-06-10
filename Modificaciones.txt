@@ -1,0 +1,4 @@
+Se implemento un hilo que maneja el tiempo
+En la clase GameState se creo un contador que va a ser modificado por ese hilo
+El hilo reduce el contador cada segundo, manejando si el contador llega a 0 o si se completo el nivel, reiniciando el contador y mostrando los mensajes respectivos
+Para probar la funcionalidad implementada se tiene que dirigir hacia las puertas de los esquinas.

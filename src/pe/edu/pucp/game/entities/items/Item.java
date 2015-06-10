@@ -6,6 +6,7 @@ import pe.edu.pucp.game.Sound;
 import pe.edu.pucp.game.entities.Entity;
 import pe.edu.pucp.game.gfx.Assets;
 import pe.edu.pucp.game.states.GameState;
+import pe.edu.pucp.game.threads.GotItemThread;
 
 @SuppressWarnings("serial")
 public class Item extends Entity{
@@ -29,6 +30,8 @@ public class Item extends Entity{
                     Sound sounds=new Sound("/sounds/gotItem.au");
                     sounds.playSoundOnce();
                     //sounds.playSound();
+                    GotItemThread git = new GotItemThread(game,this);
+                    git.start();
                     ((GameState) game.getGameState()).getPlayer().getItems().add(this);
                     ((GameState) game.getGameState()).getItems().remove(this);
                 }

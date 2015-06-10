@@ -52,6 +52,7 @@ public class Game implements Runnable, Serializable {
     private GameCamera gameCamera;
 
     private boolean dialogue = false;
+    private boolean item = false;
 
     public Game(String title, int width, int height, int numberPlayer) {
         this.width = width;
@@ -89,7 +90,7 @@ public class Game implements Runnable, Serializable {
     }
 
     private void tick() {
-        if (dialogue == false) {
+        if (dialogue == false && item == false) {
             keyManager.tick();
             mouseManager.tick();
             if (State.getState() != null) {
@@ -99,7 +100,7 @@ public class Game implements Runnable, Serializable {
     }
 
     private void render() {
-        if (dialogue == false) {
+        if (dialogue == false && item == false) {
             bs = display.getCanvas().getBufferStrategy();
             if (bs == null) {
                 display.getCanvas().createBufferStrategy(3);
@@ -335,6 +336,14 @@ public class Game implements Runnable, Serializable {
 
     public void setDialogue(boolean dialogue) {
         this.dialogue = dialogue;
+    }
+    
+    public boolean getDialogueItem() {
+        return item;
+    }
+
+    public void setDialogueItem(boolean item) {
+        this.item = item;
     }
 
 }

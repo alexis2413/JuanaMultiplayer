@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package pe.edu.pucp.game.threads;
 
 import java.awt.Font;
@@ -8,36 +13,37 @@ import java.awt.image.BufferStrategy;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import pe.edu.pucp.game.Game;
-import pe.edu.pucp.game.entities.creatures.NonPlayerCharacter;
-import pe.edu.pucp.game.states.GameState;
+import pe.edu.pucp.game.entities.items.Item;
 
-public class NPCDialogThread extends Thread {
+/**
+ *
+ * @author alulab14
+ */
+public class GotItemThread extends Thread {
 
-    public Game game;
-    public NonPlayerCharacter npc;
-    public int pause = 1000;
+    Item item;
+    Game game;
     public Rectangle rectangle = new Rectangle(20, 300, 300, 80);
+    int pause=1000;
 
-    public NPCDialogThread(NonPlayerCharacter npc, Game game) {
+    public GotItemThread(Game game, Item item) {
         super();
+        this.item = item;
         this.game = game;
-        this.npc = npc;
     }
 
     public void run() {
-        //System.out.print(game.getKeyManager().space);
-        for (int i = 0; i < npc.getDialog().size(); i++) {
-            render(npc.getDialog().get(i));
-            try {
-                Thread.sleep(pause);
-            } catch (InterruptedException ex) {
-                Logger.getLogger(NPCDialogThread.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        game.setDialogueItem(true);
+        render(item.getDescription());
+        try {
+            Thread.sleep(pause);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(GotItemThread.class.getName()).log(Level.SEVERE, null, ex);
         }
-        game.setDialogue(false);
+        game.setDialogueItem(false);
     }
 
-    public void render(String dialog) {
+    public void render(String description) {
         BufferStrategy bs = game.getDisplay().getCanvas().getBufferStrategy();
         if (bs == null) {
             game.getDisplay().getCanvas().createBufferStrategy(3);
@@ -50,7 +56,7 @@ public class NPCDialogThread extends Thread {
         Font fnt1 = new Font("arial", Font.BOLD, 30);
         g.setFont(fnt1);
         g2d.draw(rectangle);
-        g.drawString(dialog, rectangle.x + 19, rectangle.y + 30);
+        g.drawString("You got a "+description, rectangle.x + 19, rectangle.y + 30);
         bs.show();
         bs.getDrawGraphics().dispose();
     }
