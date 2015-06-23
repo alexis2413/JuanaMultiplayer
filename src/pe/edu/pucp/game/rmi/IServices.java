@@ -27,4 +27,5 @@ public interface IServices extends Remote {
     public JTextArea getChatText()throws RemoteException;
     public void addChatText(String s) throws RemoteException;
     public void setChatText(JTextArea c) throws RemoteException;
+    public void deletePlayer(int i) throws RemoteException;
 }

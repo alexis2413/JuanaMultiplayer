@@ -88,37 +88,42 @@ public class DemoServerRMIImpl extends UnicastRemoteObject implements IServices 
     }  
     
     @Override
-    public boolean isPaused(){
+    public boolean isPaused() throws RemoteException{
         return paused;
     }
     
     @Override
-    public void setPause(boolean p){
+    public void setPause(boolean p) throws RemoteException{
         paused=p;
     }
     
     @Override
-    public boolean multiplayerStarted(){
+    public boolean multiplayerStarted() throws RemoteException{
         return multiplayerStarted;
     }
     
     @Override
-    public void setMultiplayer(boolean m){
+    public void setMultiplayer(boolean m) throws RemoteException{
         multiplayerStarted=m;
     }
     
     @Override
-    public JTextArea getChatText(){
+    public JTextArea getChatText() throws RemoteException{
         return chatText;
     }
     
     @Override
-    public void addChatText(String s){
+    public void addChatText(String s) throws RemoteException{
         chatText.append(s);
     }
     
     @Override
-    public void setChatText(JTextArea c){
+    public void setChatText(JTextArea c) throws RemoteException{
         this.chatText=c;
+    
+    }
+    @Override
+    public void deletePlayer(int i) throws RemoteException{
+        players.set(i, null);
     }
 }
