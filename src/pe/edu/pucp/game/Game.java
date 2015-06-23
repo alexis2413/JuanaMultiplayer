@@ -3,6 +3,9 @@ package pe.edu.pucp.game;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import java.io.Serializable;
+import java.rmi.RemoteException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import pe.edu.pucp.game.display.Display;
 import pe.edu.pucp.game.gfx.Assets;
@@ -15,6 +18,7 @@ import pe.edu.pucp.game.states.GameState;
 import pe.edu.pucp.game.states.HelpState;
 import pe.edu.pucp.game.states.LoadGameState;
 import pe.edu.pucp.game.states.MenuState;
+import pe.edu.pucp.game.states.MultiplayerState;
 import pe.edu.pucp.game.states.OptionState;
 import pe.edu.pucp.game.states.SaveGameState;
 import pe.edu.pucp.game.states.State;
@@ -45,6 +49,7 @@ public class Game implements Runnable, Serializable {
     private State chooseCharacterState;
     private State loadGameState;
     private State saveGameState;
+    private State multiplayerState;
     //Input
     private KeyManager keyManager;
     private MouseManager mouseManager;
@@ -67,7 +72,7 @@ public class Game implements Runnable, Serializable {
     public Game() {
     }
 
-    private void init() {//se ejecuta cada vez que se llama a run
+    private void init() throws RemoteException {//se ejecuta cada vez que se llama a run
         display = new Display(title, width, height);
         display.getFrame().addKeyListener(keyManager);
         display.getCanvas().addMouseListener(mouseManager);
@@ -84,23 +89,24 @@ public class Game implements Runnable, Serializable {
         chooseCharacterState = new ChooseCharacterState(this);
         loadGameState = new LoadGameState(this);
         saveGameState = new SaveGameState(this);
+        multiplayerState = new MultiplayerState(this);
         State.setState(menuState);
         EnemyMoveThread emt = new EnemyMoveThread(this);
         emt.start();
     }
 
     private void tick() {
-        if (dialogue == false && item == false) {
+        //if (dialogue == false && item == false) {
             keyManager.tick();
             mouseManager.tick();
             if (State.getState() != null) {
                 State.getState().tick();
             }
-        }
+        //}
     }
 
     private void render() {
-        if (dialogue == false && item == false) {
+        //if (dialogue == false && item == false) {
             bs = display.getCanvas().getBufferStrategy();
             if (bs == null) {
                 display.getCanvas().createBufferStrategy(3);
@@ -117,12 +123,17 @@ public class Game implements Runnable, Serializable {
             //End drawing
             bs.show();
             bs.getDrawGraphics().dispose();
-        }
+        //}
     }
 
     public void run() {//se llama cada vez que se inicia un thread
-
-        init();
+        
+        try {
+            init();
+        } catch (RemoteException ex) {
+            System.out.println("Excepcion rara");
+            Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
+        }
         int fps = 13;
         double timePerTick = 1000000000 / fps;//El tiempo maximo por tick par alcanzar 60fps
         double delta = 0;
@@ -153,35 +164,6 @@ public class Game implements Runnable, Serializable {
         stop();
     }
 
-    /*public void start(){
-     init();
-     int fps=13;
-     double timePerTick=1000000000/fps;//El tiempo maximo por tick par alcanzar 60fps
-     double delta=0;
-     long now;
-     long lastTime=System.nanoTime();//retorna la cantidad en nanonsegundos en la que corre el CPU
-     long timer=0;
-     int ticks=0;
-     while(true){
-     now = System.nanoTime();
-     delta+=(now-lastTime)/timePerTick;
-     timer+=now-lastTime;
-     lastTime=now;
-			
-     if(delta>=1){
-     tick();
-     render();
-     ticks++;
-     delta--;
-     }
-     if(timer>=1000000000){
-     //System.out.println("Ticks and Frames: "+ticks);
-     ticks=0;
-     timer=0;
-     }
-     }
-     };
-     public void stop(){};*/
     public synchronized void start() {
         if (running) {
             return;
@@ -346,4 +328,11 @@ public class Game implements Runnable, Serializable {
         this.item = item;
     }
 
+    public State getMultiplayerState(){
+        return multiplayerState;
+    }
+    
+    public void setMultiplayerState(State mps){
+        this.multiplayerState=mps;
+    }
 }
