@@ -20,7 +20,7 @@ public class MenuState extends State implements Serializable {
     public Rectangle helpButton = new Rectangle(145, 260, 100, 50);
     public Rectangle quitButton = new Rectangle(145, 330, 100, 50);
     public Rectangle chooseCharacterButton = new Rectangle(280, 150, 115, 25);
-
+    public Rectangle multiplayerButton=new Rectangle (280,190,115,25);
     public MenuState(Game game) {
         super(game);
     }
@@ -44,6 +44,8 @@ public class MenuState extends State implements Serializable {
             game.getDisplay().getFrame().dispatchEvent(new WindowEvent(game.getDisplay().getFrame(), WindowEvent.WINDOW_CLOSING));      
         if (buttonTick(chooseCharacterButton))
             State.setState(game.getChooseCharacterState()); 
+        //if(buttonTick(multiplayerButton))            
+            //Realizar RMI!;
     }
 
     @Override
@@ -78,6 +80,11 @@ public class MenuState extends State implements Serializable {
         g.drawImage(Assets.button1, 280, 150, 38,25,null);
         g.drawImage(Assets.button2, 318, 150, 38,25,null);
         g.drawImage(Assets.button3, 356, 150, 39,25,null);
+        //MULTIPLAYER!280,190,115,25
+        g.drawImage(Assets.button1, 280, 190, 38,25,null);
+        g.drawImage(Assets.button2, 318, 190, 38,25,null);
+        g.drawImage(Assets.button3, 356, 190, 39,25,null);
+        
         
         Font fnt1 = new Font("arial", Font.BOLD, 30);
         g.setFont(fnt1);
@@ -89,7 +96,8 @@ public class MenuState extends State implements Serializable {
         
         Font fnt2 = new Font("arial", Font.BOLD, 12);
         g.setFont(fnt2);
-        g.drawString("Choose Character", chooseCharacterButton.x + 10, chooseCharacterButton.y + 15);
+        g.drawString("Choose Character", chooseCharacterButton.x + 9, chooseCharacterButton.y + 16);
+        g.drawString("Multiplayer!", multiplayerButton.x + 28, multiplayerButton.y + 16);
         
     }
 

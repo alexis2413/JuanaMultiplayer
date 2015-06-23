@@ -83,6 +83,8 @@ public class ChooseCharacterState extends State {
         if ((game.getMouseManager().mX >= 145 && game.getMouseManager().mX <= 245)
                 && (game.getMouseManager().mY >= 275 && game.getMouseManager().mY <= 325)) {
             State.setState(game.getMenuState());
+            game.getMouseManager().mX = 0;
+            game.getMouseManager().mY = 0;
         }
     }
 

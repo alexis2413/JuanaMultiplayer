@@ -19,7 +19,9 @@ public class Assets implements Serializable{
         public static BufferedImage sea1,sea2,sea3,sea4;
         public static BufferedImage sea1Juana,sea2Juana,sea3Juana,sea4Juana;
         public static BufferedImage button1,button2,button3,slot;
-        public static BufferedImage corner1,corner2,corner3,corner4;       
+        public static BufferedImage corner1,corner2,corner3,corner4,barTop,barBot,barLeft,barRight;    
+        public static BufferedImage bar1,bar2,bar3;
+        public static BufferedImage fillBar1,fillBar2,fillBar3;
         
 	private static final int width =32, height = 48;
 	public static void init(int i){
@@ -54,15 +56,38 @@ public class Assets implements Serializable{
 		player11=sheet.crop(3*i*width-2*width,4*j*height-height,width,height);
 		player12=sheet.crop(3*i*width-width,4*j*height-height,width,height);
                 
+                boulder=sheet2.crop(650,10,64,64);
+                grass=sheet2.crop(0,800,64,64);
+		rock=sheet2.crop(0,400,64,64);
+		door=sheet2.crop(300,550,64,64);
+		ground=sheet2.crop(300,912,64,64);
+                
+                chicken=sheet3.crop(0,0,20,20);
+		
+		npc1=sheet4.crop(0,0,20,25);
+		
+		berry=sheet5.crop(0,0,22,22);
+                
                 button1=sheet6.crop(770 , 25, 24, 24);
                 button2=sheet6.crop(795, 25, 24, 24);
                 button3=sheet6.crop(820, 25, 24, 24);
                 slot=sheet6.crop(120, 287, 40, 41);
+                
+                bar1=sheet6.crop(259, 40, 23, 20);
+                bar2=sheet6.crop(284, 40, 22, 20);
+                bar3=sheet6.crop(308, 40, 25, 20);
+                fillBar1=sheet6.crop(341, 40, 6, 13);
+                fillBar2=sheet6.crop(350, 40, 6, 13);
+                fillBar3=sheet6.crop(358, 40, 6, 13);
 		
-		grass=sheet2.crop(0,800,64,64);
-		rock=sheet2.crop(0,400,64,64);
-		door=sheet2.crop(300,550,64,64);
-		ground=sheet2.crop(300,912,64,64);
+                corner1=sheet7.crop(859, 191, 21, 21);
+                corner2=sheet7.crop(977, 191, 21, 21);
+                corner3=sheet7.crop(859, 294, 21, 21);
+                corner4=sheet7.crop(977, 294, 21, 21);
+                barTop=sheet7.crop(891, 191, 75, 11);
+                barBot=sheet7.crop(891, 304, 75, 11);
+                barLeft=sheet7.crop(859, 226, 11, 54);
+                barRight=sheet7.crop(988, 226, 11, 54);
                 
                 sea1=ImageLoader.loadImage("/textures/sea1.png");
                 sea2=ImageLoader.loadImage("/textures/sea2.png");
@@ -72,14 +97,6 @@ public class Assets implements Serializable{
                 sea2Juana=ImageLoader.loadImage("/textures/sea1Juana1.jpg");
                 sea3Juana=ImageLoader.loadImage("/textures/sea1Juana2.jpg");
                 sea4Juana=ImageLoader.loadImage("/textures/sea1Juana.png");
-		
-		boulder=sheet2.crop(650,10,64,64);
-                
-		chicken=sheet3.crop(0,0,20,20);
-		
-		npc1=sheet4.crop(0,0,20,25);
-		
-		berry=sheet5.crop(0,0,22,22);
 		
 		juanaBackground=ImageLoader.loadImage("/textures/portada.jpg");
 		juanaCombat=ImageLoader.loadImage("/textures/juana_combate.png");

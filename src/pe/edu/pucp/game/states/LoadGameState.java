@@ -144,7 +144,21 @@ public class LoadGameState extends State {
         // TODO Auto-generated method stub
         g.drawImage(Assets.juanaBackground, 0, 0, game.getHeight(), game.getWidth(), null);
         
+        //TEXTBOX! 20, 330, 360, 60    
+        g.setColor(Color.orange);
+        g.fillRect(23, 333 , 357, 55);        
+        g.drawRect(23, 333, 357, 55);
+                
+        g.drawImage(Assets.corner1, 20, 330, 21, 21, null);
+        g.drawImage(Assets.corner2, 359, 330, 21, 21, null);
+        g.drawImage(Assets.corner3, 20, 369, 21, 21, null);
+        g.drawImage(Assets.corner4, 359, 369, 21, 21, null);
         
+        g.drawImage(Assets.barTop, 30,330, 330, 11, null);
+        g.drawImage(Assets.barBot, 30, 379, 330, 11, null);
+        g.drawImage(Assets.barLeft, 20, 350, 11, 25, null);
+        g.drawImage(Assets.barRight, 370, 350, 11, 25, null);
+                
         g.drawImage(Assets.slot, 50, 120, 50, 50, null);
         g.drawImage(Assets.slot, 110, 120, 50, 50, null);
         g.drawImage(Assets.slot, 170, 120, 50, 50, null);
@@ -178,16 +192,15 @@ public class LoadGameState extends State {
         Font fnt2 = new Font("arial", Font.BOLD, 30);
         g.setFont(fnt2);
         g.setColor(Color.black);
-        g.drawString("Back", backButton.x + 15, backButton.y + 35);
-        g2d.draw(textRect);
+        g.drawString("Back", backButton.x + 15, backButton.y + 35);        
         g.drawString("Load", loadButton.x + 15, loadButton.y + 35);
         
 
-        Font fnt3 = new Font("arial", Font.BOLD, 16);
+        Font fnt3 = new Font("arial", Font.BOLD, 14);
         g.setFont(fnt2);
         if (slotClicked != 0) {
             g.drawString("                     ", 40, 350);
-            g.drawString("Nombre: " + data.getFiles().get(slotClicked - 1), 40, 350);
+            g.drawString("Nombre: " + data.getFiles().get(slotClicked - 1), 40, 370);
         }
 
     }
