@@ -17,6 +17,7 @@ import pe.edu.pucp.game.states.ChooseCharacterState;
 import pe.edu.pucp.game.states.GameState;
 import pe.edu.pucp.game.states.HelpState;
 import pe.edu.pucp.game.states.LoadGameState;
+import pe.edu.pucp.game.states.LobbyState;
 import pe.edu.pucp.game.states.MenuState;
 import pe.edu.pucp.game.states.MultiplayerState;
 import pe.edu.pucp.game.states.OptionState;
@@ -50,6 +51,7 @@ public class Game implements Runnable, Serializable {
     private State loadGameState;
     private State saveGameState;
     private State multiplayerState;
+    private State lobbyState;
     //Input
     private KeyManager keyManager;
     private MouseManager mouseManager;
@@ -89,7 +91,7 @@ public class Game implements Runnable, Serializable {
         chooseCharacterState = new ChooseCharacterState(this);
         loadGameState = new LoadGameState(this);
         saveGameState = new SaveGameState(this);
-        multiplayerState = new MultiplayerState(this);
+        //multiplayerState = new MultiplayerState(this);        
         State.setState(menuState);
         EnemyMoveThread emt = new EnemyMoveThread(this);
         emt.start();
@@ -334,5 +336,13 @@ public class Game implements Runnable, Serializable {
     
     public void setMultiplayerState(State mps){
         this.multiplayerState=mps;
+    }
+    
+    public State getLobbyState(){
+        return lobbyState;
+    }
+    
+    public void setLobbyState(State ls){
+        this.lobbyState=ls;
     }
 }

@@ -42,39 +42,22 @@ public class MultiplayerState extends State implements Serializable {
     public int timeLeft = 15;
     public int nPlayer;
 
-    public MultiplayerState(Game game) throws RemoteException {
+    public MultiplayerState(Game game,int nPlayer) throws RemoteException {
         super(game);
         world = new World("res/worlds/world1.xml", game.getGameCamera(), enemies, objects, npcs, items);
         //world=new World("res/worlds/world1.txt",game.getGameCamera());
         //world.saveToXml(1);
         player = new Player(game, world.getSpawnX(), world.getSpawnY());
-        Player player1 = new Player(world.getSpawnX(), world.getSpawnY());
-        //player.setGame(game);
-        //player.setGameCamera(game.getGameCamera());
-        //player.setKeyManager(game.getKeyManager());
-        ////////////////////////
-        Attack attack1 = new Attack(null, 1, "Hyper Beam", 30);
-        Attack attack2 = new Attack(null, 1, "Nuclear Bomb", 10);
-        Attack attack3 = new Attack(null, 1, "Omnislash", 5);
-        Attack attack4 = new Attack(null, 1, "Splash", 1);
-        ////////////////////////
-        ArrayList<Attack> attacks = new ArrayList<Attack>();
-        attacks.add(attack1);
-        attacks.add(attack2);
-        attacks.add(attack3);
-        attacks.add(attack4);
-        player1.setAttacks(attacks);
-        Launcher.proxy.addPlayer(player1);
-        nPlayer = Launcher.proxy.getNPlayers();
+        
         setGame();
         objectPressed = new boolean[objects.size()];
         npcPressed = new boolean[npcs.size()];
         enemyPressed = new boolean[enemies.size()];
         MapThread mt = new MapThread(game);
         mt.start();
+        this.nPlayer=nPlayer;
         //SeaReflectThread srt = new SeaReflectThread(game);
         //srt.start();
-
     }
 
     public MultiplayerState() {

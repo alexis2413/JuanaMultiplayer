@@ -32,7 +32,9 @@ public class MenuState extends State implements Serializable {
     public void tick() {
         if (buttonTick(playButton)){
             //State.setState(game.getGameState());
-            State.setState(game.getMultiplayerState());
+            game.setLobbyState(new LobbyState(game));
+            State.setState(game.getLobbyState());
+            //State.setState(game.getMultiplayerState());
             game.getGameState().setNumberPlayer(numberPlayer);
             game.hasStarted = true;
         }
