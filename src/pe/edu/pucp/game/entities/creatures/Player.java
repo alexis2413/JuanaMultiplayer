@@ -3,13 +3,14 @@ package pe.edu.pucp.game.entities.creatures;
 import java.awt.Graphics;
 import java.io.Serializable;
 import java.util.ArrayList;
-
 import pe.edu.pucp.game.Game;
-import pe.edu.pucp.game.states.GameState;
-import pe.edu.pucp.game.states.State;
 import pe.edu.pucp.game.attacks.Attack;
 import pe.edu.pucp.game.entities.items.Item;
 import pe.edu.pucp.game.gfx.Assets;
+import pe.edu.pucp.game.gfx.GameCamera;
+import pe.edu.pucp.game.input.KeyManager;
+import pe.edu.pucp.game.states.GameState;
+import pe.edu.pucp.game.states.State;
 import pe.edu.pucp.game.tile.DoorTile;
 
 @SuppressWarnings("serial")
@@ -21,8 +22,15 @@ public class Player extends Creature implements Serializable {
     ArrayList<Attack> attacks = new ArrayList<Attack>();
     ArrayList<Item> items = new ArrayList<Item>();
 
+    KeyManager keyManager;
+    GameCamera gameCamera;
+    
     public Player(Game game, float x, float y) {
         super(game, x, y, Creature.DEFAULT_CREATURE_WIDTH, Creature.DEFAULT_CREATURE_HEIGHT);
+        this.setDescription("Juana, a woman who wants to cure her child from a disease");
+    }
+    
+    public Player(float x, float y) {
         this.setDescription("Juana, a woman who wants to cure her child from a disease");
     }
 
@@ -39,10 +47,10 @@ public class Player extends Creature implements Serializable {
             y += yMove;
         }
 
-        game.getGameCamera().centerOnEntity(this);
-        if (((GameState) game.getGameState()).getWorld().getTile((int) x, (int) (y)).getId() == 2) {
-            ((DoorTile) ((GameState) game.getGameState()).getWorld().getTile((int) x, (int) (y))).openDoor();
-        }
+        //game.getGameCamera().centerOnEntity(this);
+        //if (((GameState) game.getGameState()).getWorld().getTile((int) x, (int) (y)).getId() == 2) {
+          //  ((DoorTile) ((GameState) game.getGameState()).getWorld().getTile((int) x, (int) (y))).openDoor();
+        //}
     }
 
     private void getInput() {
@@ -223,5 +231,21 @@ public class Player extends Creature implements Serializable {
 
     public void setAttacks(ArrayList<Attack> attacks) {
         this.attacks = attacks;
+    }
+    
+    public KeyManager getKeyManager(){
+        return keyManager;
+    }
+    
+    public void setKeyManager(KeyManager km){
+        keyManager=km;
+    }
+    
+    public GameCamera getGameCamera(){
+        return gameCamera;
+    }
+    
+    public void setGameCamera(GameCamera gc){
+        gameCamera=gc;
     }
 }

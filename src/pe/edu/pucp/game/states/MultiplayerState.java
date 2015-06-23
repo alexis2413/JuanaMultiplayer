@@ -20,14 +20,13 @@ import pe.edu.pucp.game.entities.creatures.enemies.Enemy;
 import pe.edu.pucp.game.entities.items.Item;
 import pe.edu.pucp.game.states.State;
 import pe.edu.pucp.game.threads.MapThread;
-import pe.edu.pucp.game.threads.TimeThread;
 import pe.edu.pucp.game.worlds.World;
 
 @SuppressWarnings("serial")
 public class MultiplayerState extends State implements Serializable {
 
     //private ArrayList<Player> players;
-    Player player;
+    //Player player;
     private int nEnemies;
     private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
     private ArrayList<Entity> objects = new ArrayList<Entity>();
@@ -44,7 +43,10 @@ public class MultiplayerState extends State implements Serializable {
         world = new World("res/worlds/world1.xml", game.getGameCamera(), enemies, objects, npcs, items);
         //world=new World("res/worlds/world1.txt",game.getGameCamera());
         //world.saveToXml(1);
-        player = new Player(game, world.getSpawnX(), world.getSpawnY());
+        Player player = new Player(game,world.getSpawnX(), world.getSpawnY());
+        //player.setGame(game);
+        //player.setGameCamera(game.getGameCamera());
+        //player.setKeyManager(game.getKeyManager());
         ////////////////////////
         Attack attack1 = new Attack(null, 1, "Hyper Beam", 30);
         Attack attack2 = new Attack(null, 1, "Nuclear Bomb", 10);
@@ -66,8 +68,6 @@ public class MultiplayerState extends State implements Serializable {
         mt.start();
         //SeaReflectThread srt = new SeaReflectThread(game);
         //srt.start();
-        //TimeThread tt = new TimeThread(game);
-        //tt.start();
 
     }
 
@@ -96,9 +96,12 @@ public class MultiplayerState extends State implements Serializable {
         //player.tick();
         try {
             //for (int i = 0; i < Launcher.proxy.getPlayers().size(); i++) {
-                Player p = Launcher.proxy.getPlayers().get(0);
-                p.tick();
-                Launcher.proxy.setPlayerAtI(0, p);
+            Player p = Launcher.proxy.getPlayers().get(0);
+            //p.setGameCamera(game.getGameCamera());
+            //p.setKeyManager(game.getKeyManager());
+            p.setGame(game);
+            p.tick();
+            Launcher.proxy.setPlayerAtI(0, p);
             //}
         } catch (RemoteException ex) {
             Logger.getLogger(MultiplayerState.class.getName()).log(Level.SEVERE, null, ex);
@@ -184,12 +187,12 @@ public class MultiplayerState extends State implements Serializable {
         world.render(g);
         //player.render(g);
         try {
-            System.out.println("cantidad de jugadores: "+Launcher.proxy.getPlayers().size());
+            System.out.println("cantidad de jugadores: " + Launcher.proxy.getPlayers().size());
             for (int i = 0; i < Launcher.proxy.getPlayers().size(); i++) {
                 Launcher.proxy.getPlayers().get(i).render(g);
-                int x=(int)Launcher.proxy.getPlayers().get(i).getX();
-                int y=(int)Launcher.proxy.getPlayers().get(i).getY();
-                System.out.println(x+" "+y);                
+                int x = (int) Launcher.proxy.getPlayers().get(i).getX();
+                int y = (int) Launcher.proxy.getPlayers().get(i).getY();
+                System.out.println(x + " " + y);
             }
         } catch (RemoteException ex) {
             Logger.getLogger(MultiplayerState.class.getName()).log(Level.SEVERE, null, ex);

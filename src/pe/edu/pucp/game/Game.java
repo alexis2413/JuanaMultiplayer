@@ -28,7 +28,7 @@ import pe.edu.pucp.game.threads.EnemyMoveThread;
 public class Game implements Runnable, Serializable {
 //public class Game implements Serializable{
 
-    private Display display;
+    private transient Display display;
     private int width, height;
     public String title;
 

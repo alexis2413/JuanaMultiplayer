@@ -111,7 +111,6 @@ public abstract class Entity implements Serializable{
 	public void setCollisioned(boolean collisioned) {this.collisioned = collisioned;}
 	public Game getGame() {return game;}
 	public void setGame(Game game) {this.game = game;}
-
 	public String getDescription() {return description;}
 	public void setDescription(String description) {this.description = description;}
 	

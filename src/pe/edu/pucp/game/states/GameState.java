@@ -62,8 +62,8 @@ public class GameState extends State implements Serializable {
         mt.start();
         //SeaReflectThread srt = new SeaReflectThread(game);
         //srt.start();
-        TimeThread tt = new TimeThread(game);
-        tt.start();
+        //TimeThread tt = new TimeThread(game);
+        //tt.start();
         
     }
 
