@@ -10,6 +10,7 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
+import javax.swing.JTextArea;
 import pe.edu.pucp.game.entities.Entity;
 import pe.edu.pucp.game.entities.creatures.NonPlayerCharacter;
 import pe.edu.pucp.game.entities.creatures.Player;
@@ -35,6 +36,10 @@ public class DemoServerRMIImpl extends UnicastRemoteObject implements IServices 
     private ArrayList<Item> items = new ArrayList<Item>();
     private World world=new World("res/worlds/world1.xml", gameCamera, enemies, objects, npcs, items);
     private boolean paused;
+    private boolean multiplayerStarted;
+    
+    //Chat grupal
+    JTextArea chatText = new JTextArea();
     
     public DemoServerRMIImpl() throws RemoteException {
     }
@@ -82,11 +87,38 @@ public class DemoServerRMIImpl extends UnicastRemoteObject implements IServices 
         players.set(i, p);
     }  
     
+    @Override
     public boolean isPaused(){
         return paused;
     }
     
+    @Override
     public void setPause(boolean p){
         paused=p;
+    }
+    
+    @Override
+    public boolean multiplayerStarted(){
+        return multiplayerStarted;
+    }
+    
+    @Override
+    public void setMultiplayer(boolean m){
+        multiplayerStarted=m;
+    }
+    
+    @Override
+    public JTextArea getChatText(){
+        return chatText;
+    }
+    
+    @Override
+    public void addChatText(String s){
+        chatText.append(s);
+    }
+    
+    @Override
+    public void setChatText(JTextArea c){
+        this.chatText=c;
     }
 }

@@ -8,11 +8,12 @@ package pe.edu.pucp.game.rmi;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import javax.swing.JTextArea;
 import pe.edu.pucp.game.entities.creatures.Player;
 import pe.edu.pucp.game.worlds.World;
 
+public interface IServices extends Remote {
 
-public interface IServices extends Remote{
     public ArrayList<Player> getPlayers() throws RemoteException;
     public void setPlayerAtI(int i, Player p) throws RemoteException;
     public int getNPlayers() throws RemoteException;
@@ -21,4 +22,9 @@ public interface IServices extends Remote{
     public void addPlayer(Player p) throws RemoteException;
     public boolean isPaused() throws RemoteException;
     public void setPause(boolean p) throws RemoteException;
+    public boolean multiplayerStarted() throws RemoteException;
+    public void setMultiplayer(boolean m) throws RemoteException;
+    public JTextArea getChatText()throws RemoteException;
+    public void addChatText(String s) throws RemoteException;
+    public void setChatText(JTextArea c) throws RemoteException;
 }
