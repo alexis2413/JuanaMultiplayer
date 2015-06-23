@@ -25,13 +25,34 @@ public class Player extends Creature implements Serializable {
     KeyManager keyManager;
     GameCamera gameCamera;
     
-    public Player(Game game, float x, float y) {
+    public Player(Game game, double x, double y) {
         super(game, x, y, Creature.DEFAULT_CREATURE_WIDTH, Creature.DEFAULT_CREATURE_HEIGHT);
         this.setDescription("Juana, a woman who wants to cure her child from a disease");
     }
     
-    public Player(float x, float y) {
-        this.setDescription("Juana, a woman who wants to cure her child from a disease");
+    public Player(Game game, double x, double y, int position, int contU, int contD, int contR, int contL) {        
+        super(game, x, y, Creature.DEFAULT_CREATURE_WIDTH, Creature.DEFAULT_CREATURE_HEIGHT);
+        this.setDescription("double, a woman who wants to cure her child from a disease");
+        this.position=position;
+        this.contUp=contU;
+        this.contDown=contD;
+        this.contLeft=contL;
+        this.contRight=contR;
+    }
+    
+    public Player(double x, double y) {
+        super(x, y, Creature.DEFAULT_CREATURE_WIDTH, Creature.DEFAULT_CREATURE_HEIGHT);
+        this.setDescription("double, a woman who wants to cure her child from a disease");
+    }
+    
+    public Player(double x, double y, int position, int contU, int contD, int contR, int contL) {        
+        super(x, y, Creature.DEFAULT_CREATURE_WIDTH, Creature.DEFAULT_CREATURE_HEIGHT);
+        this.setDescription("double, a woman who wants to cure her child from a disease");
+        this.position=position;
+        this.contUp=contU;
+        this.contDown=contD;
+        this.contLeft=contL;
+        this.contRight=contR;
     }
 
     public Player() {
@@ -40,17 +61,17 @@ public class Player extends Creature implements Serializable {
 
     @Override
     public void tick() {
-        // TODO Auto-generated method stub
+        // TODO Auto-generated method stub        
         getInput();
         if (isValidMove()) {
             x += xMove;
             y += yMove;
         }
 
-        //game.getGameCamera().centerOnEntity(this);
-        //if (((GameState) game.getGameState()).getWorld().getTile((int) x, (int) (y)).getId() == 2) {
-          //  ((DoorTile) ((GameState) game.getGameState()).getWorld().getTile((int) x, (int) (y))).openDoor();
-        //}
+        game.getGameCamera().centerOnEntity(this);
+        if (((GameState) game.getGameState()).getWorld().getTile((int) x, (int) (y)).getId() == 2) {
+            ((DoorTile) ((GameState) game.getGameState()).getWorld().getTile((int) x, (int) (y))).openDoor();
+        }
     }
 
     private void getInput() {
@@ -248,4 +269,46 @@ public class Player extends Creature implements Serializable {
     public void setGameCamera(GameCamera gc){
         gameCamera=gc;
     }
+    
+    public int getPosition(){
+        return position;        
+    }
+    
+    public void setPosition(int p){
+        position=p;
+    }
+    
+    public int getContUp(){
+        return contUp;
+    }
+    
+    public int getContDown(){
+        return contDown;
+    }
+    
+    public int getContLeft(){
+        return contLeft;
+    }
+    
+    public int getContRight(){
+        return contRight;
+    }
+    
+        
+    public void setContUp(int c){
+        contUp=c;
+    }
+    
+    public void setContDown(int c){
+        contDown=c;
+    }
+    
+    public void setContLeft(int c){
+        contLeft=c;
+    }
+    
+    public void setContRight(int c){
+        contRight=c;
+    }
+    
 }

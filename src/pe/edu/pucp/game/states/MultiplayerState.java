@@ -14,10 +14,13 @@ import pe.edu.pucp.game.Launcher;
 import pe.edu.pucp.game.attacks.Attack;
 import pe.edu.pucp.game.display.Display;
 import pe.edu.pucp.game.entities.Entity;
+import static pe.edu.pucp.game.entities.creatures.Creature.DEFAULT_CREATURE_HEIGHT;
+import static pe.edu.pucp.game.entities.creatures.Creature.DEFAULT_CREATURE_WIDTH;
 import pe.edu.pucp.game.entities.creatures.NonPlayerCharacter;
 import pe.edu.pucp.game.entities.creatures.Player;
 import pe.edu.pucp.game.entities.creatures.enemies.Enemy;
 import pe.edu.pucp.game.entities.items.Item;
+import pe.edu.pucp.game.gfx.Assets;
 import pe.edu.pucp.game.states.State;
 import pe.edu.pucp.game.threads.MapThread;
 import pe.edu.pucp.game.worlds.World;
@@ -26,7 +29,7 @@ import pe.edu.pucp.game.worlds.World;
 public class MultiplayerState extends State implements Serializable {
 
     //private ArrayList<Player> players;
-    //Player player;
+    Player player;
     private int nEnemies;
     private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
     private ArrayList<Entity> objects = new ArrayList<Entity>();
@@ -37,13 +40,15 @@ public class MultiplayerState extends State implements Serializable {
     private boolean[] objectPressed, npcPressed, enemyPressed;
     public boolean levelComplete = false;
     public int timeLeft = 15;
+    public int nPlayer;
 
     public MultiplayerState(Game game) throws RemoteException {
         super(game);
         world = new World("res/worlds/world1.xml", game.getGameCamera(), enemies, objects, npcs, items);
         //world=new World("res/worlds/world1.txt",game.getGameCamera());
         //world.saveToXml(1);
-        Player player = new Player(game,world.getSpawnX(), world.getSpawnY());
+        player = new Player(game,world.getSpawnX(), world.getSpawnY());
+        Player player1 = new Player(world.getSpawnX(), world.getSpawnY());  
         //player.setGame(game);
         //player.setGameCamera(game.getGameCamera());
         //player.setKeyManager(game.getKeyManager());
@@ -58,8 +63,9 @@ public class MultiplayerState extends State implements Serializable {
         attacks.add(attack2);
         attacks.add(attack3);
         attacks.add(attack4);
-        player.setAttacks(attacks);
-        Launcher.proxy.addPlayer(player);
+        player1.setAttacks(attacks);
+        Launcher.proxy.addPlayer(player1);
+        nPlayer = Launcher.proxy.getNPlayers();
         setGame();
         objectPressed = new boolean[objects.size()];
         npcPressed = new boolean[npcs.size()];
@@ -96,12 +102,15 @@ public class MultiplayerState extends State implements Serializable {
         //player.tick();
         try {
             //for (int i = 0; i < Launcher.proxy.getPlayers().size(); i++) {
-            Player p = Launcher.proxy.getPlayers().get(0);
+            //Player p = Launcher.proxy.getPlayers().get(0);
             //p.setGameCamera(game.getGameCamera());
             //p.setKeyManager(game.getKeyManager());
-            p.setGame(game);
-            p.tick();
-            Launcher.proxy.setPlayerAtI(0, p);
+            //p.setGame(game);
+            //movePlayer(p);
+            player.tick();
+            Player player1 = new Player(player.getX(), player.getY(),player.getPosition(),
+            player.getContUp(),player.getContDown(),player.getContRight(),player.getContLeft());
+            Launcher.proxy.setPlayerAtI(nPlayer-1, player1);
             //}
         } catch (RemoteException ex) {
             Logger.getLogger(MultiplayerState.class.getName()).log(Level.SEVERE, null, ex);
@@ -189,10 +198,18 @@ public class MultiplayerState extends State implements Serializable {
         try {
             System.out.println("cantidad de jugadores: " + Launcher.proxy.getPlayers().size());
             for (int i = 0; i < Launcher.proxy.getPlayers().size(); i++) {
-                Launcher.proxy.getPlayers().get(i).render(g);
-                int x = (int) Launcher.proxy.getPlayers().get(i).getX();
-                int y = (int) Launcher.proxy.getPlayers().get(i).getY();
-                System.out.println(x + " " + y);
+                double x = Launcher.proxy.getPlayers().get(i).getX();
+                double y = Launcher.proxy.getPlayers().get(i).getY();
+                int position = Launcher.proxy.getPlayers().get(i).getPosition();
+                int contU = Launcher.proxy.getPlayers().get(i).getContUp();
+                int contD = Launcher.proxy.getPlayers().get(i).getContDown();
+                int contR = Launcher.proxy.getPlayers().get(i).getContRight();
+                int contL = Launcher.proxy.getPlayers().get(i).getContLeft();
+                Player playeri = new Player(game,x,y,position,contU,contD,contR,contL);
+                playeri.render(g);
+                int cx = (int) Launcher.proxy.getPlayers().get(i).getX();
+                int ci = (int) Launcher.proxy.getPlayers().get(i).getY();
+                System.out.println(cx + " " + ci);
             }
         } catch (RemoteException ex) {
             Logger.getLogger(MultiplayerState.class.getName()).log(Level.SEVERE, null, ex);
@@ -302,5 +319,5 @@ public class MultiplayerState extends State implements Serializable {
     public void setItems(ArrayList<Item> items) {
         this.items = items;
     }
-
+   
 }

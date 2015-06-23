@@ -41,7 +41,7 @@ public class GameState extends State implements Serializable {
         world = new World("res/worlds/world1.xml", game.getGameCamera(), enemies, objects, npcs, items);
         //world=new World("res/worlds/world1.txt",game.getGameCamera());
         //world.saveToXml(1);
-        player = new Player(game, world.getSpawnX(), world.getSpawnY());
+        player = new Player(game, (double)world.getSpawnX(), (double)world.getSpawnY());
         ////////////////////////
         Attack attack1 = new Attack(null, 1, "Hyper Beam", 30);
         Attack attack2 = new Attack(null, 1, "Nuclear Bomb", 10);

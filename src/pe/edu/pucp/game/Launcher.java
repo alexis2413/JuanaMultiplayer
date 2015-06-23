@@ -16,7 +16,7 @@ public class Launcher implements Serializable {
 
     static {
         try {
-            reg = LocateRegistry.getRegistry("192.168.0.11", 1099);
+            reg = LocateRegistry.getRegistry("192.168.205.130", 1099);
             proxy = (IServices) reg.lookup("MyRMIServer");
         } catch (Exception e) {
             // TODO Auto-generated catch block
