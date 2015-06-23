@@ -1,8 +1,12 @@
 package pe.edu.pucp.game;
 
 import java.io.Serializable;
+import java.net.Inet4Address;
+import java.net.UnknownHostException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import pe.edu.pucp.game.rmi.IServices;
 //import pe.edu.pucp.game.rmi.IServices;
 
@@ -16,7 +20,7 @@ public class Launcher implements Serializable {
 
     static {
         try {
-            reg = LocateRegistry.getRegistry("192.168.205.130", 1099);
+            reg = LocateRegistry.getRegistry(Inet4Address.getLocalHost().getHostAddress(), 1099);
             proxy = (IServices) reg.lookup("MyRMIServer");
         } catch (Exception e) {
             // TODO Auto-generated catch block

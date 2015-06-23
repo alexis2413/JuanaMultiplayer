@@ -19,4 +19,6 @@ public interface IServices extends Remote{
     public void setNPlayers(int n) throws RemoteException;
     public World getWorld() throws RemoteException;
     public void addPlayer(Player p) throws RemoteException;
+    public boolean isPaused() throws RemoteException;
+    public void setPause(boolean p) throws RemoteException;
 }

@@ -33,7 +33,8 @@ public class DemoServerRMIImpl extends UnicastRemoteObject implements IServices 
     private ArrayList<Entity> objects = new ArrayList<Entity>();
     private ArrayList<NonPlayerCharacter> npcs = new ArrayList<NonPlayerCharacter>();
     private ArrayList<Item> items = new ArrayList<Item>();
-    private World world=new World("res/worlds/world1.xml", gameCamera, enemies, objects, npcs, items);;
+    private World world=new World("res/worlds/world1.xml", gameCamera, enemies, objects, npcs, items);
+    private boolean paused;
     
     public DemoServerRMIImpl() throws RemoteException {
     }
@@ -80,4 +81,12 @@ public class DemoServerRMIImpl extends UnicastRemoteObject implements IServices 
     public void setPlayerAtI(int i, Player p) throws RemoteException {
         players.set(i, p);
     }  
+    
+    public boolean isPaused(){
+        return paused;
+    }
+    
+    public void setPause(boolean p){
+        paused=p;
+    }
 }
