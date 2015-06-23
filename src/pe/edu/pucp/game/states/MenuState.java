@@ -7,7 +7,7 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.event.WindowEvent;
 import java.io.Serializable;
-
+import java.awt.AlphaComposite;
 import pe.edu.pucp.game.Game;
 import pe.edu.pucp.game.display.Display;
 import pe.edu.pucp.game.gfx.Assets;
@@ -50,29 +50,46 @@ public class MenuState extends State implements Serializable {
 
         Graphics g = display.getCanvas().getBufferStrategy().getDrawGraphics();
         Graphics2D g2d = (Graphics2D) g;
+        g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,0.85f));
         // TODO Auto-generated method stub
         g.drawImage(Assets.juanaBackground, 0, 0, game.getHeight(), game.getWidth(), null);
         Font fnt0 = new Font("arial", Font.BOLD, 50);
         g.setFont(fnt0);
         g.setColor(Color.black);
-
-        g.drawImage(Assets.load, 50 / 2 + 120, 190, 100, 50, null);
-        //g.drawImage(Assets.save,WIDTH/2 + 120,190,100,50,null);
-
+        
+        //PLAY!
+        g.drawImage(Assets.button1, 145, 130, 33,50,null);
+        g.drawImage(Assets.button2, 178, 130, 33,50,null);
+        g.drawImage(Assets.button3, 211, 130, 34,50,null);
+        //HELP!
+        g.drawImage(Assets.button1, 145, 260, 33,50,null);
+        g.drawImage(Assets.button2, 178, 260, 33,50,null);
+        g.drawImage(Assets.button3, 211, 260, 34,50,null);
+        //QUIT!
+        g.drawImage(Assets.button1, 145, 330, 33,50,null);
+        g.drawImage(Assets.button2, 178, 330, 33,50,null);
+        g.drawImage(Assets.button3, 211, 330, 34,50,null);
+        //LOAD!
+        g.drawImage(Assets.button1, 145, 190, 33,50,null);
+        g.drawImage(Assets.button2, 178, 190, 33,50,null);
+        g.drawImage(Assets.button3, 211, 190, 34,50,null);
+        //CHOOSE CHARACTER!
+        g.drawImage(Assets.button1, 280, 150, 38,25,null);
+        g.drawImage(Assets.button2, 318, 150, 38,25,null);
+        g.drawImage(Assets.button3, 356, 150, 39,25,null);
+        
         Font fnt1 = new Font("arial", Font.BOLD, 30);
         g.setFont(fnt1);
-        g.drawString("Play", playButton.x + 19, playButton.y + 30);
-        g2d.draw(playButton);
-        g.drawString("Help", helpButton.x + 19, helpButton.y + 30);
-        g2d.draw(helpButton);
-        g.drawString("Quit", quitButton.x + 19, quitButton.y + 30);
-        g2d.draw(quitButton);
-        //g.drawString("Load",loadButton.x+19,loadButton.y+30);
-        //g2d.draw(loadButton);
+        
+        g.drawString("Play", playButton.x + 19, playButton.y + 35);        
+        g.drawString("Help", helpButton.x + 19, helpButton.y + 35);                
+        g.drawString("Quit", quitButton.x + 19, quitButton.y + 35);                
+        g.drawString("Load",loadButton.x+16,loadButton.y+35);        
+        
         Font fnt2 = new Font("arial", Font.BOLD, 12);
         g.setFont(fnt2);
         g.drawString("Choose Character", chooseCharacterButton.x + 10, chooseCharacterButton.y + 15);
-        g2d.draw(chooseCharacterButton);
+        
     }
 
     public boolean buttonTick(Rectangle button) {

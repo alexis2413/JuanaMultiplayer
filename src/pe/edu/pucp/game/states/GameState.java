@@ -19,6 +19,7 @@ import pe.edu.pucp.game.threads.MapThread;
 import pe.edu.pucp.game.threads.SeaReflectThread;
 import pe.edu.pucp.game.threads.TimeThread;
 import pe.edu.pucp.game.worlds.World;
+import java.awt.AlphaComposite;
 
 @SuppressWarnings("serial")
 public class GameState extends State implements Serializable {
@@ -165,6 +166,7 @@ public class GameState extends State implements Serializable {
 
         Graphics g = display.getCanvas().getBufferStrategy().getDrawGraphics();
         Graphics2D g2d = (Graphics2D) g;        
+        //g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,1f));
         Font fnt0 = new Font("arial", Font.BOLD, 10);
         g.setFont(fnt0);
         g.setColor(Color.black);

@@ -18,6 +18,8 @@ public class Assets implements Serializable{
 	public static BufferedImage load,save;
         public static BufferedImage sea1,sea2,sea3,sea4;
         public static BufferedImage sea1Juana,sea2Juana,sea3Juana,sea4Juana;
+        public static BufferedImage button1,button2,button3,slot;
+        public static BufferedImage corner1,corner2,corner3,corner4;       
         
 	private static final int width =32, height = 48;
 	public static void init(int i){
@@ -26,7 +28,8 @@ public class Assets implements Serializable{
 		SpriteSheet sheet3 = new SpriteSheet(ImageLoader.loadImage("/textures/pollo.gif"));
 		SpriteSheet sheet4 = new SpriteSheet(ImageLoader.loadImage("/textures/pokemon_sprites.png"));
 		SpriteSheet sheet5 = new SpriteSheet(ImageLoader.loadImage("/textures/items.png"));
-                
+                SpriteSheet sheet6=new SpriteSheet(ImageLoader.loadImage("/textures/buttons.png"));
+                SpriteSheet sheet7= new SpriteSheet(ImageLoader.loadImage("/textures/chat.png"));                       
 		int j;
 		if(i>=1&&i<=4)j=1;
 		else j=2;
@@ -50,7 +53,11 @@ public class Assets implements Serializable{
 		player10=sheet.crop(3*i*width-3*width,4*j*height-height,width,height);
 		player11=sheet.crop(3*i*width-2*width,4*j*height-height,width,height);
 		player12=sheet.crop(3*i*width-width,4*j*height-height,width,height);
-
+                
+                button1=sheet6.crop(770 , 25, 24, 24);
+                button2=sheet6.crop(795, 25, 24, 24);
+                button3=sheet6.crop(820, 25, 24, 24);
+                slot=sheet6.crop(120, 287, 40, 41);
 		
 		grass=sheet2.crop(0,800,64,64);
 		rock=sheet2.crop(0,400,64,64);
