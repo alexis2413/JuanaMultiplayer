@@ -8,7 +8,8 @@ public class Assets implements Serializable{
 	
 	public Assets(){}
 	public static BufferedImage player1, player2, player3, player4,player5,player6,player7,player8,player9,player10,player11,player12;
-	public static BufferedImage grass,rock,door,ground;
+	public static BufferedImage grass,grass2,rock,door,ground,treeBorder,treeBorder2;
+        public static BufferedImage treeCorner1,treeCorner2,treeCorner3,treeCorner4;
 	public static BufferedImage chicken;
 	public static BufferedImage juanaBackground, juanaCombat, chickenCombat;
 	public static BufferedImage angryJuana, angryChicken, fireChicken;
@@ -28,10 +29,12 @@ public class Assets implements Serializable{
 		SpriteSheet sheet = new SpriteSheet(ImageLoader.loadImage("/textures/juana.png"));
 		SpriteSheet sheet2 = new SpriteSheet(ImageLoader.loadImage("/textures/textures.jpg"));
 		SpriteSheet sheet3 = new SpriteSheet(ImageLoader.loadImage("/textures/pollo.gif"));
-		SpriteSheet sheet4 = new SpriteSheet(ImageLoader.loadImage("/textures/pokemon_sprites.png"));
+		SpriteSheet sheet4 = new SpriteSheet(ImageLoader.loadImage("/textures/npc.png"));
 		SpriteSheet sheet5 = new SpriteSheet(ImageLoader.loadImage("/textures/items.png"));
                 SpriteSheet sheet6=new SpriteSheet(ImageLoader.loadImage("/textures/buttons.png"));
-                SpriteSheet sheet7= new SpriteSheet(ImageLoader.loadImage("/textures/chat.png"));                       
+                SpriteSheet sheet7= new SpriteSheet(ImageLoader.loadImage("/textures/chat.png"));  
+                SpriteSheet sheet8=new SpriteSheet(ImageLoader.loadImage("/textures/grass.jpg"));  
+                SpriteSheet sheet9=new SpriteSheet(ImageLoader.loadImage("/textures/Boulder.png"));
 		int j;
 		if(i>=1&&i<=4)j=1;
 		else j=2;
@@ -55,8 +58,7 @@ public class Assets implements Serializable{
 		player10=sheet.crop(3*i*width-3*width,4*j*height-height,width,height);
 		player11=sheet.crop(3*i*width-2*width,4*j*height-height,width,height);
 		player12=sheet.crop(3*i*width-width,4*j*height-height,width,height);
-                
-                boulder=sheet2.crop(650,10,64,64);
+                                
                 grass=sheet2.crop(0,800,64,64);
 		rock=sheet2.crop(0,400,64,64);
 		door=sheet2.crop(300,550,64,64);
@@ -64,7 +66,7 @@ public class Assets implements Serializable{
                 
                 chicken=sheet3.crop(0,0,20,20);
 		
-		npc1=sheet4.crop(0,0,20,25);
+		npc1=sheet4.crop(130,0,30,31);
 		
 		berry=sheet5.crop(0,0,22,22);
                 
@@ -89,6 +91,10 @@ public class Assets implements Serializable{
                 barLeft=sheet7.crop(859, 226, 11, 54);
                 barRight=sheet7.crop(988, 226, 11, 54);
                 
+                grass2=sheet8.crop(366, 211, 47, 47);
+                
+                boulder=sheet9.crop(0,0,128,124);
+                
                 sea1=ImageLoader.loadImage("/textures/sea1.png");
                 sea2=ImageLoader.loadImage("/textures/sea2.png");
                 sea3=ImageLoader.loadImage("/textures/sea3.png");
@@ -107,5 +113,12 @@ public class Assets implements Serializable{
 		
 		load=ImageLoader.loadImage("/textures/folder.png");
 		save=ImageLoader.loadImage("/textures/save.png");
+                
+                treeBorder=ImageLoader.loadImage("/textures/TreeBorder.png");
+                treeBorder2=ImageLoader.loadImage("/textures/TreeBorder2.png");
+                treeCorner1=ImageLoader.loadImage("/textures/TreeCorner1.png");
+                treeCorner2=ImageLoader.loadImage("/textures/TreeCorner2.png");
+                treeCorner3=ImageLoader.loadImage("/textures/TreeCorner3.png");
+                treeCorner4=ImageLoader.loadImage("/textures/TreeCorner4.png");
 	}
 }

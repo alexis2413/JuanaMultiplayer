@@ -5,6 +5,8 @@
  */
 package pe.edu.pucp.game.states;
 
+import java.awt.AlphaComposite;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
@@ -39,7 +41,7 @@ public class LobbyState extends State {
             Rectangle frame = new Rectangle(200, 50 + (i - 4) * 30, 150, 30);
             playerFrames.add(frame);
         }
-        
+
         Player player1 = new Player(1, 1);
         Attack attack1 = new Attack(null, 1, "Hyper Beam", 30);
         Attack attack2 = new Attack(null, 1, "Nuclear Bomb", 10);
@@ -54,11 +56,11 @@ public class LobbyState extends State {
         try {
             Launcher.proxy.addPlayer(player1);
             nPlayer = Launcher.proxy.getNPlayers();
-            game.setMultiplayerState(new MultiplayerState(game,nPlayer));
+            game.setMultiplayerState(new MultiplayerState(game, nPlayer));
         } catch (RemoteException ex) {
             Logger.getLogger(LobbyState.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }
 
     @Override
@@ -85,8 +87,12 @@ public class LobbyState extends State {
 
     @Override
     public void render(Display display) {
+        
         Graphics g = display.getCanvas().getBufferStrategy().getDrawGraphics();
         Graphics2D g2d = (Graphics2D) g;
+        g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.85f));
+        // TODO Auto-generated method stub
+        g.drawImage(Assets.juanaBackground, 0, 0, game.getHeight(), game.getWidth(), null);
         try {
             for (int i = 0; i < Launcher.proxy.getPlayers().size(); i++) {
                 g2d.drawImage(Assets.player4, playerFrames.get(i).x, playerFrames.get(i).y, 30, 30, null);
@@ -99,10 +105,20 @@ public class LobbyState extends State {
         }
 
         
-        g2d.draw(startButton);
-        g2d.draw(chatButton);
-        g.drawString("Start",startButton.x, startButton.y);
-        g.drawString("Chat",chatButton.x, chatButton.y);
+        //START!
+        g.drawImage(Assets.button1, 150, 300, 26, 40, null);
+        g.drawImage(Assets.button2, 176, 300, 26, 40, null);
+        g.drawImage(Assets.button3, 202, 300, 28, 40, null);
+        //CHAT!
+        g.drawImage(Assets.button1, 250, 300, 26, 40, null);
+        g.drawImage(Assets.button2, 276, 300, 26, 40, null);
+        g.drawImage(Assets.button3, 302, 300, 28, 40, null);
+        
+        Font fnt1 = new Font("arial", Font.BOLD, 24);
+        g.setFont(fnt1);
+
+        g.drawString("Start", startButton.x + 12, startButton.y + 29);
+        g.drawString("Chat", chatButton.x+12, chatButton.y+29);
     }
 
     public boolean buttonTick(Rectangle button) {

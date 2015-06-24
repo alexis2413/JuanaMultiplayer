@@ -16,6 +16,11 @@ public class Tile implements Serializable{
 	public static Tile groundTile = new GroundTile(3);
         public static Tile seaTile = new SeaTile(4);
         public static Tile seaTileReflected = new SeaTileReflected(5);
+        public static Tile treeBorder2Tile=new TreeBorder2Tile(6);
+        public static Tile treeCorner1Tile=new TreeCorner1Tile(7);
+        public static Tile treeCorner2Tile=new TreeCorner2Tile(8);
+        public static Tile treeCorner3Tile=new TreeCorner3Tile(9);
+        public static Tile treeCorner4Tile=new TreeCorner4Tile(10);
 	
 	public boolean solid=false;
 	
@@ -58,7 +63,13 @@ public class Tile implements Serializable{
         public static void setSeaTileReflected(Tile seaTile){
             Tile.seaTileReflected=seaTileReflected;
         }
+        public static Tile getTreeBorder2Tile(){
+            return treeBorder2Tile;
+        }
         
+        public static void setTreeBorder2Tile(Tile treeBorder2Tile){
+            Tile.treeBorder2Tile=treeBorder2Tile;
+        }
 
 	public BufferedImage getTexture() {
 		return texture;

@@ -10,11 +10,11 @@
         <item>1</item>
     </doors>
     <doorTo>1</doorTo>
-    <tiles>11111</tiles>
+    <tiles>91117</tiles>
     <tiles>10121</tiles>
     <tiles>10101</tiles>
     <tiles>10001</tiles>
-    <tiles>11111</tiles>
+    <tiles>86661</tiles>
     <door>false</door>
     <gameCamera>
         <cameraHeight>400</cameraHeight>

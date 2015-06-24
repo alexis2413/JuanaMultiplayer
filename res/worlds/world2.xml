@@ -10,7 +10,7 @@
         <item>1</item>
     </doors>
     <doorTo>1</doorTo>
-    <tiles>11111111111111111111</tiles>
+    <tiles>91111111111111111117</tiles>
     <tiles>13333313323313333331</tiles>
     <tiles>13333313333313333331</tiles>
     <tiles>13333313333313333331</tiles>
@@ -29,7 +29,7 @@
     <tiles>13333333333333333331</tiles>
     <tiles>13333333333333333331</tiles>
     <tiles>13333333333333333331</tiles>
-    <tiles>11111111111111111111</tiles>
+    <tiles>86666666666666666661</tiles>
     <door>false</door>
     <gameCamera>
         <cameraHeight>400</cameraHeight>
