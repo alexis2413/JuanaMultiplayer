@@ -22,7 +22,7 @@
         <xOffset>-88.0</xOffset>
         <yOffset>-152.0</yOffset>
     </gameCamera>
-    <path>res/Worlds/world3.txt</path>
+    <path>res/Worlds/world3.xml</path>
 	<nEnemies>0</nEnemies>
 	<nObjects>0</nObjects>
 	<nNpcs>0</nNpcs>

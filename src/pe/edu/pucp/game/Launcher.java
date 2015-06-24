@@ -20,14 +20,14 @@ public class Launcher implements Serializable {
 
     static {
         try {
-            reg = LocateRegistry.getRegistry("192.168.205.111", 1099);
+            reg = LocateRegistry.getRegistry("192.168.205.112", 1099);
             proxy = (IServices) reg.lookup("MyRMIServer");
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
-
+    
     public static void main(String[] args) {
         Game game = new Game("Los Juanes de Juana", 400, 400, 1);
         game.start();

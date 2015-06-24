@@ -34,7 +34,7 @@ public class DemoServerRMIImpl extends UnicastRemoteObject implements IServices 
     private ArrayList<Entity> objects = new ArrayList<Entity>();
     private ArrayList<NonPlayerCharacter> npcs = new ArrayList<NonPlayerCharacter>();
     private ArrayList<Item> items = new ArrayList<Item>();
-    private World world=new World("res/worlds/world1.xml", gameCamera, enemies, objects, npcs, items);
+    private World world;
     private boolean paused;
     private boolean multiplayerStarted;
     
@@ -42,6 +42,7 @@ public class DemoServerRMIImpl extends UnicastRemoteObject implements IServices 
     JTextArea chatText = new JTextArea();
     
     public DemoServerRMIImpl() throws RemoteException {
+        world=new World("res/worlds/world4.xml", gameCamera, enemies, objects, npcs, items);
     }
 
     public static void main(String[] args) {
@@ -58,8 +59,7 @@ public class DemoServerRMIImpl extends UnicastRemoteObject implements IServices 
     @Override
     public ArrayList<Player> getPlayers() throws RemoteException {
         return players;
-    }
-    
+    }    
     
     @Override
     public int getNPlayers() throws RemoteException {
@@ -126,4 +126,46 @@ public class DemoServerRMIImpl extends UnicastRemoteObject implements IServices 
     public void deletePlayer(int i) throws RemoteException{
         players.set(i, null);
     }
+
+    @Override
+    public ArrayList<Enemy> getEnemies() throws RemoteException {
+        return enemies;
+    }
+
+    @Override
+    public void setEnemies(ArrayList<Enemy> enemies) throws RemoteException {
+        this.enemies=enemies;
+    }
+
+    @Override
+    public ArrayList<Entity> getObjects() throws RemoteException {
+        return objects;
+    }
+
+    @Override
+    public void setObjects(ArrayList<Entity> objects) throws RemoteException {
+        this.objects=objects;
+    }
+
+    @Override
+    public ArrayList<NonPlayerCharacter> getNpcs() throws RemoteException {
+        return npcs;
+    }
+
+    @Override
+    public void setNpcs(ArrayList<NonPlayerCharacter> npcs) throws RemoteException {
+        this.npcs=npcs;
+    }
+
+    @Override
+    public ArrayList<Item> getItems() throws RemoteException {
+        return items;
+    }
+
+    @Override
+    public void setItems(ArrayList<Item> items) throws RemoteException {
+        this.items=items;
+    }
+    
+    
 }

@@ -260,6 +260,14 @@ public class World implements Serializable {
     public void setItems(int[][] items) {
         this.items = items;
     }
+    
+    /*public GameCamera getGameCamera(){
+        return gameCamera;
+    }
+    
+    public void setGameCamera(GameCamera gc){
+        this.gameCamera=gc;
+    }*/
 
     public void saveToXml(int name) {
         try {

@@ -9,7 +9,11 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import javax.swing.JTextArea;
+import pe.edu.pucp.game.entities.Entity;
+import pe.edu.pucp.game.entities.creatures.NonPlayerCharacter;
 import pe.edu.pucp.game.entities.creatures.Player;
+import pe.edu.pucp.game.entities.creatures.enemies.Enemy;
+import pe.edu.pucp.game.entities.items.Item;
 import pe.edu.pucp.game.worlds.World;
 
 public interface IServices extends Remote {
@@ -27,5 +31,13 @@ public interface IServices extends Remote {
     public JTextArea getChatText()throws RemoteException;
     public void addChatText(String s) throws RemoteException;
     public void setChatText(JTextArea c) throws RemoteException;
-    public void deletePlayer(int i) throws RemoteException;
+    public void deletePlayer(int i) throws RemoteException;    
+    public ArrayList<Enemy> getEnemies() throws RemoteException;
+    public void setEnemies(ArrayList<Enemy> enemies) throws RemoteException;    
+    public ArrayList<Entity> getObjects() throws RemoteException;
+    public void setObjects(ArrayList<Entity> objects) throws RemoteException;    
+    public ArrayList<NonPlayerCharacter> getNpcs() throws RemoteException;
+    public void setNpcs(ArrayList<NonPlayerCharacter> npcs) throws RemoteException;
+    public ArrayList<Item> getItems() throws RemoteException;
+    public void setItems(ArrayList<Item> items) throws RemoteException;
 }

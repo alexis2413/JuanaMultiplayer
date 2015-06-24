@@ -74,7 +74,7 @@ public class Player extends Creature implements Serializable {
         }
     }
 
-    private void getInput() {
+    public void getInput() {
         xMove = 0;
         yMove = 0;
         if (game.getKeyManager().up) {

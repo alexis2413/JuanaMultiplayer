@@ -37,7 +37,7 @@
         <xOffset>-24.0</xOffset>
         <yOffset>-152.0</yOffset>
     </gameCamera>
-    <path>res/Worlds/world2.txt</path>
+    <path>res/Worlds/world2.xml</path>
     <nEnemies>0</nEnemies>
     <nObjects>12</nObjects>
     <objects>

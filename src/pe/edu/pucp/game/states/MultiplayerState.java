@@ -20,9 +20,17 @@ import pe.edu.pucp.game.entities.creatures.NonPlayerCharacter;
 import pe.edu.pucp.game.entities.creatures.Player;
 import pe.edu.pucp.game.entities.creatures.enemies.Enemy;
 import pe.edu.pucp.game.entities.items.Item;
+import pe.edu.pucp.game.entities.objects.Boulder;
 import pe.edu.pucp.game.gfx.Assets;
+import pe.edu.pucp.game.gfx.GameCamera;
 import pe.edu.pucp.game.states.State;
 import pe.edu.pucp.game.threads.MapThread;
+import pe.edu.pucp.game.tile.DoorTile;
+import pe.edu.pucp.game.tile.GrassTile;
+import pe.edu.pucp.game.tile.RockTile;
+import pe.edu.pucp.game.tile.SeaTile;
+import pe.edu.pucp.game.tile.SeaTileReflected;
+import pe.edu.pucp.game.tile.Tile;
 import pe.edu.pucp.game.worlds.World;
 
 @SuppressWarnings("serial")
@@ -35,24 +43,21 @@ public class MultiplayerState extends State implements Serializable {
     private ArrayList<Entity> objects = new ArrayList<Entity>();
     private ArrayList<NonPlayerCharacter> npcs = new ArrayList<NonPlayerCharacter>();
     private ArrayList<Item> items = new ArrayList<Item>();
-    private World world;
+    //private World world;
     private boolean playerPressed = false;
-    private boolean[] objectPressed, npcPressed, enemyPressed;
     public boolean levelComplete = false;
     public int timeLeft = 15;
     public int nPlayer;
 
     public MultiplayerState(Game game, int nPlayer) throws RemoteException {
         super(game);
-        world = new World("res/worlds/world1.xml", game.getGameCamera(), enemies, objects, npcs, items);
+        //world = new World("res/worlds/world1.xml", game.getGameCamera(), enemies, objects, npcs, items);
         //world=new World("res/worlds/world1.txt",game.getGameCamera());
         //world.saveToXml(1);
-        player = new Player(game, world.getSpawnX(), world.getSpawnY());
+        //player = new Player(game, world.getSpawnX(), world.getSpawnY());
+        player = new Player(game, 1, 1);
 
         setGame();
-        objectPressed = new boolean[objects.size()];
-        npcPressed = new boolean[npcs.size()];
-        enemyPressed = new boolean[enemies.size()];
         MapThread mt = new MapThread(game);
         mt.start();
         this.nPlayer = nPlayer;
@@ -94,7 +99,12 @@ public class MultiplayerState extends State implements Serializable {
                  setGame();
                  timeLeft=15;
                  }*/
-                world.tick();
+                try {
+                    //world.render(g);
+                    Launcher.proxy.getWorld().tick();
+                } catch (RemoteException ex) {
+                    Logger.getLogger(MultiplayerState.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 //player.tick();
                 try {
                     //for (int i = 0; i < Launcher.proxy.getPlayers().size(); i++) {
@@ -103,7 +113,8 @@ public class MultiplayerState extends State implements Serializable {
                     //p.setKeyManager(game.getKeyManager());
                     //p.setGame(game);
                     //movePlayer(p);
-                    player.tick();
+                    //player.tick();
+                    movePlayer(player);
                     if (game.getKeyManager().p == true) {
                         Launcher.proxy.setPause(!Launcher.proxy.isPaused());
                     }
@@ -115,57 +126,22 @@ public class MultiplayerState extends State implements Serializable {
                     Logger.getLogger(MultiplayerState.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 for (int i = 0; i < npcs.size(); i++) {
-                    if (npcs.size() != npcPressed.length) {
-                        npcPressed = new boolean[npcs.size()];
-                    }
                     npcs.get(i).tick();
-                    if ((game.getMouseManager().mX >= npcs.get(i).getX() * 24 - game.getGameCamera().getxOffset()
-                            && game.getMouseManager().mX <= npcs.get(i).getX() * 24 - game.getGameCamera().getxOffset() + 24)
-                            && (game.getMouseManager().mY >= npcs.get(i).getY() * 24 - game.getGameCamera().getyOffset()
-                            && game.getMouseManager().mY <= npcs.get(i).getY() * 24 - game.getGameCamera().getyOffset() + 24)) {
-                        npcPressed[i] = true;
-                    } else {
-                        npcPressed[i] = false;
-                    }
                 }
 
-                if (enemies.size() > 0) {
-                    if (enemies.size() != enemyPressed.length) {
-                        enemyPressed = new boolean[enemies.size()];
-                    }
-                }
                 for (int j = 0; j < enemies.size(); j++) {
-                    if ((game.getMouseManager().mX >= enemies.get(j).getX() * 24 - game.getGameCamera().getxOffset()
-                            && game.getMouseManager().mX <= enemies.get(j).getX() * 24 - game.getGameCamera().getxOffset() + 24)
-                            && (game.getMouseManager().mY >= enemies.get(j).getY() * 24 - game.getGameCamera().getyOffset()
-                            && game.getMouseManager().mY <= enemies.get(j).getY() * 24 - game.getGameCamera().getyOffset() + 24)) {
-                        enemyPressed[j] = true;
-                    } else {
-                        enemyPressed[j] = false;
-                    }
                     enemies.get(j).tick();
                     if (enemies.get(j).getHealth() <= 0) {
                         enemies.remove(j);
                         nEnemies--;
                     }
                 }
-
-                if (objects.size() > 0) {
-                    if (objects.size() != objectPressed.length) {
-                        objectPressed = new boolean[objects.size()];
-                    }
+                //System.out.println(Launcher.proxy.getObjects().size()+"");
+                ArrayList<Entity> objects1 = Launcher.proxy.getObjects();
+                for (int j = 0; j < objects1.size(); j++) {                    
+                    boulderTick((Boulder)objects1.get(j),player);
                 }
-                for (int j = 0; j < objects.size(); j++) {
-                    objects.get(j).tick();
-                    if ((game.getMouseManager().mX >= objects.get(j).getX() * 24 - game.getGameCamera().getxOffset()
-                            && game.getMouseManager().mX <= objects.get(j).getX() * 24 - game.getGameCamera().getxOffset() + 24)
-                            && (game.getMouseManager().mY >= objects.get(j).getY() * 24 - game.getGameCamera().getyOffset()
-                            && game.getMouseManager().mY <= objects.get(j).getY() * 24 - game.getGameCamera().getyOffset() + 24)) {
-                        objectPressed[j] = true;
-                    } else {
-                        objectPressed[j] = false;
-                    }
-                }
+                Launcher.proxy.setObjects(objects1);
 
                 if (items.size() > 0) {
                     for (int i = 0; i < items.size(); i++) {
@@ -193,15 +169,21 @@ public class MultiplayerState extends State implements Serializable {
 
     @Override
     public void render(Display display) {
-        // TODO Auto-generated method stub
-        Graphics g = display.getCanvas().getBufferStrategy().getDrawGraphics();
-        Graphics2D g2d = (Graphics2D) g;
-        Font fnt0 = new Font("arial", Font.BOLD, 10);
-        g.setFont(fnt0);
-        g.setColor(Color.black);
-        world.render(g);
-        player.render(g);
         try {
+            // TODO Auto-generated method stub
+            Graphics g = display.getCanvas().getBufferStrategy().getDrawGraphics();
+            Graphics2D g2d = (Graphics2D) g;
+            Font fnt0 = new Font("arial", Font.BOLD, 10);
+            g.setFont(fnt0);
+            g.setColor(Color.black);
+            try {
+                //world.render(g);
+                drawWorld(Launcher.proxy.getWorld(), game.getGameCamera(), g);
+            } catch (RemoteException ex) {
+                Logger.getLogger(MultiplayerState.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            //player.render(g);
+
             System.out.println("cantidad de jugadores: " + Launcher.proxy.getPlayers().size());
             for (int i = 0; i < Launcher.proxy.getPlayers().size(); i++) {
                 if (Launcher.proxy.getPlayers().get(i) != null) {
@@ -219,56 +201,46 @@ public class MultiplayerState extends State implements Serializable {
                     System.out.println(cx + " " + ci);
                 }
             }
+
+            if (playerPressed) {
+                g.drawString(player.getDescription(), (int) (player.getX() * 24 - game.getGameCamera().getxOffset()),
+                        (int) (player.getY() * 24 - game.getGameCamera().getyOffset()));
+            }
+            if (enemies.size() > 0) {
+                for (int j = 0; j < enemies.size(); j++) {
+                    enemies.get(j).render(g);
+                }
+            }
+            if (Launcher.proxy.getObjects().size() > 0) {
+                for (int j = 0; j < Launcher.proxy.getObjects().size(); j++) {
+                    drawObject(Launcher.proxy.getObjects().get(j), g);
+                }
+            }
+
+            for (int i = 0; i < npcs.size(); i++) {
+                npcs.get(i).render(g);
+            }
+
+            for (int i = 0; i < items.size(); i++) {
+                items.get(i).render(g);
+            }
+
+            fnt0 = new Font("arial", Font.BOLD, 20);
+            g.setFont(fnt0);
+            g.setColor(Color.black);
+
+            try {
+                if (Launcher.proxy.isPaused() == true) {
+                    g.drawString("Paused", 20, 20);
+                }
+                //g.drawString("Time left to complete level: " + timeLeft, 20, 20);
+            } catch (RemoteException ex) {
+                Logger.getLogger(MultiplayerState.class.getName()).log(Level.SEVERE, null, ex);
+            }
         } catch (RemoteException ex) {
             Logger.getLogger(MultiplayerState.class.getName()).log(Level.SEVERE, null, ex);
         }
-        if (playerPressed) {
-            g.drawString(player.getDescription(), (int) (player.getX() * 24 - game.getGameCamera().getxOffset()),
-                    (int) (player.getY() * 24 - game.getGameCamera().getyOffset()));
-        }
-        if (enemies.size() > 0) {
-            for (int j = 0; j < enemies.size(); j++) {
-                enemies.get(j).render(g);
-                if (enemyPressed[j]) {
-                    g.drawString(enemies.get(j).getDescription(), (int) (enemies.get(j).getX() * 24 - game.getGameCamera().getxOffset()),
-                            (int) (enemies.get(j).getY() * 24 - game.getGameCamera().getyOffset()));
-                }
-            }
-        }
-        if (objects.size() > 0) {
-            for (int j = 0; j < objects.size(); j++) {
-                objects.get(j).render(g);
-                if (objectPressed[j]) {
-                    g.drawString(objects.get(j).getDescription(), (int) (objects.get(j).getX() * 24 - game.getGameCamera().getxOffset()),
-                            (int) (objects.get(j).getY() * 24 - game.getGameCamera().getyOffset()));
-                }
-            }
-        }
-
-        for (int i = 0; i < npcs.size(); i++) {
-            npcs.get(i).render(g);
-            if (npcPressed[i]) {
-                g.drawString(npcs.get(i).getDescription(), (int) (npcs.get(i).getX() * 24 - game.getGameCamera().getxOffset()),
-                        (int) (npcs.get(i).getY() * 24 - game.getGameCamera().getyOffset()));
-            }
-        }
-
-        for (int i = 0; i < items.size(); i++) {
-            items.get(i).render(g);
-        }
-
-        fnt0 = new Font("arial", Font.BOLD, 20);
-        g.setFont(fnt0);
-        g.setColor(Color.black);
-
-        try {
-            if (Launcher.proxy.isPaused() == true) {
-                g.drawString("Paused", 20, 20);
-            }
-            //g.drawString("Time left to complete level: " + timeLeft, 20, 20);
-        } catch (RemoteException ex) {
-            Logger.getLogger(MultiplayerState.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        //player.render(g);
     }
 
     public void setGame() {
@@ -303,14 +275,13 @@ public class MultiplayerState extends State implements Serializable {
         this.enemies = enemies;
     }
 
-    public World getWorld() {
-        return world;
-    }
+    /*public World getWorld() {
+     return world;
+     }
 
-    public void setWorld(World world) {
-        this.world = world;
-    }
-
+     public void setWorld(World world) {
+     this.world = world;
+     }*/
     public ArrayList<Entity> getObjects() {
         return objects;
     }
@@ -335,4 +306,123 @@ public class MultiplayerState extends State implements Serializable {
         this.items = items;
     }
 
+    public void drawWorld(World world, GameCamera gameCamera, Graphics g) {
+        Tile.rockTile = new RockTile(1);
+        Tile.grassTile = new GrassTile(0);
+        Tile.seaTile = new SeaTile(4);
+        Tile.seaTileReflected = new SeaTileReflected(5);
+        for (int y = 0; y < world.getHeight(); y++) {
+            for (int x = 0; x < world.getWidth(); x++) {
+                world.getTile(x, y).render(g, (int) (x * Tile.TILEWIDTH - gameCamera.getxOffset()),
+                        (int) (y * Tile.TILEHEIGHT - gameCamera.getyOffset()));
+            }
+        }
+    }
+
+    public void drawObject(Entity o, Graphics g) {
+        g.drawImage(Assets.boulder, (int) (o.getX() * o.getWidth() - game.getGameCamera().getxOffset()),
+                (int) (o.getY() * o.getHeight() - game.getGameCamera().getyOffset()), o.getWidth(), o.getHeight(), null);
+    }
+
+    public void movePlayer(Player player) {
+        try {
+            player.getInput();
+            if (player.isValidMultiplayerMove(Launcher.proxy.getObjects(), Launcher.proxy.getNpcs(), Launcher.proxy.getItems(), Launcher.proxy.getWorld())) {
+                player.setX(player.getX() + player.getxMove());
+                player.setY(player.getY() + player.getyMove());
+            }
+            game.getGameCamera().centerOnEntity(player);
+            /**
+             * if (((GameState) game.getGameState()).getWorld().getTile((int) x,
+             * (int) (y)).getId() == 2) { ((DoorTile) ((GameState)
+             * game.getGameState()).getWorld().getTile((int) x, (int)
+             * (y))).openDoor(); }
+             */
+        } catch (RemoteException ex) {
+            Logger.getLogger(MultiplayerState.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
+    public void boulderTick(Boulder boulder, Player player) {
+        playerNextTo(boulder, player);
+        if (playerContact(player, boulder) && boulder.isCollisioned()) {
+            try {
+                if (!Launcher.proxy.getWorld().getTile((int) (boulder.getX() + boulder.getxMove()), (int) (boulder.getY() + boulder.getyMove())).isSolid()
+                        && boulder.isValidMultiplayerMove(boulder.getxMove(), boulder.getyMove(),
+                                Launcher.proxy.getObjects(), Launcher.proxy.getNpcs(), Launcher.proxy.getItems(), Launcher.proxy.getWorld())) {
+                    boulder.setX(boulder.getX() + boulder.getxMove());
+                    boulder.setY(boulder.getY() + boulder.getyMove());
+                }
+            } catch (RemoteException ex) {
+                Logger.getLogger(MultiplayerState.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
+    public void playerNextTo(Boulder boulder, Player player) {
+        //player above boulder
+        if (player.getX() == boulder.getX()
+                && player.getY() == boulder.getY() - 1) {
+            boulder.setyMove(1);
+        } //player bellow boulder
+        else if (player.getX() == boulder.getX()
+                && player.getY() == boulder.getY() + 1) {
+            boulder.setyMove(-1);
+        } //player left to boulder
+        else if (player.getX() == boulder.getX() - 1
+                && player.getY() == boulder.getY()) {
+            boulder.setxMove(1);
+        } //player right to boulder
+        else if (player.getX() == boulder.getX() + 1
+                && player.getY() == boulder.getY()) {
+            boulder.setxMove(-1);
+        } else if (!collision(player, boulder)) {
+            boulder.setxMove(0);
+            boulder.setyMove(0);
+        }
+    }
+
+    public boolean collision(Player player, Boulder boulder) {
+        if (boulder.getX() == (player.getX())
+                && boulder.getY() == (player.getY())) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean playerContact(Player player, Boulder boulder) {
+        //from above
+        if (player.getX() == boulder.getX()
+                && player.getY() == boulder.getY() - 1) {
+            if (game.getKeyManager().down) {
+                return true;
+            }
+        }
+        //from bellow
+        if (player.getX() == boulder.getX()
+                && player.getY() == boulder.getY() + 1) {
+            if (game.getKeyManager().up) {
+                return true;
+            }
+        }
+
+        //from the left
+        if (player.getX() == boulder.getX() - 1
+                && player.getY() == boulder.getY()) {
+            if (game.getKeyManager().right) {
+                return true;
+            }
+        }
+
+        //from the right
+        if (player.getX() == boulder.getX() + 1
+                && player.getY() == boulder.getY()) {
+            if (game.getKeyManager().left) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
