@@ -148,12 +148,67 @@ public class CombatState extends State {
             //g.drawImage(Assets.angryChicken,200,150,100,100,null);
             g.drawImage(Assets.angryChicken, 200, 80, 100, 100, null);
         }
+        //ATTACKS!
+        g.setColor(Color.orange);
+        //ATTACK 1  45, 260, 100, 50
+        g.fillRect(48, 263, 97, 45);
+        g.drawRect(48, 263, 97, 45);
 
+        g.drawImage(Assets.corner1, 45, 260, 21, 21, null);
+        g.drawImage(Assets.corner2, 124, 260, 21, 21, null);
+        g.drawImage(Assets.corner3, 45, 289, 21, 21, null);
+        g.drawImage(Assets.corner4, 124, 289, 21, 21, null);
+
+        g.drawImage(Assets.barTop, 64, 260, 62, 11, null);
+        g.drawImage(Assets.barBot, 64, 299, 62, 11, null);
+        g.drawImage(Assets.barLeft, 45, 281, 11, 8, null);
+        g.drawImage(Assets.barRight, 135, 281, 11, 8, null);
+        //ATTACK 2  45, 330, 100, 50
+        g.fillRect(48, 333, 97, 45);
+        g.drawRect(48, 333, 97, 45);
+
+        g.drawImage(Assets.corner1, 45,330, 21, 21, null);
+        g.drawImage(Assets.corner2, 124, 330, 21, 21, null);
+        g.drawImage(Assets.corner3, 45, 359, 21, 21, null);
+        g.drawImage(Assets.corner4, 124, 359, 21, 21, null);
+        
+        g.drawImage(Assets.barTop, 64, 330, 62, 11, null);
+        g.drawImage(Assets.barBot, 64, 369, 62, 11, null);
+        g.drawImage(Assets.barLeft, 45, 351, 11, 8, null);
+        g.drawImage(Assets.barRight, 135, 351, 11, 8, null);
+        //ATTACK 3  175, 260, 100, 50        
+        g.fillRect(178, 263, 97, 45);
+        g.drawRect(178, 263, 97, 45);
+
+        g.drawImage(Assets.corner1, 175, 260, 21, 21, null);
+        g.drawImage(Assets.corner2, 254, 260, 21, 21, null);
+        g.drawImage(Assets.corner3, 175, 289, 21, 21, null);
+        g.drawImage(Assets.corner4, 254, 289, 21, 21, null);
+        
+        g.drawImage(Assets.barTop, 194, 260, 62, 11, null);
+        g.drawImage(Assets.barBot, 194, 299, 62, 11, null);
+        g.drawImage(Assets.barLeft, 175, 281, 11, 8, null);
+        g.drawImage(Assets.barRight, 265, 281, 11, 8, null);
+        //ATTACK4   175, 330, 100, 50        
+        g.fillRect(178, 333, 97, 45);
+        g.drawRect(178, 333, 97, 45);
+
+        g.drawImage(Assets.corner1, 175, 330, 21, 21, null);
+        g.drawImage(Assets.corner2, 254, 330, 21, 21, null);
+        g.drawImage(Assets.corner3, 175, 359, 21, 21, null);
+        g.drawImage(Assets.corner4, 254, 359, 21, 21, null);
+
+        g.drawImage(Assets.barTop, 194, 330, 62, 11, null);
+        g.drawImage(Assets.barBot, 194, 369, 62, 11, null);
+        g.drawImage(Assets.barLeft, 175, 351, 11, 8, null);
+        g.drawImage(Assets.barRight, 265, 351, 11, 8, null);
+        
+        
+        g.setColor(Color.black);
         Font fnt1 = new Font("arial", Font.BOLD, 10);
         g.setFont(fnt1);
         g.drawString(((GameState) game.getGameState()).getPlayer().getAttacks().get(0).getName(), attack1.x + 19, attack1.y + 30);
         //g.drawString(enemy.getAttacks().get(0).getName(), attack1.x + 19, attack1.y + 30);
-        g2d.draw(attack1);
         g.drawString(((GameState) game.getGameState()).getPlayer().getAttacks().get(1).getName(), attack2.x + 19, attack2.y + 30);
         //g.drawString(enemy.getAttacks().get(1).getName(), attack2.x + 19, attack2.y + 30);
         g2d.draw(attack2);

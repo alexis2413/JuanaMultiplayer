@@ -8,7 +8,7 @@ import pe.edu.pucp.game.gfx.Assets;
 public class RockTile extends Tile implements Serializable{
 
 	public RockTile(int id) {
-		super(Assets.rock,id);
+		super(Assets.treeBorder,id);
 		solid=true;
 		// TODO Auto-generated constructor stub
 	}

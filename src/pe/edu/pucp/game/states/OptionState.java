@@ -82,7 +82,7 @@ public class OptionState extends State {
         //Stats
         int max = ((GameState) game.getGameState()).getPlayer().getMaxHealth();
         int actual = ((GameState) game.getGameState()).getPlayer().getHealth();
-        int pix = (int) (1.0 * actual / max) * 150;
+        int pix = (int) ((150.0 * actual) / max);
         if (actual == max) {
             g.drawImage(Assets.fillBar1, 48, 95, 43, 20, null);
             g.drawImage(Assets.fillBar2, 91, 95, 66, 20, null);
@@ -92,9 +92,12 @@ public class OptionState extends State {
                 g.drawImage(Assets.fillBar1, 48, 95, pix, 20, null);
             }
             if(pix>=43&&pix<109){
+                g.drawImage(Assets.fillBar1, 48, 95, 43, 20, null);
                 g.drawImage(Assets.fillBar2, 91, 95, pix-43, 20, null);
             }
             if(pix>=109){
+                g.drawImage(Assets.fillBar1, 48, 95, 43, 20, null);
+                g.drawImage(Assets.fillBar2, 91, 95, 66, 20, null);
                 g.drawImage(Assets.fillBar2, 157, 95, pix-109, 20, null);
             }
         }

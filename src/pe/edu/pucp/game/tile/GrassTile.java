@@ -7,7 +7,7 @@ import pe.edu.pucp.game.gfx.Assets;
 @SuppressWarnings("serial")
 public class GrassTile extends Tile implements Serializable{
 	public GrassTile(int id){
-		super(Assets.grass,id);
+		super(Assets.grass2,id);
 		solid=false;
 	}
 	public GrassTile(){}
