@@ -42,22 +42,33 @@ public class MultiplayerState extends State implements Serializable {
     public int timeLeft = 15;
     public int nPlayer;
 
-    public MultiplayerState(Game game,int nPlayer) throws RemoteException {
+    public MultiplayerState(Game game, int nPlayer) throws RemoteException {
         super(game);
         world = new World("res/worlds/world1.xml", game.getGameCamera(), enemies, objects, npcs, items);
         //world=new World("res/worlds/world1.txt",game.getGameCamera());
         //world.saveToXml(1);
         player = new Player(game, world.getSpawnX(), world.getSpawnY());
-        
+
         setGame();
         objectPressed = new boolean[objects.size()];
         npcPressed = new boolean[npcs.size()];
         enemyPressed = new boolean[enemies.size()];
         MapThread mt = new MapThread(game);
         mt.start();
-        this.nPlayer=nPlayer;
+        this.nPlayer = nPlayer;
         //SeaReflectThread srt = new SeaReflectThread(game);
         //srt.start();
+        game.getDisplay().getFrame().addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent e) {
+                try {
+                    Launcher.proxy.deletePlayer(nPlayer - 1);
+                } catch (RemoteException ex) {
+                    Logger.getLogger(MultiplayerState.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                game.getDisplay().getFrame().dispose();
+                System.exit(0);
+            }
+        });
     }
 
     public MultiplayerState() {
@@ -163,13 +174,13 @@ public class MultiplayerState extends State implements Serializable {
                 }
 
                 if ((game.getMouseManager().mX >= player.getX() * 24 - game.getGameCamera().getxOffset()
-                 && game.getMouseManager().mX <= player.getX() * 24 - game.getGameCamera().getxOffset() + 24)
-                 && (game.getMouseManager().mY >= player.getY() * 24 - game.getGameCamera().getyOffset()
-                 && game.getMouseManager().mY <= player.getY() * 24 - game.getGameCamera().getyOffset() + 24)) {
-                 playerPressed = true;
-                 } else {
-                 playerPressed = false;
-                 }
+                        && game.getMouseManager().mX <= player.getX() * 24 - game.getGameCamera().getxOffset() + 24)
+                        && (game.getMouseManager().mY >= player.getY() * 24 - game.getGameCamera().getyOffset()
+                        && game.getMouseManager().mY <= player.getY() * 24 - game.getGameCamera().getyOffset() + 24)) {
+                    playerPressed = true;
+                } else {
+                    playerPressed = false;
+                }
             } else {
                 if (game.getKeyManager().p == true) {
                     Launcher.proxy.setPause(!Launcher.proxy.isPaused());
@@ -193,26 +204,28 @@ public class MultiplayerState extends State implements Serializable {
         try {
             System.out.println("cantidad de jugadores: " + Launcher.proxy.getPlayers().size());
             for (int i = 0; i < Launcher.proxy.getPlayers().size(); i++) {
-                double x = Launcher.proxy.getPlayers().get(i).getX();
-                double y = Launcher.proxy.getPlayers().get(i).getY();
-                int position = Launcher.proxy.getPlayers().get(i).getPosition();
-                int contU = Launcher.proxy.getPlayers().get(i).getContUp();
-                int contD = Launcher.proxy.getPlayers().get(i).getContDown();
-                int contR = Launcher.proxy.getPlayers().get(i).getContRight();
-                int contL = Launcher.proxy.getPlayers().get(i).getContLeft();
-                Player playeri = new Player(game, x, y, position, contU, contD, contR, contL);
-                playeri.render(g);
-                int cx = (int) Launcher.proxy.getPlayers().get(i).getX();
-                int ci = (int) Launcher.proxy.getPlayers().get(i).getY();
-                System.out.println(cx + " " + ci);
+                if (Launcher.proxy.getPlayers().get(i) != null) {
+                    double x = Launcher.proxy.getPlayers().get(i).getX();
+                    double y = Launcher.proxy.getPlayers().get(i).getY();
+                    int position = Launcher.proxy.getPlayers().get(i).getPosition();
+                    int contU = Launcher.proxy.getPlayers().get(i).getContUp();
+                    int contD = Launcher.proxy.getPlayers().get(i).getContDown();
+                    int contR = Launcher.proxy.getPlayers().get(i).getContRight();
+                    int contL = Launcher.proxy.getPlayers().get(i).getContLeft();
+                    Player playeri = new Player(game, x, y, position, contU, contD, contR, contL);
+                    playeri.render(g);
+                    int cx = (int) Launcher.proxy.getPlayers().get(i).getX();
+                    int ci = (int) Launcher.proxy.getPlayers().get(i).getY();
+                    System.out.println(cx + " " + ci);
+                }
             }
         } catch (RemoteException ex) {
             Logger.getLogger(MultiplayerState.class.getName()).log(Level.SEVERE, null, ex);
         }
         if (playerPressed) {
-         g.drawString(player.getDescription(), (int) (player.getX() * 24 - game.getGameCamera().getxOffset()),
-         (int) (player.getY() * 24 - game.getGameCamera().getyOffset()));
-         }
+            g.drawString(player.getDescription(), (int) (player.getX() * 24 - game.getGameCamera().getxOffset()),
+                    (int) (player.getY() * 24 - game.getGameCamera().getyOffset()));
+        }
         if (enemies.size() > 0) {
             for (int j = 0; j < enemies.size(); j++) {
                 enemies.get(j).render(g);
