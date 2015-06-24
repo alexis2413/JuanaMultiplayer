@@ -33,15 +33,15 @@ public class GameState extends State implements Serializable {
     private World world;
     private boolean playerPressed = false;
     private boolean[] objectPressed, npcPressed, enemyPressed;
-    public boolean levelComplete =false;
-    public int timeLeft=15;
+    public boolean levelComplete = false;
+    public int timeLeft = 15;
 
     public GameState(Game game) {
         super(game);
         world = new World("res/worlds/world1.xml", game.getGameCamera(), enemies, objects, npcs, items);
         //world=new World("res/worlds/world1.txt",game.getGameCamera());
         //world.saveToXml(1);
-        player = new Player(game, (double)world.getSpawnX(), (double)world.getSpawnY());
+        player = new Player(game, (double) world.getSpawnX(), (double) world.getSpawnY());
         ////////////////////////
         Attack attack1 = new Attack(null, 1, "Hyper Beam", 30);
         Attack attack2 = new Attack(null, 1, "Nuclear Bomb", 10);
@@ -60,11 +60,11 @@ public class GameState extends State implements Serializable {
         enemyPressed = new boolean[enemies.size()];
         MapThread mt = new MapThread(game);
         mt.start();
-        //SeaReflectThread srt = new SeaReflectThread(game);
-        //srt.start();
+        SeaReflectThread srt = new SeaReflectThread(game);
+        srt.start();
         //TimeThread tt = new TimeThread(game);
         //tt.start();
-        
+
     }
 
     public GameState() {
@@ -72,92 +72,93 @@ public class GameState extends State implements Serializable {
 
     @Override
     public void tick() {
-            if (world.openDoors()) {
-                levelComplete=true;
-                game.setDialogue(true);
-                int i = 0, newWorld;
-                while (player.getX() != world.getDoors()[i][0] || player.getY() != world.getDoors()[i][1]) {
-                    i++;
-                }
-                newWorld = world.getDoorTo()[i];
-                world = new World("res/Worlds/world" + newWorld + ".xml", game.getGameCamera(), enemies, objects, npcs, items);
+        if (world.openDoors()) {
+            levelComplete = true;
+            game.setDialogue(true);
+            int i = 0, newWorld;
+            while (player.getX() != world.getDoors()[i][0] || player.getY() != world.getDoors()[i][1]) {
+                i++;
+            }
+            newWorld = world.getDoorTo()[i];
+            world = new World("res/Worlds/world" + newWorld + ".xml", game.getGameCamera(), enemies, objects, npcs, items);
                 //world=new World("res/Worlds/world"+ newWorld +".txt",game.getGameCamera());
-                //world.saveToXml(newWorld);
-                player.setX(world.getSpawnX());
-                player.setY(world.getSpawnY());
-                setGame();
-                timeLeft=15;
+            //world.saveToXml(newWorld);
+            player.setX(world.getSpawnX());
+            player.setY(world.getSpawnY());
+            setGame();
+            timeLeft = 15;
+        }
+        world.tick();
+        player.tick();
+        System.out.println(player.getX()+" "+player.getY());
+        for (int i = 0; i < npcs.size(); i++) {
+            if (npcs.size() != npcPressed.length) {
+                npcPressed = new boolean[npcs.size()];
             }
-            world.tick();
-            player.tick();
-            for (int i = 0; i < npcs.size(); i++) {
-                if (npcs.size() != npcPressed.length) {
-                    npcPressed = new boolean[npcs.size()];
-                }
-                npcs.get(i).tick();
-                if ((game.getMouseManager().mX >= npcs.get(i).getX() * 24 - game.getGameCamera().getxOffset()
-                        && game.getMouseManager().mX <= npcs.get(i).getX() * 24 - game.getGameCamera().getxOffset() + 24)
-                        && (game.getMouseManager().mY >= npcs.get(i).getY() * 24 - game.getGameCamera().getyOffset()
-                        && game.getMouseManager().mY <= npcs.get(i).getY() * 24 - game.getGameCamera().getyOffset() + 24)) {
-                    npcPressed[i] = true;
-                } else {
-                    npcPressed[i] = false;
-                }
-            }
-
-            if (enemies.size() > 0) {
-                if (enemies.size() != enemyPressed.length) {
-                    enemyPressed = new boolean[enemies.size()];
-                }
-            }
-            for (int j = 0; j < enemies.size(); j++) {
-                if ((game.getMouseManager().mX >= enemies.get(j).getX() * 24 - game.getGameCamera().getxOffset()
-                        && game.getMouseManager().mX <= enemies.get(j).getX() * 24 - game.getGameCamera().getxOffset() + 24)
-                        && (game.getMouseManager().mY >= enemies.get(j).getY() * 24 - game.getGameCamera().getyOffset()
-                        && game.getMouseManager().mY <= enemies.get(j).getY() * 24 - game.getGameCamera().getyOffset() + 24)) {
-                    enemyPressed[j] = true;
-                } else {
-                    enemyPressed[j] = false;
-                }
-                enemies.get(j).tick();
-                if (enemies.get(j).getHealth() <= 0) {
-                    enemies.remove(j);
-                    nEnemies--;
-                }
-            }
-
-            if (objects.size() > 0) {
-                if (objects.size() != objectPressed.length) {
-                    objectPressed = new boolean[objects.size()];
-                }
-            }
-            for (int j = 0; j < objects.size(); j++) {
-                objects.get(j).tick();
-                if ((game.getMouseManager().mX >= objects.get(j).getX() * 24 - game.getGameCamera().getxOffset()
-                        && game.getMouseManager().mX <= objects.get(j).getX() * 24 - game.getGameCamera().getxOffset() + 24)
-                        && (game.getMouseManager().mY >= objects.get(j).getY() * 24 - game.getGameCamera().getyOffset()
-                        && game.getMouseManager().mY <= objects.get(j).getY() * 24 - game.getGameCamera().getyOffset() + 24)) {
-                    objectPressed[j] = true;
-                } else {
-                    objectPressed[j] = false;
-                }
-            }
-
-            if (items.size() > 0) {
-                for (int i = 0; i < items.size(); i++) {
-                    items.get(i).tick();
-                }
-            }
-
-            if ((game.getMouseManager().mX >= player.getX() * 24 - game.getGameCamera().getxOffset()
-                    && game.getMouseManager().mX <= player.getX() * 24 - game.getGameCamera().getxOffset() + 24)
-                    && (game.getMouseManager().mY >= player.getY() * 24 - game.getGameCamera().getyOffset()
-                    && game.getMouseManager().mY <= player.getY() * 24 - game.getGameCamera().getyOffset() + 24)) {
-                playerPressed = true;
+            npcs.get(i).tick();
+            if ((game.getMouseManager().mX >= npcs.get(i).getX() * 24 - game.getGameCamera().getxOffset()
+                    && game.getMouseManager().mX <= npcs.get(i).getX() * 24 - game.getGameCamera().getxOffset() + 24)
+                    && (game.getMouseManager().mY >= npcs.get(i).getY() * 24 - game.getGameCamera().getyOffset()
+                    && game.getMouseManager().mY <= npcs.get(i).getY() * 24 - game.getGameCamera().getyOffset() + 24)) {
+                npcPressed[i] = true;
             } else {
-                playerPressed = false;
+                npcPressed[i] = false;
             }
-        
+        }
+
+        if (enemies.size() > 0) {
+            if (enemies.size() != enemyPressed.length) {
+                enemyPressed = new boolean[enemies.size()];
+            }
+        }
+        for (int j = 0; j < enemies.size(); j++) {
+            if ((game.getMouseManager().mX >= enemies.get(j).getX() * 24 - game.getGameCamera().getxOffset()
+                    && game.getMouseManager().mX <= enemies.get(j).getX() * 24 - game.getGameCamera().getxOffset() + 24)
+                    && (game.getMouseManager().mY >= enemies.get(j).getY() * 24 - game.getGameCamera().getyOffset()
+                    && game.getMouseManager().mY <= enemies.get(j).getY() * 24 - game.getGameCamera().getyOffset() + 24)) {
+                enemyPressed[j] = true;
+            } else {
+                enemyPressed[j] = false;
+            }
+            enemies.get(j).tick();
+            if (enemies.get(j).getHealth() <= 0) {
+                enemies.remove(j);
+                nEnemies--;
+            }
+        }
+
+        if (objects.size() > 0) {
+            if (objects.size() != objectPressed.length) {
+                objectPressed = new boolean[objects.size()];
+            }
+        }
+        for (int j = 0; j < objects.size(); j++) {
+            objects.get(j).tick();
+            if ((game.getMouseManager().mX >= objects.get(j).getX() * 24 - game.getGameCamera().getxOffset()
+                    && game.getMouseManager().mX <= objects.get(j).getX() * 24 - game.getGameCamera().getxOffset() + 24)
+                    && (game.getMouseManager().mY >= objects.get(j).getY() * 24 - game.getGameCamera().getyOffset()
+                    && game.getMouseManager().mY <= objects.get(j).getY() * 24 - game.getGameCamera().getyOffset() + 24)) {
+                objectPressed[j] = true;
+            } else {
+                objectPressed[j] = false;
+            }
+        }
+
+        if (items.size() > 0) {
+            for (int i = 0; i < items.size(); i++) {
+                items.get(i).tick();
+            }
+        }
+
+        if ((game.getMouseManager().mX >= player.getX() * 24 - game.getGameCamera().getxOffset()
+                && game.getMouseManager().mX <= player.getX() * 24 - game.getGameCamera().getxOffset() + 24)
+                && (game.getMouseManager().mY >= player.getY() * 24 - game.getGameCamera().getyOffset()
+                && game.getMouseManager().mY <= player.getY() * 24 - game.getGameCamera().getyOffset() + 24)) {
+            playerPressed = true;
+        } else {
+            playerPressed = false;
+        }
+
     }
 
     @Override
@@ -165,17 +166,17 @@ public class GameState extends State implements Serializable {
         // TODO Auto-generated method stub
 
         Graphics g = display.getCanvas().getBufferStrategy().getDrawGraphics();
-        Graphics2D g2d = (Graphics2D) g;        
-        //g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,1f));
+        Graphics2D g2d = (Graphics2D) g;
+        g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,1f));
         Font fnt0 = new Font("arial", Font.BOLD, 10);
         g.setFont(fnt0);
         g.setColor(Color.black);
-        
-        if (player.getX() == 1 && player.getY() == 1) {
-            world.render(g);
-        } else {
-            world.render(g);
-        }
+
+       // if (player.getX() == 1 && player.getY() == 1) {
+        //  world.render(g);
+        //} else {
+        world.render(g);
+        //}
         player.render(g);
         if (playerPressed) {
             g.drawString(player.getDescription(), (int) (player.getX() * 24 - game.getGameCamera().getxOffset()),
@@ -211,12 +212,11 @@ public class GameState extends State implements Serializable {
         for (int i = 0; i < items.size(); i++) {
             items.get(i).render(g);
         }
-        
+
         fnt0 = new Font("arial", Font.BOLD, 20);
-        g.setFont(fnt0);
-        g.setColor(Color.black);
-        
-        g.drawString("Time left to complete level: "+timeLeft, 20, 20);
+         g.setFont(fnt0);
+         g.setColor(Color.black);
+        //g.drawString("Time left to complete level: "+timeLeft, 20, 20);
     }
 
     public void setGame() {

@@ -47,6 +47,8 @@ public class OptionState extends State {
         if ((game.getMouseManager().mX >= 25 && game.getMouseManager().mX <= 125)
                 && (game.getMouseManager().mY >= 350 && game.getMouseManager().mY <= 400)) {
             //saveGame();
+            if(game.getSaveGameState()==null)
+                game.setGameState(new SaveGameState(game));
             game.getMouseManager().mX = 0;
             game.getMouseManager().mY = 0;
             State.setState(game.getSaveGameState());

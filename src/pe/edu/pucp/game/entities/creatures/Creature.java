@@ -72,23 +72,25 @@ public abstract class Creature extends Entity implements Serializable {
     }
 
     public boolean isValidMove() {
-        //ArrayList<Entity> objects = ((GameState) game.getGameState()).getObjects();
-        ArrayList<Entity> objects;
-        try {
-            objects = Launcher.proxy.getObjects();
+        ArrayList<Entity> objects = ((GameState) game.getGameState()).getObjects();
+        //ArrayList<Entity> objects;
+        //try {
+            //objects = Launcher.proxy.getObjects();
             for (int i = 0; i < objects.size(); i++)//collisioned an object
             {
                 if (x + xMove == objects.get(i).getX() && y + yMove == objects.get(i).getY()) {
                     objects.get(i).setCollisioned(true);
+                    System.out.println(objects.get(i).isCollisioned());
+                    //Launcher.proxy.setObjects(objects);
                     return false;
                 } else {
                     objects.get(i).setCollisioned(false);
                 }
             }
-            Launcher.proxy.setObjects(objects);
-        } catch (RemoteException ex) {
-            Logger.getLogger(Creature.class.getName()).log(Level.SEVERE, null, ex);
-        }
+
+        //} catch (RemoteException ex) {
+          //  Logger.getLogger(Creature.class.getName()).log(Level.SEVERE, null, ex);
+        //}
 
         ArrayList<NonPlayerCharacter> npcs = ((GameState) game.getGameState()).getNpcs();
         for (int i = 0; i < npcs.size(); i++) {
@@ -163,9 +165,19 @@ public abstract class Creature extends Entity implements Serializable {
         {
             if (x + xMove == objects.get(i).getX() && y + yMove == objects.get(i).getY()) {
                 objects.get(i).setCollisioned(true);
+                try {
+                    Launcher.proxy.setObjects(objects);
+                } catch (RemoteException ex) {
+                    Logger.getLogger(Creature.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 return false;
             } else {
                 objects.get(i).setCollisioned(false);
+                try {
+                    Launcher.proxy.setObjects(objects);
+                } catch (RemoteException ex) {
+                    Logger.getLogger(Creature.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
 

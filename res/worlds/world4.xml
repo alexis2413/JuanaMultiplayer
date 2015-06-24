@@ -26,9 +26,9 @@
     <tiles>13333333333333333331</tiles>
     <tiles>13333333333333333331</tiles>
     <tiles>13333333333333333331</tiles>
-    <tiles>13333333333333333331</tiles>
-    <tiles>13333333333333333331</tiles>
-    <tiles>13333333333333333331</tiles>
+    <tiles>14444444444444444441</tiles>
+    <tiles>14444444444444444441</tiles>
+    <tiles>14444444444444444441</tiles>
     <tiles>11111111111111111111</tiles>
     <door>false</door>
     <gameCamera>
@@ -106,5 +106,10 @@
         <item>10</item>
         <item>10</item>
     </npcs>
-    <nItems>0</nItems>
+    <nItems>1</nItems>
+    <items>
+        <item>1</item>
+        <item>11</item>
+        <item>11</item>
+    </items>
 </World>

@@ -25,6 +25,7 @@ import pe.edu.pucp.game.gfx.Assets;
 import pe.edu.pucp.game.gfx.GameCamera;
 import pe.edu.pucp.game.states.State;
 import pe.edu.pucp.game.threads.MapThread;
+import pe.edu.pucp.game.threads.SeaReflectThread;
 import pe.edu.pucp.game.tile.DoorTile;
 import pe.edu.pucp.game.tile.GrassTile;
 import pe.edu.pucp.game.tile.RockTile;
@@ -82,7 +83,7 @@ public class MultiplayerState extends State implements Serializable {
     @Override
     public void tick() {
         try {
-            if (Launcher.proxy.isPaused() == false) {
+            if (Launcher.proxy.isPaused() == false && Launcher.proxy.gameEnded() == false) {
                 /*if (world.openDoors()) {
                  levelComplete=true;
                  game.setDialogue(true);
@@ -125,8 +126,12 @@ public class MultiplayerState extends State implements Serializable {
                 } catch (RemoteException ex) {
                     Logger.getLogger(MultiplayerState.class.getName()).log(Level.SEVERE, null, ex);
                 }
+
+                npcs = Launcher.proxy.getNpcs();
                 for (int i = 0; i < npcs.size(); i++) {
-                    npcs.get(i).tick();
+                    NonPlayerCharacter npc = new NonPlayerCharacter(npcs.get(i).getX(), npcs.get(i).getY());
+                    npc.setGame(game);
+                    npc.tick();
                 }
 
                 for (int j = 0; j < enemies.size(); j++) {
@@ -138,14 +143,17 @@ public class MultiplayerState extends State implements Serializable {
                 }
                 //System.out.println(Launcher.proxy.getObjects().size()+"");
                 ArrayList<Entity> objects1 = Launcher.proxy.getObjects();
-                for (int j = 0; j < objects1.size(); j++) {                    
-                    boulderTick((Boulder)objects1.get(j),player);
+                for (int j = 0; j < objects1.size(); j++) {
+                    boulderTick((Boulder) objects1.get(j), player);
                 }
                 Launcher.proxy.setObjects(objects1);
 
+                items = Launcher.proxy.getItems();
                 if (items.size() > 0) {
                     for (int i = 0; i < items.size(); i++) {
-                        items.get(i).tick();
+                        Item item = items.get(i);
+                        item.setGame(game);
+                        item.tick();
                     }
                 }
 
@@ -170,72 +178,83 @@ public class MultiplayerState extends State implements Serializable {
     @Override
     public void render(Display display) {
         try {
-            // TODO Auto-generated method stub
-            Graphics g = display.getCanvas().getBufferStrategy().getDrawGraphics();
-            Graphics2D g2d = (Graphics2D) g;
-            Font fnt0 = new Font("arial", Font.BOLD, 10);
-            g.setFont(fnt0);
-            g.setColor(Color.black);
-            try {
-                //world.render(g);
-                drawWorld(Launcher.proxy.getWorld(), game.getGameCamera(), g);
-            } catch (RemoteException ex) {
-                Logger.getLogger(MultiplayerState.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            //player.render(g);
+            if (Launcher.proxy.gameEnded() == false) {
+                // TODO Auto-generated method stub
+                Graphics g = display.getCanvas().getBufferStrategy().getDrawGraphics();
+                Graphics2D g2d = (Graphics2D) g;
+                Font fnt0 = new Font("arial", Font.BOLD, 10);
+                g.setFont(fnt0);
+                g.setColor(Color.black);
+                try {
+                    //world.render(g);
+                    drawWorld(Launcher.proxy.getWorld(), game.getGameCamera(), g);
+                } catch (RemoteException ex) {
+                    Logger.getLogger(MultiplayerState.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                //player.render(g);
 
-            System.out.println("cantidad de jugadores: " + Launcher.proxy.getPlayers().size());
-            for (int i = 0; i < Launcher.proxy.getPlayers().size(); i++) {
-                if (Launcher.proxy.getPlayers().get(i) != null) {
-                    double x = Launcher.proxy.getPlayers().get(i).getX();
-                    double y = Launcher.proxy.getPlayers().get(i).getY();
-                    int position = Launcher.proxy.getPlayers().get(i).getPosition();
-                    int contU = Launcher.proxy.getPlayers().get(i).getContUp();
-                    int contD = Launcher.proxy.getPlayers().get(i).getContDown();
-                    int contR = Launcher.proxy.getPlayers().get(i).getContRight();
-                    int contL = Launcher.proxy.getPlayers().get(i).getContLeft();
-                    Player playeri = new Player(game, x, y, position, contU, contD, contR, contL);
-                    playeri.render(g);
-                    int cx = (int) Launcher.proxy.getPlayers().get(i).getX();
-                    int ci = (int) Launcher.proxy.getPlayers().get(i).getY();
-                    System.out.println(cx + " " + ci);
+                System.out.println("cantidad de jugadores: " + Launcher.proxy.getPlayers().size());
+                for (int i = 0; i < Launcher.proxy.getPlayers().size(); i++) {
+                    if (Launcher.proxy.getPlayers().get(i) != null) {
+                        double x = Launcher.proxy.getPlayers().get(i).getX();
+                        double y = Launcher.proxy.getPlayers().get(i).getY();
+                        int position = Launcher.proxy.getPlayers().get(i).getPosition();
+                        int contU = Launcher.proxy.getPlayers().get(i).getContUp();
+                        int contD = Launcher.proxy.getPlayers().get(i).getContDown();
+                        int contR = Launcher.proxy.getPlayers().get(i).getContRight();
+                        int contL = Launcher.proxy.getPlayers().get(i).getContLeft();
+                        Player playeri = new Player(game, x, y, position, contU, contD, contR, contL);
+                        playeri.render(g);
+                        int cx = (int) Launcher.proxy.getPlayers().get(i).getX();
+                        int ci = (int) Launcher.proxy.getPlayers().get(i).getY();
+                        System.out.println(cx + " " + ci);
+                    }
+                }
+
+                if (playerPressed) {
+                    g.drawString(player.getDescription(), (int) (player.getX() * 24 - game.getGameCamera().getxOffset()),
+                            (int) (player.getY() * 24 - game.getGameCamera().getyOffset()));
+                }
+                if (enemies.size() > 0) {
+                    for (int j = 0; j < enemies.size(); j++) {
+                        enemies.get(j).render(g);
+                    }
+                }
+                if (Launcher.proxy.getObjects().size() > 0) {
+                    for (int j = 0; j < Launcher.proxy.getObjects().size(); j++) {
+                        drawObject(Launcher.proxy.getObjects().get(j), g);
+                    }
+                }
+
+                for (int i = 0; i < npcs.size(); i++) {
+                    NonPlayerCharacter npc = new NonPlayerCharacter(npcs.get(i).getX(), npcs.get(i).getY());
+                    npc.setGame(game);
+                    npc.render(g);
+                }
+
+                items = Launcher.proxy.getItems();
+                for (int i = 0; i < items.size(); i++) {
+                    Item item = new Item(items.get(i).getX(), items.get(i).getY());
+                    item.setGame(game);
+                    item.render(g);
+                }
+
+                fnt0 = new Font("arial", Font.BOLD, 20);
+                g.setFont(fnt0);
+                g.setColor(Color.black);
+
+                try {
+                    if (Launcher.proxy.isPaused() == true) {
+                        g.drawString("Paused", 20, 20);
+                    }
+                    //g.drawString("Time left to complete level: " + timeLeft, 20, 20);
+                } catch (RemoteException ex) {
+                    Logger.getLogger(MultiplayerState.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-
-            if (playerPressed) {
-                g.drawString(player.getDescription(), (int) (player.getX() * 24 - game.getGameCamera().getxOffset()),
-                        (int) (player.getY() * 24 - game.getGameCamera().getyOffset()));
-            }
-            if (enemies.size() > 0) {
-                for (int j = 0; j < enemies.size(); j++) {
-                    enemies.get(j).render(g);
-                }
-            }
-            if (Launcher.proxy.getObjects().size() > 0) {
-                for (int j = 0; j < Launcher.proxy.getObjects().size(); j++) {
-                    drawObject(Launcher.proxy.getObjects().get(j), g);
-                }
-            }
-
-            for (int i = 0; i < npcs.size(); i++) {
-                npcs.get(i).render(g);
-            }
-
-            for (int i = 0; i < items.size(); i++) {
-                items.get(i).render(g);
-            }
-
-            fnt0 = new Font("arial", Font.BOLD, 20);
-            g.setFont(fnt0);
-            g.setColor(Color.black);
-
-            try {
-                if (Launcher.proxy.isPaused() == true) {
-                    g.drawString("Paused", 20, 20);
-                }
-                //g.drawString("Time left to complete level: " + timeLeft, 20, 20);
-            } catch (RemoteException ex) {
-                Logger.getLogger(MultiplayerState.class.getName()).log(Level.SEVERE, null, ex);
+            else{
+                Graphics g = display.getCanvas().getBufferStrategy().getDrawGraphics();
+                g.drawString("Player "+Launcher.proxy.getIdWinner()+" Won", 20, 20);
             }
         } catch (RemoteException ex) {
             Logger.getLogger(MultiplayerState.class.getName()).log(Level.SEVERE, null, ex);
@@ -306,6 +325,14 @@ public class MultiplayerState extends State implements Serializable {
         this.items = items;
     }
 
+    public Player getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
+
     public void drawWorld(World world, GameCamera gameCamera, Graphics g) {
         Tile.rockTile = new RockTile(1);
         Tile.grassTile = new GrassTile(0);
@@ -332,6 +359,11 @@ public class MultiplayerState extends State implements Serializable {
                 player.setY(player.getY() + player.getyMove());
             }
             game.getGameCamera().centerOnEntity(player);
+
+            if (Launcher.proxy.getWorld().getTile((int) (player.getX()), (int) (player.getY())).getId() == 2) {
+                Launcher.proxy.setIdWinner(nPlayer);
+                Launcher.proxy.setGameEnded(true);
+            }
             /**
              * if (((GameState) game.getGameState()).getWorld().getTile((int) x,
              * (int) (y)).getId() == 2) { ((DoorTile) ((GameState)
@@ -348,6 +380,7 @@ public class MultiplayerState extends State implements Serializable {
         playerNextTo(boulder, player);
         if (playerContact(player, boulder) && boulder.isCollisioned()) {
             try {
+                System.out.println("Entro");
                 if (!Launcher.proxy.getWorld().getTile((int) (boulder.getX() + boulder.getxMove()), (int) (boulder.getY() + boulder.getyMove())).isSolid()
                         && boulder.isValidMultiplayerMove(boulder.getxMove(), boulder.getyMove(),
                                 Launcher.proxy.getObjects(), Launcher.proxy.getNpcs(), Launcher.proxy.getItems(), Launcher.proxy.getWorld())) {

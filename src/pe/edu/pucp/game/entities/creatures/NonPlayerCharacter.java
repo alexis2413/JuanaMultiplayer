@@ -31,23 +31,24 @@ public class NonPlayerCharacter extends Creature {
     }
 
     public void beginDialog() {
-        NPCDialogThread npct = new NPCDialogThread(this,game);
+        NPCDialogThread npct = new NPCDialogThread(this, game);
         npct.start();
     }
 
     @Override
     public void tick() {
         // TODO Auto-generated method stub
-        if (playerIsNextTo() && game.getKeyManager().space) {
-            game.setDialogue(true);
-            beginDialog();
-        }
-
-        moveCounter++;
-        if (moveCounter == delay) {
-            randomMove();
-            move();
-            moveCounter = 0;
+        if (game.getGameState() != null) {
+            if (playerIsNextTo() && game.getKeyManager().space) {
+                game.setDialogue(true);
+                beginDialog();
+            }
+            moveCounter++;
+            if (moveCounter == delay) {
+                randomMove();
+                move();
+                moveCounter = 0;
+            }
         }
     }
 
@@ -58,6 +59,11 @@ public class NonPlayerCharacter extends Creature {
                 (int) (y * height - game.getGameCamera().getyOffset()), width, height, null);
     }
 
-    public ArrayList<String> getDialog(){return dialog;}
-    public void setDialog(ArrayList<String> dialog){this.dialog=dialog;}
+    public ArrayList<String> getDialog() {
+        return dialog;
+    }
+
+    public void setDialog(ArrayList<String> dialog) {
+        this.dialog = dialog;
+    }
 }

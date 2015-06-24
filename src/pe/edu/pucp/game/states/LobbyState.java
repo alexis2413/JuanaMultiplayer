@@ -96,6 +96,7 @@ public class LobbyState extends State {
         try {
             for (int i = 0; i < Launcher.proxy.getPlayers().size(); i++) {
                 g2d.drawImage(Assets.player4, playerFrames.get(i).x, playerFrames.get(i).y, 30, 30, null);
+                g.drawString("Player "+(i+1), playerFrames.get(i).x+50, playerFrames.get(i).y+15);
             }
         } catch (RemoteException ex) {
             Logger.getLogger(LobbyState.class.getName()).log(Level.SEVERE, null, ex);

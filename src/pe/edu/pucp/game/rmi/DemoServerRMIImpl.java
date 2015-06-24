@@ -37,6 +37,8 @@ public class DemoServerRMIImpl extends UnicastRemoteObject implements IServices 
     private World world;
     private boolean paused;
     private boolean multiplayerStarted;
+    private boolean gameEnded=false;
+    private int idWinner;
     
     //Chat grupal
     JTextArea chatText = new JTextArea();
@@ -165,6 +167,31 @@ public class DemoServerRMIImpl extends UnicastRemoteObject implements IServices 
     @Override
     public void setItems(ArrayList<Item> items) throws RemoteException {
         this.items=items;
+    }
+
+    @Override
+    public boolean gameEnded() throws RemoteException {
+        return gameEnded;
+    }
+
+    @Override
+    public void setGameEnded(boolean g) throws RemoteException {
+        gameEnded=g;
+    }
+
+    @Override
+    public int getIdWinner() throws RemoteException {
+        return idWinner;
+    }
+
+    @Override
+    public void setIdWinner(int id) throws RemoteException {
+        this.idWinner=id;
+    }
+
+    @Override
+    public void setWorld(World w) throws RemoteException {
+        this.world=w;
     }
     
     

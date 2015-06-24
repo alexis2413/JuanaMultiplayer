@@ -23,6 +23,7 @@ public interface IServices extends Remote {
     public int getNPlayers() throws RemoteException;
     public void setNPlayers(int n) throws RemoteException;
     public World getWorld() throws RemoteException;
+    public void setWorld(World w) throws RemoteException;
     public void addPlayer(Player p) throws RemoteException;
     public boolean isPaused() throws RemoteException;
     public void setPause(boolean p) throws RemoteException;
@@ -40,4 +41,8 @@ public interface IServices extends Remote {
     public void setNpcs(ArrayList<NonPlayerCharacter> npcs) throws RemoteException;
     public ArrayList<Item> getItems() throws RemoteException;
     public void setItems(ArrayList<Item> items) throws RemoteException;
+    public boolean gameEnded() throws RemoteException;
+    public void setGameEnded(boolean g) throws RemoteException;
+    public int getIdWinner() throws RemoteException;
+    public void setIdWinner(int id) throws RemoteException;
 }

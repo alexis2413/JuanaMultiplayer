@@ -11,6 +11,7 @@ import java.awt.AlphaComposite;
 import pe.edu.pucp.game.Game;
 import pe.edu.pucp.game.display.Display;
 import pe.edu.pucp.game.gfx.Assets;
+import pe.edu.pucp.game.threads.EnemyMoveThread;
 
 @SuppressWarnings("serial")
 public class MenuState extends State implements Serializable {
@@ -32,10 +33,18 @@ public class MenuState extends State implements Serializable {
     @Override
     public void tick() {
         if (buttonTick(playButton)) {
+            game.setGameState(new GameState(game));
             State.setState(game.getGameState());
+            game.getGameState().setNumberPlayer(numberPlayer);
             game.hasStarted = true;
+            EnemyMoveThread emt = new EnemyMoveThread(game);
+            emt.start();
         }
         if (buttonTick(loadButton)) {
+            if (game.getGameState() == null) {
+                game.setGameState(new GameState(game));
+            }
+            game.setLoadGameState(new LoadGameState(game));
             State.setState(game.getLoadGameState());
         }
         if (buttonTick(helpButton)) {
@@ -48,10 +57,11 @@ public class MenuState extends State implements Serializable {
             State.setState(game.getChooseCharacterState());
         }
         if (buttonTick(multiplayerButton)) {
+            //game.setGameState(null);
             game.setLobbyState(new LobbyState(game));
             State.setState(game.getLobbyState());
             //State.setState(game.getMultiplayerState());
-            game.getGameState().setNumberPlayer(numberPlayer);
+            //game.getGameState().setNumberPlayer(numberPlayer);
         }
     }
 

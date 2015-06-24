@@ -10,6 +10,7 @@ import pe.edu.pucp.game.gfx.Assets;
 import pe.edu.pucp.game.gfx.GameCamera;
 import pe.edu.pucp.game.input.KeyManager;
 import pe.edu.pucp.game.states.GameState;
+import pe.edu.pucp.game.states.OptionState;
 import pe.edu.pucp.game.states.State;
 import pe.edu.pucp.game.tile.DoorTile;
 
@@ -178,6 +179,8 @@ public class Player extends Creature implements Serializable {
         }
 
         if (game.getKeyManager().enter) {
+            if(game.getOptionState()==null)
+                game.setOptionState(new OptionState(game));
             State.setState(game.getOptionState());
         }
 

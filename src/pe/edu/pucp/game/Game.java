@@ -82,19 +82,14 @@ public class Game implements Runnable, Serializable {
         Assets.init(numberPlayer);
 
         gameCamera = new GameCamera(width, height, 0, 0);
-
-        gameState = new GameState(this);
+        //gameState = new GameState(this);
         menuState = new MenuState(this);
-        helpState = new HelpState(this);
-        optionState = new OptionState(this);
+        helpState = new HelpState(this);        
         //combatState=new CombatState(this);
-        chooseCharacterState = new ChooseCharacterState(this);
-        loadGameState = new LoadGameState(this);
-        saveGameState = new SaveGameState(this);
+        chooseCharacterState = new ChooseCharacterState(this);       
         //multiplayerState = new MultiplayerState(this);        
         State.setState(menuState);
-        EnemyMoveThread emt = new EnemyMoveThread(this);
-        emt.start();
+        
     }
 
     private void tick() {
@@ -292,7 +287,7 @@ public class Game implements Runnable, Serializable {
         return loadGameState;
     }
 
-    public void setLoadFromGameState(State loadGameState) {
+    public void setLoadGameState(State loadGameState) {
         this.loadGameState = loadGameState;
     }
 

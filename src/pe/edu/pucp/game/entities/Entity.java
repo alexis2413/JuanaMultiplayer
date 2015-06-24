@@ -2,8 +2,8 @@ package pe.edu.pucp.game.entities;
 
 import java.awt.Graphics;
 import java.io.Serializable;
-
 import pe.edu.pucp.game.Game;
+import pe.edu.pucp.game.entities.creatures.Player;
 import pe.edu.pucp.game.states.GameState;
 
 @SuppressWarnings("serial")
@@ -107,6 +107,28 @@ public abstract class Entity implements Serializable {
         }
     }
 
+    public boolean playerIsNextTo(Player player) {
+        //player above boulder
+        if (player.getX() == x
+                && player.getY() == y - 1) {
+            return true;
+        } //player bellow boulder
+        else if (player.getX() == x
+                && player.getY() == y + 1) {
+            return true;
+        } //player left to boulder
+        else if (player.getX() == x - 1
+                && player.getY() == y) {
+            return true;
+        } //player right to boulder
+        else if (player.getX() == x + 1
+                && player.getY() == y) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
     public double getX() {
         return x;
     }

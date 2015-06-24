@@ -159,6 +159,10 @@ public class Boulder extends Entity {
         if (world.getTile((int) (x + xMove), (int) (y + yMove)).isSolid()) {
             return false;
         }
+        
+        if (world.getTile((int) (x + xMove), (int) (y + yMove)).getId() == 2) {
+            return false;
+        }
 
         /*if (x + xMove == ((GameState) game.getGameState()).getPlayer().getX()
                 && y + yMove == ((GameState) game.getGameState()).getPlayer().getY()) {
